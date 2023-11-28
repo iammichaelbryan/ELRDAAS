@@ -1,2 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+:root{
+    
+    --primary-color: rgb(203, 2, 0);
+    --secondary-color: #050505;
+    --tertiary-color: grey;
+    --dark-color: #363949;
+    --light-color:rgba(132,139,200,.18);
+    --dark-color-variant: #677483;
+    --background-color: #f4f4f4;
+    --white-color: #fff;
+    --danger-color: #f44336;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --info-color: #2196f3;
+    --border-color: #cfd8dc;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 1.6rem;
+    --card-padding: 1.5rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 4rem var(--light-color);
+}
+
+.dark-mode-variables{
+    --background-color: #181a1e;
+    --white-color: #202528;
+    --dark-color: #edeffd;
+    --dark-color-variant: #a3bdcc;
+    --light-color: rgba(0,0,0,.4);
+    --box-shadow: 0 2rem 4rem var(--light-color);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline:0;
+    appearance: 0;
+    border: 0;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: 'Poppins', sans-serif;
+}
+
+
