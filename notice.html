@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Notice</title>
+    <style>
+        body {
+            border: 2px solid #333;
+            padding: 10px;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #333;
+        }
+
+        h1 {
+            color: navy;
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .notice-header {
+            background-color: #4CAF50;
+            color: rgba(226, 72, 72, 0.593);
+            padding: 8px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Create Notice</h1>
+    </header>
+
+    <div class="notice-header">
+        <!-- You can add additional header content here if needed -->
+    </div>
+
+    <form action="/submit_notice" method="post">
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" required></textarea>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required>
+
+        <label for="noticeType">Notice Type:</label>
+        <input type="text" id="noticeType" name="noticeType" required>
+
+        <label for="noticeLocation">Notice Location:</label>
+        <input type="text" id="noticeLocation" name="noticeLocation" required>
+
+        <!-- The hidden author input set by the admin... -->
+        <input type="hidden" id="author" name="author" value="Administrator">
+
+        <input type="submit" value="Post Notice">
+    </form>
+
+</body>
+</html>
