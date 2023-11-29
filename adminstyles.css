@@ -6,7 +6,7 @@
     --secondary-color: #050505;
     --tertiary-color: grey;
     --dark-color: #363949;
-    --light-color:rgba(132,139,200,.18);
+    --light-color:rgba(80, 91, 176, 0.18);
     --dark-color-variant: #677483;
     --background-color: #f4f4f4;
     --white-color: #ffff;
@@ -106,6 +106,9 @@ p{
 .warning{
     color: var(--warning-color);
 }
+.assigned {
+    color: var(--light-color);
+}
 .container{
     display:grid;
     width:96%;
@@ -114,6 +117,22 @@ p{
     grid-template-columns: 12rem auto 23rem;
 
 }
+
+.container .main{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    gap:1.8rem;
+    margin-top: 1.4rem;
+}
+.container .main .main-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+}
+
 
 aside{
     height:100vh;
@@ -264,6 +283,74 @@ aside .sidebar a.active {
     color: var(--primary-color); 
 }
 
+.add-button {
+    background-color: var(--background-color);
+    border: var(--border-color);
+    font-size: 6em; /* Adjust this value to match the size of the image */
+    color: black;
+    width: 75px;
+    height: 75px;
+    align-items: center;
+}
+
+.add-button:hover {
+    color: var(--primary-color);
+}
+.average-rating {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.average-rating .stars {
+    /* Placeholder for stars */
+    align-items: center;
+}
+
+.average-rating .average-score {
+    font-size: 1.5rem;
+    color: var(--success-color);
+}
+
+.feedback-table-section {
+    margin: 20px 0;
+}
+
+.feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.feedback-table thead {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+.feedback-table th,
+.feedback-table td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.feedback-table td .stars {
+    /* Placeholder for stars */
+}
+
+/* Star rating - assuming you are using a font library for stars, e.g., Font Awesome */
+.stars {
+    color: var(--warning-color);
+}
+
+.stars .fa-star {
+    font-size: 1.2rem;
+}
+@media (max-width: 768px) {
+    .feedback-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
 
 main{
     top: 3.5rem;
@@ -359,3 +446,37 @@ main .analysis .requests .progress svg circle {
     animation: fill 2s ease-out forwards;
 }
     
+main .new-users{
+    margin-top: 1.3rem;
+}
+main .new-users .user-list{
+    background-color: var(--white-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top:1rem;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+main .new-users .user-list:hover{
+    box-shadow: none;
+}
+
+main .new-users .user-list .user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main .new-users .user-list .user img{
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 0.6rem;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginoutstyles.css">
+    <title>Login</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">
+        <img src="images/elr towers logo.png" alt="logo">
+        <h2>ELR Towers Hall<span class="danger"> Domestic Affairs</span></h2>
+    </div>
+
+    <div class="wrapper">
+        <h1>Login</h1>
+        <select id="userType" class="input-box">
+            <option value="admin">Admin</option>
+            <option value="resident">Resident</option>
+        </select>
+        <div class="input-box">
+            <input type="text" placeholder="Email" required>
+        </div>
+        <div class="input-box">
+            <input type="password" placeholder="Password" required>
+            <i class="bx bxs-lock-alt"></i>
+                    <box-icon type='solid' name='lock'></box-icon>
+                </div>
+                
+                <div class="remember-or-forgot">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="#">Forgot your password?</a>
+                </div>
+        </div>
+        <button type="submit" class="btn" onclick="performLogin()">Login</button>
+        <div class="register-link">
+            <p>Don't have an account? <a href="#">Register</a></p>
+        </div>
+    </div>
+</div>
+
+<script src="request.js"></script>
+<script>
+    function performLogin() {
+        var userType = document.getElementById('userType').value;
+        if (userType === 'admin') {
+            // Add logic for admin login
+            // For example, you can redirect to the admin dashboard page
+            window.location.href = 'index.html';
+        } else if (userType === 'resident') {
+            // Add logic for resident login
+            // For example, you can redirect to the resident dashboard page
+            window.location.href = 'resident_dashboard.html';
+        }
+    }
+</script>
+</body>
+</html>

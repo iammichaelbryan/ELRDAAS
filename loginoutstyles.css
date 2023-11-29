@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-color: rgb(203, 2, 0); /* Red */
+    --secondary-color: #050505;      /* Almost Black */
+    --tertiary-color: grey;          /* Grey */
+    --text-light: #ffffff;           /* White */
+    --input-background: #f4f4f4;     /* Light Grey */
+    --input-border: #cfd8dc;         /* Lighter Grey */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+@keyframes zoom {
+    0% {
+        background-size: 100%;
+    }
+    50% {
+        background-size: 150%;
+    }
+    100% {
+        background-size: 100%;
+    }
+}
+
+body {
+    background-image: url('images/elr wolf 2.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    animation: zoom 10s infinite;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.logo {
+    margin-bottom: 2rem;
+}
+
+.logo img {
+    height: 4rem; /* Adjust as needed */
+}
+
+.logo h2 {
+    color: var(--primary-color);
+    margin-top: 0.5rem;
+}
+
+.wrapper {
+    background-color: var(--tertiary-color);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.wrapper h1 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.input-box {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-background);
+}
+
+.input-box i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+.register-link {
+    margin-top: 1.5rem;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wrapper {
+        width: 90%;
+    }
+}

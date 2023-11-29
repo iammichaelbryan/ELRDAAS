@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,24 +6,55 @@
     <title>Create Notice</title>
     <style>
         body {
-            border: 2px solid #333;
-            padding: 10px;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #fff; /* Set background color to white */
+            color: #000; /* Set text color to black */
         }
 
         header {
-            background-color: #3498db;
+            background-color: red;
             color: #fff;
             padding: 20px;
             text-align: center;
             border-bottom: 5px solid #333;
+            border-radius: 15px;
         }
 
         h1 {
             color: navy;
         }
 
-        form {
+        .container {
+            display: flex;
+        }
+
+        aside {
+            width: 250px;
+            background: #fff; /* Set sidebar background color to white */
+            color: #000; /* Set text color to black */
             padding: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: #000; /* Set link color to black */
+            text-decoration: none;
+            border-bottom: 1px solid #555;
+            transition: color 0.3s, transform 0.3s; /* Added transition effect for color and transform */
+        }
+
+        .sidebar a:hover {
+            color: red; /* Change link color to red on hover */
+            transform: translateX(5px); /* Add a slight pop to the right on hover */
+        }
+
+        form {
+            flex: 1;
+            padding: 20px;
+            border-radius: 15px;
         }
 
         label {
@@ -36,14 +66,20 @@
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
+            border-radius: 8px;
         }
 
-        .notice-header {
-            background-color: #4CAF50;
-            color: rgba(226, 72, 72, 0.593);
-            padding: 8px;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        input[type="submit"] {
+            background-color: maroon;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: darkred;
         }
     </style>
 </head>
@@ -53,30 +89,82 @@
         <h1>Create Notice</h1>
     </header>
 
-    <div class="notice-header">
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="logo">
+                <img src="images/elr towers logo.png" alt="logo">
+                <h2>ELR Towers Hall<span class="danger"> Domestic Affairs</span></h2>
+            </div>
+
+            <div class="sidebar">
+                <a href="index.html">
+                    <span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="requests.html">
+                    <span class="material-icons-sharp">receipt_long</span>
+                    <h3>View Assigned Requests</h3>
+                </a>
+                <a href="notifications.html">
+                    <span class="material-icons-sharp">notifications</span>
+                    <h3>Notifications</h3>
+                </a>
+                <a href="notice.html" class="active">
+                    <span class="material-icons-sharp">announcement</span>
+                    <h3>Create Notice</h3>
+                </a>
+                <a href="laundryappointments.html">
+                    <span class="material-icons-sharp">event</span>
+                    <h3>View Laundry Appointments</h3>
+                </a>
+                <a href="requestfeedback.html">
+                    <span class="material-icons-sharp">star</span>
+                    <h3>Get Feedback</h3>
+                </a>
+                <a href="adminprofile.html">
+                    <span class="material-icons-sharp">person_outline</span>
+                    <h3>Profile</h3>
+                </a>
+                <a href="adminsettings.html">
+                    <span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="login.html">
+                    <span class="material-icons-sharp">login</span>
+                    <h3>New Login</h3>
+                </a>
+            </div>
+
+            <a href="logout.html">
+                <span class="material-icons-sharp">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content Section -->
+        <main>
+            <form action="/submit_notice" method="post">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" required></textarea>
+
+                <!-- The hidden author input set by the admin... -->
+                <input type="hidden" id="author" name="author" value="Administrator">
+
+                <div>
+                    <input type="submit" value="Post Now">
+                    <input type="submit" value="Post Later">
+                </div>
+            </form>
+        </main>
+        <!-- End of Main Content Section -->
     </div>
-
-    <form action="/submit_notice" method="post">
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" required></textarea>
-
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required>
-
-        <label for="time">Time:</label>
-        <input type="time" id="time" name="time" required>
-
-        <label for="noticeType">Notice Type:</label>
-        <input type="text" id="noticeType" name="noticeType" required>
-
-        <label for="noticeLocation">Notice Location:</label>
-        <input type="text" id="noticeLocation" name="noticeLocation" required>
-
-        <!-- The hidden author input set by the admin... -->
-        <input type="hidden" id="author" name="author" value="Administrator">
-
-        <input type="submit" value="Post Notice">
-    </form>
-
 </body>
 </html>
