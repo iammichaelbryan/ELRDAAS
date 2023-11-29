@@ -16,6 +16,7 @@ Requests.forEach(request => {
 
 document.getElementById('add-admin-button').addEventListener('click', function() {
     // Code to add new Admin goes here
+    
 });
 function redirectToLogin() {
     window.location.href = 'login.html';
