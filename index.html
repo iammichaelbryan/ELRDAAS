@@ -26,6 +26,7 @@
                 </div>
 
                 <div class="sidebar">
+                   
                     <div>
                     <a href = "index.html" class ="active">
                         <span class="material-icons-sharp">
@@ -75,13 +76,12 @@
                         </span>
                         <h3>Settings</h3>
                         </a>
-                    <a href = "login.html">
+                    <a href="login.html" target="_blank">
                         <span class="material-icons-sharp">
                             login
                         </span>
                         <h3>New Login</h3>
-                        </a>
-                    </div>
+                    </a>
                     <a href = "logout.html">
                         <span class="material-icons-sharp">
                             logout
@@ -181,65 +181,52 @@
                     </div>
                     <div class="user">
                         <div class="user-info">
-                            <img src="images/alt plus elr daas.jpeg">
+                            <button id="add-admin-button" class="add-button">+</button>
                             <div class="user-name">
-                                <h2>More</h2>
-                                <p>New Admin</p>
+                                <p>Add New Admin</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <!--End of New User-->
             <!--Start of Recent Activities-->
-            <div class="recent-activity">
-                <h2>Recent Activities</h2>
-                <div class="activity-list">
-                    <div class="activity">
-                        <div class="activity-info">
-                            <div class="activity-name">
-                                <h3>Shaniel Dennis</h3>
-                                <p>Assigned a request</p>
-                                <p>2 Min Ago</p>
-                            </div>
-                        </div>
+            <div class="recent-requests">
+                <h2>Recent Requests</h2>
+                <table id="requestsTable">
+                    <thead>
+                        <tr>
+                            <th>Resident Name</th>
+                            <th>Activity Type</th>
+                            <th>Activity ID</th>
+                            <th>Activity Date</th>
+                            <th>Activity Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                
+                <script>
+                    const tableBody = document.querySelector('#requestsTable tbody');
+                
+                    Requests.forEach(request => {
+                        const row = document.createElement('tr');
+                
+                        Object.values(request).forEach(text => {
+                            const cell = document.createElement('td');
+                            cell.textContent = text;
+                            row.appendChild(cell);
+                        });
+                
+                        tableBody.appendChild(row);
+                    });
+                </script>
+                <a href = "#">View All</a>
                     </div>
-                    <div class="activity">
-                        <div class="activity-info">
-                            <div class="activity-name">
-                                <h3>Rajaye Bennett</h3>
-                                <p>Assigned a request</p>
-                                <p>5 Min Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="activity">
-                        <div class="activity-info">
-                            <div class="activity-name">
-                                <h3>Erica Harris</h3>
-                                <p>Assigned a request</p>
-                                <p>10 Min Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="activity">
-                        <div class="activity-info">
-                            <div class="activity-name">
-                                <h3>Mr. Bertram Anderson</h3>
-                                <p>Assigned a request</p>
-                                <p>15 Min Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="activity">
-                        <div class="activity-info">
-                            <div class="activity-name">
-                                <h3>Shaniel Dennis</h3>
-                                <p>Assigned a request</p>
-                                <p>20 Min Ago</p>
-                            </div>
-                        </div>
-                    </div>
+                    <!--End of Recent Requests-->
                 </div>
         </div>
         
@@ -254,7 +241,7 @@
 
         
     </div>
-    <script src="request.js"></script>
+    <script src="requests.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
