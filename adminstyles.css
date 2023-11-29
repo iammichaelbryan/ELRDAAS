@@ -11,7 +11,7 @@
     --background-color: #f4f4f4;
     --white-color: #ffff;
     --danger-color: #f44336;
-    --success-color: #4caf50;
+    --success-color: #417c43;
     --warning-color: #ff9800;
     --info-color: #2196f3;
     --border-color: #cfd8dc;
@@ -137,7 +137,7 @@ aside .toggle .logo {
 }
 
 aside .toggle .logo img{
-    width: 4rem;
+    width: 6rem;
     height: 4rem;
     object-fit: cover;
     border-radius: 50%;
@@ -155,6 +155,7 @@ aside .toggle .close{
 aside .sidebar { 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: var(--white-color);
     box-shadow: var(--box-shadow);
     border-radius: 15px;
@@ -163,6 +164,7 @@ aside .sidebar {
     top: 1rem;
     transition: all 0.3s ease;
     height:100vh;
+    left: 0;
 }
 
 aside .sidebar:hover {
@@ -198,3 +200,162 @@ aside .sider a:last-child{
     bottom: 2rem;
     width: 100%;
 }
+aside .sidebar a:last-child .icon{
+    font-size: 1.4rem;
+}
+aside .sidebar a:last-child .text{
+    font-size: 1rem;
+    font-weight: 600;
+}
+aside .sidebar .sidebar-item.active{
+    background-color: var(--light-color);
+}
+aside .sidebar .sidebar-item.active a{
+    color: var(--primary-color);
+}
+aside .sidebar a.active{
+    color: var(--primary-color);
+    width: 100%;
+    background-color: var(--light-color);
+    margin-left:0;
+}
+aside .sidebar a.active .icon{
+    color: var(--primary-color);
+}
+
+aside .sidebar a.active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 6px;
+    height: 18px;
+    background-color: var(--primary-color);
+}
+aside .sidebar a.active::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 6px;
+    height: 18px;
+    background-color: var(--primary-color);
+    border-radius: 0 5px 5px 0;
+}
+
+aside .sidebar a.active span{
+    color: var(--primary-color);
+    margin-left: calc(1rem -3px);
+
+}
+
+aside .sidebar a:hover span{
+    margin-left: 0.6rem;
+}
+
+aside .sidebar .message-count{
+    background-color: var(--danger-color);
+    padding:2px 6px;
+    color:var(--white-color);
+    font-size: 11px;
+    border-radius: var(--border-radius-1);
+
+}
+aside .sidebar a.active {
+    background-color: var(--light-color); 
+    color: var(--primary-color); 
+}
+
+
+main{
+    top: 3.5rem;
+    position: relative;
+    margin-top: 1.4rem;
+}
+
+main .analysis{
+    display:flex;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));        
+    gap:1.8rem;
+}
+
+main .analysis > div{
+    background-color: var(--white-color);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-top:1rem;
+    box-shadow: var(--box-shadow);  
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+main .analysis > div:hover{
+    box-shadow: none;
+}
+main .analysis > div .status{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+main .analysis h3{
+    margin-left:.6rem;
+    font-size: 1.2rem;
+}
+main .analysis .progress{
+    position:relative;
+    width:92px;
+    height:92px;
+    border-radius:50%;
+    /*background-color: var(--light-color);*/
+}
+main .analysis .progress svg {
+    width: 100%;
+    height: 100%;
+    transform: translate(0, 0); /* Reset any translations */
+}
+main .analysis .svg{
+    width: 7rem;
+    height: 7rem;
+
+}
+main .analysis .svg circle{
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translation(5px, 5px);
+}
+main .analysis .requests svg circle{
+    stroke: var(--success-color);
+}
+main .analysis .progress svg circle {
+    stroke-width: 10;
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 157; 
+    stroke-dashoffset: 78; 
+    transition: stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease;
+}
+main .analysis .progress .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1; 
+    text-align: center; 
+    width: 100%; 
+    font-size: 1rem;
+    color: var(--dark-color);
+}
+@keyframes fill {
+    from {
+        stroke-dashoffset: 125.6; /* Circumference of the circle */
+    }
+    to {
+        stroke-dashoffset: 25.12; /* Dash offset based on the percentage */
+    }
+}
+
+main .analysis .requests .progress svg circle {
+    stroke: var(--success-color);
+    stroke-width: 5; /* Adjust this value to make the border thinner */
+    stroke-dasharray: 125.6; /* Circumference of the circle */
+    animation: fill 2s ease-out forwards;
+}
+    
