@@ -26,7 +26,8 @@
                 </div>
 
                 <div class="sidebar">
-                    <a href = "index.html">
+                    <div>
+                    <a href = "index.html" class ="active">
                         <span class="material-icons-sharp">
                             dashboard
                         </span>
@@ -34,7 +35,7 @@
                     </a>
                     <a href = "requests.html">
                         <span class="material-icons-sharp">
-                            assignment
+                            receipt_long
                         </span>
                         <h3>View Assigned Requests</h3>
                         </a>
@@ -58,7 +59,7 @@
                         </a>
                     <a href = "requestfeedback.html">
                         <span class="material-icons-sharp">
-                            receipt_long
+                            star
                         </span>
                         <h3>Get Feedback</h3>
                     </a>
@@ -80,6 +81,7 @@
                         </span>
                         <h3>New Login</h3>
                         </a>
+                    </div>
                     <a href = "logout.html">
                         <span class="material-icons-sharp">
                             logout
@@ -91,6 +93,38 @@
             </div>
         </aside>
         <!--End of Sidebar Section-->
+
+        <!--Main Section-->
+       
+<main>
+    <h1>Admin's Analytics</h1>
+    <!--Analytics-->
+    <div class="analysis">
+        <div class="requests">
+            <div class="status">
+                <div class="info">
+                    <h3>Total Assigned Requests</h3>
+                    <h1>110</h1><!---
+                    <h3>Requests Resolved by Admin</h3>
+                    <h1>0</h1>
+                    <h3>Requests Pending</h3>
+                    <h1>0</h1>-->
+                </div>
+                <div class="progress">
+                    <svg viewBox="0 0 60 60">
+                        <circle cx="0" cy="30" r="30"></circle>
+                    </svg>
+                    <div class="percentage">
+                        <p>80<span>%</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!-- End of Main Section -->
+
 
         
     </div>
