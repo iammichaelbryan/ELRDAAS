@@ -11,7 +11,7 @@
     --background-color: #f4f4f4;
     --white-color: #ffff;
     --danger-color: #f44336;
-    --success-color: #4caf50;
+    --success-color: #417c43;
     --warning-color: #ff9800;
     --info-color: #2196f3;
     --border-color: #cfd8dc;
@@ -328,8 +328,8 @@ main .analysis .progress svg circle {
     stroke-width: 10;
     fill: none;
     stroke-linecap: round;
-    stroke-dasharray: 157; /* Circumference of the circle */
-    stroke-dashoffset: 78; /* Adjust based on the percentage you want to show */
+    stroke-dasharray: 157; 
+    stroke-dashoffset: 78; 
     transition: stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease;
 }
 main .analysis .progress .percentage {
@@ -337,28 +337,25 @@ main .analysis .progress .percentage {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    line-height: 1; /* Center the text vertically */
-    text-align: center; /* Center the text horizontally */
-    width: 100%; /* Full width to center the text properly */
-    font-size: 1rem; /* Adjust the font size as needed */
-    color: var(--dark-color); /* Color of the percentage text */
-}
-main .analysis .progress .percentage .text{
-    font-size: 1.2rem;
-    font-weight: 600;
+    line-height: 1; 
+    text-align: center; 
+    width: 100%; 
+    font-size: 1rem;
+    color: var(--dark-color);
 }
 @keyframes fill {
     from {
-        stroke-dashoffset: 188.4; /* Replace with the circumference of the circle */
+        stroke-dashoffset: 125.6; /* Circumference of the circle */
     }
     to {
-        stroke-dashoffset: 37.68; /* Replace with the dash offset based on the percentage */
+        stroke-dashoffset: 25.12; /* Dash offset based on the percentage */
     }
 }
 
 main .analysis .requests .progress svg circle {
     stroke: var(--success-color);
-    stroke-dasharray: 188.4; /* Replace with the circumference of the circle */
-    animation: fill 2s ease-out forwards; /* Adjust the duration and easing function as needed */
+    stroke-width: 5; /* Adjust this value to make the border thinner */
+    stroke-dasharray: 125.6; /* Circumference of the circle */
+    animation: fill 2s ease-out forwards;
 }
-
+    
