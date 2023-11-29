@@ -37,18 +37,26 @@
             padding: 20px;
         }
 
+        .sidebar {
+            margin-bottom: 20px; /* Added margin to the bottom of the sidebar */
+        }
+
         .sidebar a {
             display: block;
             padding: 10px;
             color: #000; /* Set link color to black */
             text-decoration: none;
-            border-bottom: 1px solid #555;
             transition: color 0.3s, transform 0.3s; /* Added transition effect for color and transform */
         }
 
         .sidebar a:hover {
             color: red; /* Change link color to red on hover */
             transform: translateX(5px); /* Add a slight pop to the right on hover */
+        }
+
+        .sidebar a .material-icons-sharp {
+            vertical-align: middle;
+            margin-right: 5px;
         }
 
         form {
@@ -63,10 +71,11 @@
         }
 
         textarea, input {
-            width: 100%;
+            width: calc(100% - 16px);
             padding: 8px;
             margin-bottom: 10px;
             border-radius: 8px;
+            box-sizing: border-box;
         }
 
         input[type="submit"] {
@@ -80,6 +89,16 @@
 
         input[type="submit"]:hover {
             background-color: darkred;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        main {
+            display: flex;
         }
     </style>
 </head>
@@ -130,39 +149,59 @@
                     <span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
-                <a href="login.html">
+                <a href="newlogin.html">
                     <span class="material-icons-sharp">login</span>
                     <h3>New Login</h3>
                 </a>
             </div>
-
-            <a href="logout.html">
-                <span class="material-icons-sharp">logout</span>
-                <h3>Logout</h3>
-            </a>
         </aside>
         <!-- End of Sidebar Section -->
 
         <!-- Main Content Section -->
         <main>
-            <form action="/submit_notice" method="post">
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date" required>
+            <!-- Create Notice Now Section -->
+            <div class="section">
+                <h2>Create Notice Now</h2>
+                <form action="/submit_notice" method="post">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
 
-                <label for="time">Time:</label>
-                <input type="time" id="time" name="time" required>
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
 
-                <label for="content">Content:</label>
-                <textarea id="content" name="content" required></textarea>
+                    <!-- The hidden author input set by the admin... -->
+                    <input type="hidden" id="author" name="author" value="Administrator">
 
-                <!-- The hidden author input set by the admin... -->
-                <input type="hidden" id="author" name="author" value="Administrator">
+                    <div>
+                        <input type="submit" value="Post Now">
+                    </div>
+                </form>
+            </div>
 
-                <div>
-                    <input type="submit" value="Post Now">
-                    <input type="submit" value="Post Later">
-                </div>
-            </form>
+            <!-- Schedule Notice Section -->
+            <div class="section">
+                <h2>Schedule Notice</h2>
+                <form action="/schedule_notice" method="post">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
+
+                    <!-- The hidden author input set by the admin... -->
+                    <input type="hidden" id="author" name="author" value="Administrator">
+
+                    <div>
+                        <input type="submit" value="Schedule Notice">
+                    </div>
+                </form>
+            </div>
         </main>
         <!-- End of Main Content Section -->
     </div>
