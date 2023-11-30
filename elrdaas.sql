@@ -22,7 +22,7 @@ CREATE TABLE `users` (
   `first_name` char(35) NOT NULL default '',
   `last_name` char(35) NOT NULL default '',
   `email` varchar(255) NOT NULL default '',
-  `room` int(3) NOT NULL default '0', 
+  `room` int(4) NOT NULL default '0', 
   `tower` enum('Olympus','Dragons', 'Orion', 'Phoenix', 'Apollo') NOT NULL default 'Dragons',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4;
@@ -47,11 +47,14 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `complaints`;
 CREATE TABLE `complaints` (
   `complaint_id` int(11) NOT NULL auto_increment,
-  `name` char(52) NOT NULL default '',
+  `first_name` char(35) NOT NULL default '',
+  `last_name` char(35) NOT NULL default '',
   `complaint_type` enum('Plumbing','Access Control','Electrical','Furniture','Pest Control','Roofing','Appliance Repair','Other') NOT NULL default 'Plumbing',
-  `status` enum('Resolved','In Progress','More Information Reqested') NOT NULL default '',
-  `complaint_body` TEXT NOT NULL,
+  `status` enum('Resolved','In Progress','More Information Requested') NOT NULL default 'In Progress',
+  `priority` enum('Low','Medium','High') NOT NULL default 'Low',
+  `complaint_title` TEXT NOT NULL,
   `assigned_to` char(52) NOT NULL default '',
+  `complaint_body` TEXT NOT NULL,
   PRIMARY KEY  (`complaint_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -61,36 +64,71 @@ CREATE TABLE `complaints` (
 
 LOCK TABLES `complaints` WRITE;
 /*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
-INSERT INTO `complaints` VALUES ('Marlon Pierre', 'Plumbing', 'In Progress', 'Leaking Sink', 'Maintenance Team', 'There is a constant leak from the sink in the kitchen area.'),
-('Michelle Bryan', 'Roofing', 'In Progress', 'Leak in Office Roof', 'Maintenance', 'There is a leak during heavy rain'),
-('Javia Gassop', 'Electrical', 'In Progress', 'Lights Flickering', 'Maintenance', 'The lights in the hallway keep flickering intermittently.');
+INSERT INTO `complaints` VALUES 
+(235531,'Marlon', 'Pierre', 'Plumbing', 'In Progress', 'Low', 'Leaking Sink', 'Maintenance', 'There is a constant leak from the sink in the kitchen area.'),
+(235532,'Michelle', 'Bryan', 'Appliance Repair', 'Resolved', 'High', 'Leak in Office Roof', 'Maintenance', 'There is a leak during heavy rain.'),
+(235533,'Deangelo','Bailey', 'Access Control', 'In Progress', 'High', 'Locked out', 'Security', 'Key fob does not work for Orion.'),
+(235534,'Cleon', 'Simpson', 'Appliance Repair', 'More Information Requested', 'Medium', 'Intermittent leak from refrigerator', 'Maintenance', 'There is a wet spot that forms in front of the fridge on Apollo tower, 3rd floor. It happens sometimes but not all the time.'),
+(235535,'Javia', 'Gassop', 'Electrical', 'Resolved', 'Medium', 'Lights Flickering', 'Maintenance', 'The lights in the hallway keep flickering intermittently.');
 /*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `languages`
+-- Table structure for table `appointments`
 --
 
-DROP TABLE IF EXISTS `languages`;
-CREATE TABLE `languages` (
-  `country_code` char(3) NOT NULL default '',
-  `language` char(30) NOT NULL default '',
-  `official` enum('T','F') NOT NULL default 'F',
-  `percentage` float(4,1) NOT NULL default '0.0',
-  PRIMARY KEY  (`country_code`,`language`)
+DROP TABLE IF EXISTS `appointments`;
+CREATE TABLE `appointments` (
+  `appointment_id` int(11) NOT NULL auto_increment,
+  `status` enum('Confirmed', 'Cancelled') NOT NULL default 'Confirmed',
+  `student_name` char(52) NOT NULL default '',
+  `created_date` DATE NOT NULL,
+  `appointment_time` TIME NOT NULL,
+  `service` enum('Washing & Drying','Stain Removal','Unattended Wash & Dry') NOT NULL default 'Washing & Drying',
+  `loads` int(3) NOT NULL default '1',
+  PRIMARY KEY  (`appointment_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `languages`
+-- Dumping data for table `appointments`
 --
 
-LOCK TABLES `languages` WRITE;
-/*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-INSERT INTO `languages` VALUES ('AFG','Pashto','T',52.4),
-('NLD','Dutch','T',95.6);
+LOCK TABLES `appointments` WRITE;
+/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
+INSERT INTO `appointments` VALUES (41286,'Leonardo Lewis','2023-11-26','14:08:32','Stain Removal', 1),
+(41287,'Bruce Banner','2023-11-26','14:08:32','Unattended Wash & Dry', 4),
+(41288,'Raheem Sterling','2023-11-24','09:13:55','Washing & Drying', 2),
+(41289,'Peter Griffin','2023-11-25','16:35:21','Unattended Wash & Dry', 3);
 
-/*!40000 ALTER TABLE `languages` ENABLE KEYS */;
+/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE `feedback` (
+  `request_id` int(11) NOT NULL '0',
+  `student_name` char(35) NOT NULL default '',
+  `feedback` TEXT NOT NULL,
+  `rating` int(1) NOT NULL '0',
+  PRIMARY KEY  (`request_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `feedback`
+--
+
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `complaints` VALUES 
+(235532,'Javia Gassop',S),
+(235535,'Michelle', 'Bryan'),;
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES; 
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
