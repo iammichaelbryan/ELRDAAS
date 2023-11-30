@@ -529,3 +529,80 @@ main .new-users .user-list .user img{
 .notification {
     color: purple;
 }
+
+
+.right-section{
+    margin-top: 1.4rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+.right-section .nav{
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+}
+.right-section .nav button{
+    display: none;
+
+}
+
+.right-section .dark-mode {
+    background-color: var(--light-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.6rem;
+    width: 4rem; /* Adjust the width as needed */
+    border-radius: 20px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.right-section .dark-mode span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.right-section .dark-mode span:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.right-section .dark-mode span.active {
+    background-color: var(--primary-color); /* Active button color */
+    color: white; /* Text color for active button */
+    border-radius: 50%;
+}
+.right-section .nav .profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.right-section .profile .profile-link {
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+.right-section .profile .profil-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.right-section .profile .profil-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.right-section .profile .profile-link:hover .profil-photo img {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
