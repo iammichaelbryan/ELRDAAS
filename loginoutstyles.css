@@ -123,7 +123,11 @@ body {
     text-decoration: underline;
 }
 
-/* Responsive Design */
+@media (min-width: 576px) {
+    .wrapper {
+        width: 40%;
+    }
+}
 @media (max-width: 768px) {
     .wrapper {
         width: 90%;

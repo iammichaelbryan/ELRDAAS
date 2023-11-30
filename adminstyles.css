@@ -680,3 +680,99 @@ input[type="submit"]:hover {
     background-color: darkred;
 }
 
+/* Styles for the table */
+.laundry-appointments table {
+    width: 100%; 
+    border-collapse: collapse; /* Collapse borders */
+}
+
+/* Styles for the table headers */
+.laundry-appointments th {
+    background-color: #f2f2f2; /* Light gray background */
+    color: #333; /* Dark text */
+    padding: 10px; /* Add some padding */
+    text-align: left; /* Align text to the left */
+}
+
+/* Styles for the table data */
+.laundry-appointments td {
+    padding: 10px; /* Add some padding */
+    border-bottom: 1px solid #f2f2f2; /* Add a border to the bottom of each table cell */
+}
+/* Profile Header Styles */
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+.profil-photo img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.edit-profile-pic {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Activity Log Styles */
+.activity-log {
+    background-color: var(--white-color);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+/* Account Settings Styles */
+.account-settings {
+    background-color: var(--white-color);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+/* Contact Support Styles */
+.contact-support {
+    text-align: center;
+}
+
+.contact-support button {
+    background-color: var(--info-color);
+    color: var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Dark Mode Adjustments */
+.dark-mode-variables .profile-header{
+    
+}
+.dark-mode-variables .activity-log{
+    background-color: var(--dark-color);
+    color: var(--white-color);
+}
+.dark-mode-variables .account-settings {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+}
+
+.dark-mode-variables .edit-profile-pic {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.dark-mode-variables .contact-support button {
+    background-color: var(--primary-color);
+}
