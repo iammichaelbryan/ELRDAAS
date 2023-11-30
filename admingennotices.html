@@ -50,13 +50,14 @@
                             </span>
                             <h3>Create Notice</h3>
                             </a>
-                        <a href = "admingennotices.html">                           
-                                <span class="material-icons-sharp">
-                                    info
-                                    </span>
-                                    <h3>View General Notice Board</h3>
-                                    </a>
-                        <a href = "laundryappointments.html">
+                        <a href = "admingennotices.html" class ="active">
+                            <span class="material-icons-sharp">
+                                info
+                                </span>
+                                <h3>View General Notice Board</h3>
+                                </a>
+
+                        <a href = "laundryappointments.html" >
                             <span class="material-icons-sharp">
                                 event
                             </span>
@@ -68,7 +69,7 @@
                             </span>
                             <h3>Get Feedback</h3>
                         </a>
-                        <a href = "adminprofile.html" class ="active">
+                        <a href = "adminprofile.html">
                             <span class="material-icons-sharp">
                                 person_outline
                             </span>
@@ -98,48 +99,27 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
+            <!-- Settings Section -->
+                <!-- Notice Board Section -->
+                <main class="notice-board">
+                    <h1>General Notice Board</h1>
+                    <div class="notices-container">
+                        <!-- Dynamically load notices here -->
+                        <div class="notice">
+                            <h2>Subject of Notice</h2>
+                            <p class="notice-date">Posted on: [Date]</p>
+                            <div class="notice-body">
+                                <p class="notice-content">Brief details of the notice...</p>
+                                <button class="view-more-btn" onclick="viewMoreNotice()">View More</button>
+                            </div>
+                        </div>
+                        <!-- Repeat for other notices -->
+                    </div>
+                </main>
+        
+    </div>
+   <!--Right Section-->
 
-    
-    <main class="main-content">
-        <!-- Profile Header -->
-        <div class="profile-header">
-            <div class="profil-photo">
-                <img src="images/elr wolf 4.jpeg" alt="Admin Profile Picture">
-                <!-- Add a button or link to change the profile picture -->
-                <button class="edit-profile-pic">Change Picture</button>
-            </div>
-            <div class="profile-info">
-                <h1>[Admin Name]</h1>
-                <p>Email: admin@example.com</p>
-                <p>Role: Hall Administrator</p>
-            </div>
-        </div>
-    
-        <!-- Activity Log -->
-        <div class="activity-log">
-            <h2>Recent Activity</h2>
-            <!-- Add content/log here -->
-        </div>
-    
-        <!-- Account Settings -->
-        <div class="account-settings">
-            <h2>Account Settings</h2>
-            <!-- Add settings options here -->
-        </div>
-    
-        <!-- Contact Support -->
-        <div class="contact-support">
-            <h2>Need Help?</h2>
-            <button>Contact Support</button>
-        </div>
-
-        <div class="remove-admin-section">
-            <h2>Remove Admin Account</h2>
-            <p>If you no longer wish to be an admin, you can remove your admin account here. Please be aware that this action is irreversible.</p>
-            <button id="removeAdminBtn">Remove My Admin Account</button>
-        </div>
-    </main>
-    <!--Right Section-->
 <div class="right-section">
     <div class="nav">
         <button id ="menu-btn">
@@ -168,7 +148,6 @@
         </div>
         </div>
         <!--End of Right Section-->
-    </div>
     </div>
     <script>
         const darkModeToggle = document.querySelector('.dark-mode');

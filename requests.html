@@ -92,6 +92,51 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
+            <main class="main-content">
+                <h1>Assigned Requests</h1>
+                <table class="requests-table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Resident Name</th>
+                            <th>Priority</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Row -->
+                        <tr>
+                            <td>001</td>
+                            <td>John Doe</td>
+                            <td>
+                                <select class="priority-select">
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="message-btn" onclick="openMessageModal('001')">Message</button>
+                            </td>
+                        </tr>
+                        <!-- Repeat for other requests -->
+                    </tbody>
+                </table>
+            </main>
+            
+            
+<!-- Modal Structure -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Send Message</h2>
+        <textarea id="messageText" placeholder="Write your message here..."></textarea>
+        <button class="send-message-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- Script for Modal Functionality -->
+
 <!--Right Section-->
 
 <div class="right-section">
@@ -167,6 +212,6 @@
         loadModePreference();
         updateModeIndicator();
     </script>
-
-</body>
+    <script></script>
+        </body>
 </html>

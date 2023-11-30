@@ -722,7 +722,19 @@ input[type="submit"]:hover {
     cursor: pointer;
     margin-top: 10px;
 }
-
+.edit-profile-pic:hover {
+    background-color: var(--danger-color);
+    transform: scale(1.1);
+}
+.edit-profile-pic .dark-mode-variables {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    
+}
+.edit-profile-pic .dark-mode-variables:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
 /* Activity Log Styles */
 .activity-log {
     background-color: var(--white-color);
@@ -775,4 +787,305 @@ input[type="submit"]:hover {
 
 .dark-mode-variables .contact-support button {
     background-color: var(--primary-color);
+}
+
+/* Remove Admin Section Styles */
+.remove-admin-section {
+    background-color: var(--white-color);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+.remove-admin-section h3 {
+    margin-top: 10px; /* Increase margin-top to move the element down */
+    margin-bottom: 10px;
+}
+
+.remove-admin-section p {
+    margin-bottom: 20px;
+}
+
+#removeAdminBtn {
+    background-color: var(--danger-color);
+    color: var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#removeAdminBtn:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Dark Mode Adjustments for Remove Admin Section */
+.dark-mode-variables .remove-admin-section {
+    background-color: var(--background-color);
+    color: var(--white-color);
+}
+
+.dark-mode-variables #removeAdminBtn {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+.dark-mode-variables #removeAdminBtn:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.settings-section {
+    padding: 20px;
+    max-width: 750px;
+}
+
+.settings-container {
+    background-color: var(--white-color);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.setting-item {
+    margin-bottom: 40px;
+}
+
+.setting-item h2 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.setting-item form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.setting-item form input[type="password"],
+.setting-item form input[type="text"],
+.setting-item form input[type="checkbox"] {
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-1);
+}
+
+.setting-item form input[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+}
+
+.setting-item form input[type="submit"]:hover {
+    background-color: var(--danger-color);
+}
+
+/* Responsive design adjustments as needed */
+@media (max-width: 768px) {
+    .settings-container {
+        padding: 10px;
+    }
+}
+.notice-board {
+    padding: 20px;
+}
+
+.notices-container {
+    background-color: var(--white-color);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.notice {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    position: relative;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius-1);
+    margin-bottom: 15px;
+}
+
+.notice:last-child {
+    border-bottom: none;
+}
+
+.notice h2 {
+    color: rgb(255, 17, 0);
+    margin-bottom: 5px;
+}
+
+.notice-date {
+    color: var(--dark-color-variant);
+    margin-bottom: 10px;
+}
+
+.notice-content {
+    text-align: justify;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .notice-board {
+        padding: 10px;
+    }
+
+    .notices-container {
+        padding: 10px;
+    }
+}
+.notice-body {
+    position: relative;
+}
+
+.view-more-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-more-btn:hover {
+    background-color: darkred; /* Adjust color as needed */
+}
+
+/* Base styling for requests table */
+/* Base styling for requests table */
+.requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--white-color);
+    color: var(--dark-color);
+    box-shadow: var(--box-shadow);
+}
+
+.requests-table th, .requests-table td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.requests-table th {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+/* Dark mode styling for requests table */
+.dark-mode-variables .requests-table {
+    background-color: var(--background-color);
+    color: var(--white-color);
+}
+
+.dark-mode-variables .requests-table th {
+    background-color: var(--dark-color);
+}
+
+.dark-mode-variables .requests-table td {
+    border-color: var(--dark-color-variant);
+}
+
+/* Styling for priority select dropdown */
+.priority-select {
+    padding: 5px;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--border-color);
+    background-color: var(--white-color);
+}
+
+.dark-mode-variables .priority-select {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-color: var(--dark-color-variant);
+}
+
+/* Styling for message button */
+.message-btn {
+    background-color: var(--info-color);
+    color: var(--white-color);
+    padding: 6px 10px;
+    border: none;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+}
+
+.message-btn:hover {
+    background-color: #1e90ff; /* Adjust the hover color as needed */
+}
+
+.dark-mode-variables .message-btn {
+    background-color: #1e90ff;
+}
+
+/* Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: var(--white-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.dark-mode-variables .modal-content {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-color: var(--dark-color-variant);
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.send-message-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.send-message-btn:hover {
+    background-color: var(--danger-color);
+}
+
+.dark-mode-variables .send-message-btn {
+    background-color: darkred;
 }

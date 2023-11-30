@@ -123,11 +123,7 @@ body {
     text-decoration: underline;
 }
 
-@media (min-width: 576px) {
-    .wrapper {
-        width: 40%;
-    }
-}
+
 @media (max-width: 768px) {
     .wrapper {
         width: 90%;

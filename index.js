@@ -60,6 +60,25 @@ document.addEventListener('DOMContentLoaded', function() {
             darkIcon.classList.add('active');
         }
     }
-    loadModePreference();
-    updateModeIndicator();   
+
+   
+    window.openMessageModal = function(requestId) {
+        alert("Modal function called for request ID: " + requestId);
+        document.getElementById('messageModal').style.display = 'block';
+    };
+
+    // Function to close the modal
+    function closeModal() {
+        document.getElementById('messageModal').style.display = 'none';
+    }
+
+    // Function to handle the message sending
+    function sendMessage() {
+        var message = document.getElementById('messageText').value;
+        console.log("Message:", message); // For demonstration
+        closeModal(); // Close the modal after sending the message
+    }
+
+    // Attach sendMessage to the send button inside the modal
+    document.getElementById('sendButton').addEventListener('click', sendMessage);
 });
