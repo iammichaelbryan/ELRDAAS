@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Notice</title>
+    <link rel="stylesheet" href="adminstyles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <title>ELR Towers Hall Domestic Affairs</title>
     <style>
         body {
             margin: 0;
@@ -59,21 +61,60 @@
             margin-right: 5px;
         }
 
-        form {
+        .section {
+            margin-bottom: 20px;
             flex: 1;
-            padding: 20px;
+            margin-right: 20px;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container {
+            border: 2px solid #ccc;
             border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .date-time-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .date-container,
+        .time-container {
+            flex: 1;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
         }
 
         label {
-            display: block;
             margin-bottom: 8px;
         }
 
-        textarea, input {
-            width: calc(100% - 16px);
+        /* Modified styling for text boxes */
+        input[type="text"],
+        textarea {
+            width: 100%;
             padding: 8px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
             border-radius: 8px;
             box-sizing: border-box;
         }
@@ -90,16 +131,6 @@
         input[type="submit"]:hover {
             background-color: darkred;
         }
-
-        .section {
-            margin-bottom: 20px;
-            flex: 1;
-            margin-right: 20px;
-        }
-
-        main {
-            display: flex;
-        }
     </style>
 </head>
 <body>
@@ -109,94 +140,91 @@
     </header>
 
     <div class="container">
-        <!--Sidebar Section-->
+        <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
                     <img src="images/elr towers logo.png" alt="logo">
-                    <h2>ELR Towers Hall<span class = "danger"> Domestic Affairs</span></h2>
+                    <h2>ELR Towers Hall<span class="danger"> Domestic Affairs</span></h2>
                     <div class="close" id="close-btn">
                         <span class="material-icons-sharp">
                             close
                         </span>
-                        
                     </div>
-
                 </div>
 
                 <div class="sidebar">
                     <div>
-                    <a href = "index.html" >
-                        <span class="material-icons-sharp">
-                            dashboard
-                        </span>
-                        <h3>Dashboard</h3>
-                    </a>
-                    <a href = "requests.html" class ="active">
-                        <span class="material-icons-sharp">
-                            receipt_long
-                        </span>
-                        <h3>View Assigned Requests</h3>
+                        <a href="index.html">
+                            <span class="material-icons-sharp">
+                                dashboard
+                            </span>
+                            <h3>Dashboard</h3>
                         </a>
-                    <a href = "notifications.html">
+                        <a href="requests.html">
+                            <span class="material-icons-sharp">
+                                receipt_long
+                            </span>
+                            <h3>View Assigned Requests</h3>
+                        </a>
+                        <a href="notifications.html">
                             <span class="material-icons-sharp">
                                 notifications
                             </span>
                             <h3>Notifications</h3>
-                            </a>
-                    <a href = "notice.html">
-                        <span class="material-icons-sharp">
-                            announcement
-                        </span>
-                        <h3>Create Notice</h3>
                         </a>
-                    <a href = "laundryappointments.html" >
-                        <span class="material-icons-sharp">
-                            event
-                        </span>
-                        <h3>View Laundry Appointments</h3>
+                        <a href="notice.html" class="active">
+                            <span class="material-icons-sharp">
+                                announcement
+                            </span>
+                            <h3>Create Notice</h3>
                         </a>
-                    <a href = "requestfeedback.html">
-                        <span class="material-icons-sharp">
-                            star
-                        </span>
-                        <h3>Get Feedback</h3>
-                    </a>
-                    <a href = "adminprofile.html">
-                        <span class="material-icons-sharp">
-                            person_outline
-                        </span>
-                        <h3>Profile</h3>
+                        <a href="laundryappointments.html">
+                            <span class="material-icons-sharp">
+                                event
+                            </span>
+                            <h3>View Laundry Appointments</h3>
                         </a>
-                    <a href = "adminsettings.html">
-                        <span class="material-icons-sharp">
-                            settings
-                        </span>
-                        <h3>Settings</h3>
+                        <a href="requestfeedback.html">
+                            <span class="material-icons-sharp">
+                                star
+                            </span>
+                            <h3>Get Feedback</h3>
                         </a>
-                    <a href = "login.html">
-                        <span class="material-icons-sharp">
-                            login
-                        </span>
-                        <h3>New Login</h3>
+                        <a href="adminprofile.html">
+                            <span class="material-icons-sharp">
+                                person_outline
+                            </span>
+                            <h3>Profile</h3>
+                        </a>
+                        <a href="adminsettings.html">
+                            <span class="material-icons-sharp">
+                                settings
+                            </span>
+                            <h3>Settings</h3>
+                        </a>
+                        <a href="login.html">
+                            <span class="material-icons-sharp">
+                                login
+                            </span>
+                            <h3>New Login</h3>
                         </a>
                     </div>
-                    <a href = "logout.html">
+                    <a href="logout.html">
                         <span class="material-icons-sharp">
                             logout
                         </span>
                         <h3>Logout</h3>
-                        </a>
+                    </a>
                 </div>
-            
             </div>
         </aside>
-        <!--End of Sidebar Section-->
+        <!-- End of Sidebar Section -->
 
         <!-- Main Content Section -->
         <main>
             <!-- Create Notice Now Section -->
-            <div class="section">
+            <div class="section form-container">
                 <h2>Create Notice Now</h2>
                 <form action="/submit_notice" method="post">
                     <label for="subject">Subject:</label>
@@ -215,14 +243,19 @@
             </div>
 
             <!-- Schedule Notice Section -->
-            <div class="section">
+            <div class="section form-container">
                 <h2>Schedule Notice</h2>
                 <form action="/schedule_notice" method="post">
-                    <label for="date">Date:</label>
-                    <input type="date" id="date" name="date" required>
-
-                    <label for="time">Time:</label>
-                    <input type="time" id="time" name="time" required>
+                    <div class="date-time-container">
+                        <div class="date-container">
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="time-container">
+                            <label for="time">Time:</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
 
                     <label for="subject">Subject:</label>
                     <input type="text" id="subject" name="subject" required>
