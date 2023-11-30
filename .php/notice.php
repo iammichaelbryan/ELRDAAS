@@ -46,11 +46,10 @@ class Notice {
 $host = 'localhost';
 $username = 'admin';
 $password = 'Midnighto!l';
-$dbname = 'elraas'; 
+$dbname = 'eldraas'; 
 
-$subject = $_POST["subject"];
-$content = $_POST["content"];
-
+$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+$subject = '';
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 
 $stmt = $conn->prepare("INSERT INTO notices (notice_subject, notice_content) VALUES (:subject, :content)");
