@@ -36,7 +36,7 @@ const Requests = [
         activityType: 'DA Request made',
         activityID: 'DC-0012',
         activityDate: '2023-01-10',
-        activityTime: '14:30',
+        activityTime: '08:30',
         status: 'Request Resolved',
     },
     {
@@ -44,7 +44,7 @@ const Requests = [
         activityType: 'DA Request made',
         activityID: 'DC-00011',
         activityDate: '2023-01-09',
-        activityTime: '16:45',
+        activityTime: '06:45',
         status: 'Request Resolved',
     },
 ];

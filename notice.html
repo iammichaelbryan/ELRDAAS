@@ -6,90 +6,216 @@
     <link rel="stylesheet" href="adminstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>ELR Towers Hall Domestic Affairs</title>
-</head>
+    </head>
 <body>
-      <div class="container">
-            <!--Sidebar Section-->
-            <aside>
-                <div class="toggle">
-                    <div class="logo">
-                        <img src="images/elr towers logo.png" alt="logo">
-                        <h2>ELR Towers Hall<span class = "danger"> Domestic Affairs</span></h2>
-                        <div class="close" id="close-btn">
-                            <span class="material-icons-sharp">
-                                close
-                            </span>
-                            
-                        </div>
-    
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="images/elr towers logo.png" alt="logo">
+                    <h2>ELR Towers Hall<span class="danger"> Domestic Affairs</span></h2>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
                     </div>
-    
-                    <div class="sidebar">
-                        <div>
-                        <a href = "index.html" >
+                </div>
+
+                <div class="sidebar">
+                    <div>
+                        <a href="index.html">
                             <span class="material-icons-sharp">
                                 dashboard
                             </span>
                             <h3>Dashboard</h3>
                         </a>
-                        <a href = "requests.html">
+                        <a href="requests.html">
                             <span class="material-icons-sharp">
                                 receipt_long
                             </span>
                             <h3>View Assigned Requests</h3>
-                            </a>
-                        <a href = "notifications.html">
-                                <span class="material-icons-sharp">
-                                    notifications
-                                </span>
-                                <h3>Notifications</h3>
-                                </a>
-                        <a href = "notice.html" class ="active">
+                        </a>
+                        <a href="notifications.html">
+                            <span class="material-icons-sharp">
+                                notifications
+                            </span>
+                            <h3>Notifications</h3>
+                        </a>
+                        <a href="notice.html" class="active">
                             <span class="material-icons-sharp">
                                 announcement
                             </span>
                             <h3>Create Notice</h3>
-                            </a>
-                        <a href = "laundryappointments.html" >
+                        </a>
+                        <a href="laundryappointments.html">
                             <span class="material-icons-sharp">
                                 event
                             </span>
                             <h3>View Laundry Appointments</h3>
-                            </a>
-                        <a href = "requestfeedback.html">
+                        </a>
+                        <a href="requestfeedback.html">
                             <span class="material-icons-sharp">
                                 star
                             </span>
                             <h3>Get Feedback</h3>
                         </a>
-                        <a href = "adminprofile.html">
+                        <a href="adminprofile.html">
                             <span class="material-icons-sharp">
                                 person_outline
                             </span>
                             <h3>Profile</h3>
-                            </a>
-                        <a href = "adminsettings.html">
+                        </a>
+                        <a href="adminsettings.html">
                             <span class="material-icons-sharp">
                                 settings
                             </span>
                             <h3>Settings</h3>
-                            </a>
-                        <a href = "login.html">
+                        </a>
+                        <a href="login.html">
                             <span class="material-icons-sharp">
                                 login
                             </span>
                             <h3>New Login</h3>
-                            </a>
-                        </div>
-                        <a href = "logout.html">
-                            <span class="material-icons-sharp">
-                                logout
-                            </span>
-                            <h3>Logout</h3>
-                            </a>
+                        </a>
                     </div>
-                
+                    <a href="logout.html">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                    </a>
                 </div>
-            </aside>
-            <!--End of Sidebar Section-->
-    <main>
+            </div>
+        </aside>
+        <!-- End of Sidebar Section -->
+
+        <!-- Main Content Section -->
+        <main>
+            <!-- Create Notice Now Section -->
+            <div class="section form-container">
+                <h2>Create Notice Now</h2>
+                <form action="/submit_notice" method="post">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
+
+                    <!-- The hidden author input set by the admin... -->
+                    <input type="hidden" id="author" name="author" value="Administrator">
+
+                    <div>
+                        <input type="submit" value="Post Now">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Schedule Notice Section -->
+            <div class="section form-container">
+                <h2>Schedule Notice</h2>
+                <form action="/schedule_notice" method="post">
+                    <div class="date-time-container">
+                        <div class="date-container">
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="time-container">
+                            <label for="time">Time:</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
+
+                    <!-- The hidden author input set by the admin... -->
+                    <input type="hidden" id="author" name="author" value="Administrator">
+
+                    <div>
+                        <input type="submit" value="Schedule Notice">
+                    </div>
+                </form>
+            </div>
+        </main>
+        <!-- End of Main Content Section -->
+     <!--Right Section-->
+
+<div class="right-section">
+    <div class="nav">
+        <button id ="menu-btn">
+            <span class="material-icons-sharp">
+                menu
+            </span>
+        </button>
+        <div class="dark-mode">
+            <span class="material-icons-sharp active">
+                light_mode
+            </span>
+            <span class="material-icons-sharp">
+                dark_mode
+            </span>
+        </div>
+        <div class="profile">
+            <a href="adminprofile.html" class="profile-link">
+                <div class="profil-photo">
+                    <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
+                </div>
+            </a>
+            <div class="info">
+                <p>Hey, <b>[Admin Name]</b></p>
+                <small class="text-muted">Admin</small>
+            </div>
+        </div>
+        </div>
+        <!--End of Right Section-->
+    </div>
+    <script>
+        const darkModeToggle = document.querySelector('.dark-mode');
+        const bodyElement = document.body;
+    
+        darkModeToggle.addEventListener('click', () => {
+            bodyElement.classList.toggle('dark-mode-variables');
+            saveModePreference();
+            updateModeIndicator();
+        });
+    
+        function saveModePreference() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+    
+        function loadModePreference() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                bodyElement.classList.add('dark-mode-variables');
+            } else {
+                bodyElement.classList.remove('dark-mode-variables');
+            }
+        }
+    
+        function updateModeIndicator() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            const lightIcon = document.querySelector('.dark-mode .light_mode');
+            const darkIcon = document.querySelector('.dark-mode .dark_mode');
+    
+            if (isDarkMode) {
+                lightIcon.classList.add('active');
+                darkIcon.classList.remove('active');
+            } else {
+                lightIcon.classList.remove('active');
+                darkIcon.classList.add('active');
+            }
+        }
+    
+        
+        loadModePreference();
+        updateModeIndicator();
+    </script>
+
+</body>
+</html>

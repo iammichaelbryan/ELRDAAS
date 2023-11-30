@@ -325,34 +325,15 @@ aside .sidebar a.active {
     color: var(--white-color);
 }
 
-.feedback-table th{
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    text-align: left;
-}
+.feedback-table th,
 .feedback-table td {
     padding: 10px;
     border: 1px solid var(--border-color);
     text-align: left;
 }
 
-/* Ensure all rows have borders */
-.feedback-table tr {
-    border-bottom: 1px solid var(--border-color);
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
-}
-
-/* Change table headings color in dark mode */
-.dark-mode-variables .feedback-table thead th {
-    color: white; /* or any other bright color of your choice */
-}
-
-
 .feedback-table td .stars {
     /* Placeholder for stars */
-    align-items: center;
-    
 }
 
 /* Star rating - assuming you are using a font library for stars, e.g., Font Awesome */
@@ -476,14 +457,11 @@ main .new-users .user-list{
     box-shadow: var(--box-shadow);
     display: flex;
     justify-content: space-around;
-    flex-wrap:nowrap;
+    flex-wrap: wrap;
     flex-direction: row;
     gap: 1.8rem;
     cursor: pointer;
-    transition: all 0.5s ease;
-    max-width:1075px;
-    margin-right: auto;
-    /*margin-right: auto;*/
+    transition: all 0.3s ease;
 }
 main .new-users .user-list:hover{
     box-shadow: none;
@@ -503,47 +481,54 @@ main .new-users .user-list .user img{
     margin-bottom: 0.6rem;
 }
 
-main .recent-requests{
-    margin-top: 1.5rem;
-
+.Notification-Section {
+    margin: 50px 0 0 70px;    
+    border: 2px solid var(--tertiary-color);
+    padding: 50px;
 }
 
-main .recent-requests h2{
-    margin-bottom: .8rem;
+.Notification-Section h1 {
+    color: var(--primary-color);
+    padding-bottom: 30px;
 }
 
-main .recent-requests table{
-    background-color: var(--white-color);
-    width: 100%;
-    padding: var(--card-padding);
-    text-align: center;
-    border-radius: var(--card-border-radius);
-    max-width:1075px;
-    margin-right: auto
-
+.notification {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-main .recent-requests table:hover{
-    box-shadow: none;
-
+.notification p {
+    margin: 10px;
 }
 
-main table tbody td{
-    height: 2.8rem;
-    border-bottom: 1px solid var(--light-color);
-    color: var(--dark-color-variant);
+.notification span {
+    color: red;
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
 }
- main table tbody tr:last-child td{
-    border: none;
- }
 
- main .recent-requests a{
-    text-align: center;
-    display: flex;
-    margin: 1rem auto;
- }
- 
- 
+.Notification-Section button {
+    margin-top: 5;
+}
+
+.hidden ul{
+    padding-left: 40px;
+    color: var(--primary-color);
+    font-size: 16px;
+}
+
+.hidden li {
+    margin: 20px 0px;
+}
+
+.notification {
+    color: purple;
+}
 
 
 .right-section{
@@ -620,159 +605,4 @@ main table tbody td{
 
 .right-section .profile .profile-link:hover .profil-photo img {
     transform: scale(1.1); /* Slight zoom effect on hover */
-}
-.form-container {
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.date-time-container {
-    display: flex;
-    gap: 20px;
-}
-
-.date-container,
-.time-container {
-    flex: 1;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-bottom: 8px;
-}
-
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-input[type="date"],
-input[type="time"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-input[type="submit"] {
-    background-color: maroon;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: darkred;
-}
-
-/* Styles for the table */
-.laundry-appointments table {
-    width: 100%; 
-    border-collapse: collapse; /* Collapse borders */
-}
-
-/* Styles for the table headers */
-.laundry-appointments th {
-    background-color: #f2f2f2; /* Light gray background */
-    color: #333; /* Dark text */
-    padding: 10px; /* Add some padding */
-    text-align: left; /* Align text to the left */
-}
-
-/* Styles for the table data */
-.laundry-appointments td {
-    padding: 10px; /* Add some padding */
-    border-bottom: 1px solid #f2f2f2; /* Add a border to the bottom of each table cell */
-}
-/* Profile Header Styles */
-.profile-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    color: var(--dark-color);
-}
-
-.profil-photo img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-}
-
-.edit-profile-pic {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-/* Activity Log Styles */
-.activity-log {
-    background-color: var(--white-color);
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    color: var(--dark-color);
-}
-
-/* Account Settings Styles */
-.account-settings {
-    background-color: var(--white-color);
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    color: var(--dark-color);
-}
-
-/* Contact Support Styles */
-.contact-support {
-    text-align: center;
-}
-
-.contact-support button {
-    background-color: var(--info-color);
-    color: var(--white-color);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Dark Mode Adjustments */
-.dark-mode-variables .profile-header{
-    
-}
-.dark-mode-variables .activity-log{
-    background-color: var(--dark-color);
-    color: var(--white-color);
-}
-.dark-mode-variables .account-settings {
-    background-color: var(--dark-color);
-    color: var(--white-color);
-}
-
-.dark-mode-variables .edit-profile-pic {
-    background-color: var(--light-color);
-    color: var(--dark-color);
-}
-
-.dark-mode-variables .contact-support button {
-    background-color: var(--primary-color);
 }
