@@ -101,11 +101,85 @@
             </div>
         </div>
     </main>
+        <!--Right Section-->
 
+<div class="right-section">
+    <div class="nav">
+        <button id ="menu-btn">
+            <span class="material-icons-sharp">
+                menu
+            </span>
+        </button>
+        <div class="dark-mode">
+            <span class="material-icons-sharp active">
+                light_mode
+            </span>
+            <span class="material-icons-sharp">
+                dark_mode
+            </span>
+        </div>
+        <div class="profile">
+            <a href="adminprofile.html" class="profile-link">
+                <div class="profil-photo">
+                    <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
+                </div>
+            </a>
+            <div class="info">
+                <p>Hey, <b>[Admin Name]</b></p>
+                <small class="text-muted">Admin</small>
+            </div>
+        </div>
+        </div>
+        <!--End of Right Section-->
+    </div>
     </div>
     
 
     <script src="notifications.js"></script>
+    <script>
+        const darkModeToggle = document.querySelector('.dark-mode');
+        const bodyElement = document.body;
+    
+        darkModeToggle.addEventListener('click', () => {
+            bodyElement.classList.toggle('dark-mode-variables');
+            saveModePreference();
+            updateModeIndicator();
+        });
+    
+        function saveModePreference() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+    
+        function loadModePreference() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                bodyElement.classList.add('dark-mode-variables');
+            } else {
+                bodyElement.classList.remove('dark-mode-variables');
+            }
+        }
+    
+        function updateModeIndicator() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            const lightIcon = document.querySelector('.dark-mode .light_mode');
+            const darkIcon = document.querySelector('.dark-mode .dark_mode');
+    
+            if (isDarkMode) {
+                lightIcon.classList.add('active');
+                darkIcon.classList.remove('active');
+            } else {
+                lightIcon.classList.remove('active');
+                darkIcon.classList.add('active');
+            }
+        }
+    
+        
+        loadModePreference();
+        updateModeIndicator();
+    </script>
+    </body>
+    </html>
 
 </body>
 </html>
