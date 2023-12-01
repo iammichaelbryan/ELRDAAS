@@ -24,8 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Log the error, don't display it
     }
 
-    $stmt->close();
-    $conn->close();
+    $stmt->null;
 } else {
     // If not a POST request, redirect to the form or handle accordingly
     header('Location: make_request.html');

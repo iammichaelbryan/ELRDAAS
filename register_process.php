@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'db_connect.php'; // Include your DB connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,7 +28,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
+        $_SESSION['email'] = $email;
         echo "Registration successful!";
+        header('login.html');
+        exit; 
     } else {
         echo "Error: " . $stmt->errorInfo()[2];
     }
