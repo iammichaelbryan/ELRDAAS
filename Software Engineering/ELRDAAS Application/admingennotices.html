@@ -32,7 +32,7 @@
                             </span>
                             <h3>Dashboard</h3>
                         </a>
-                        <a href = "requests.html" class ="active">
+                        <a href = "requests.html">
                             <span class="material-icons-sharp">
                                 receipt_long
                             </span>
@@ -44,19 +44,19 @@
                                 </span>
                                 <h3>Notifications</h3>
                                 </a>
-                                
                         <a href = "notice.html">
                             <span class="material-icons-sharp">
                                 announcement
                             </span>
                             <h3>Create Notice</h3>
                             </a>
-                            <a href = "admingennotices.html">
-                                <span class="material-icons-sharp">
-                                    info
-                                    </span>
-                                    <h3>View General Notice Board</h3>
-                                    </a>
+                        <a href = "admingennotices.html" class ="active">
+                            <span class="material-icons-sharp">
+                                info
+                                </span>
+                                <h3>View General Notice Board</h3>
+                                </a>
+
                         <a href = "laundryappointments.html" >
                             <span class="material-icons-sharp">
                                 event
@@ -99,80 +99,26 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
-            <main class="main-content">
-                <h1>Assigned Requests</h1>
-                <table class="requests-table">
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Resident Name</th>
-                            <th>Request Type</th>
-                            <th>Request Description</th>
-                            <th>Priority</th>
-                            <th>Action</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example Row -->
-                        <tr>
-                            <td>001</td>
-                            <td>John Doe</td>
-                            <td>Communal Area Issue</td>
-                            <td>My floor only has 1 working fridge</td>
-                            <td>
-                                <select class="priority-select">
-                                    <option value="low">Low</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="message-btn" onclick="openMessageModal('001')">Message</button>
-                            </td>
-                        </tr>
-                        <!-- Repeat for other requests -->
-                    </tbody>
-                </table>
-            </main>
-            
-            <!-- Modal Structure -->
-            <div id="messageModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" onclick="closeModal()">&times;</span>
-                    <h2>Send Message</h2>
-                    <textarea id="messageText" placeholder="Write your message here..."></textarea>
-                    <button class="send-message-btn" onclick="sendMessage()">Send</button>
-                </div>
-            </div>
-            <script>
-                // Function to open the message modal
-                window.openMessageModal = function(requestId) {
-                    document.getElementById('messageModal').style.display = 'block';
-                    console.log("Opening message modal for request ID:", requestId);
-                    // You can use requestId to customize the modal for each request
-                };
-            
-                // Function to close the modal
-                function closeModal() {
-                    document.getElementById('messageModal').style.display = 'none';
-                }
-            
-                // Function to handle the message sending
-                function sendMessage() {
-                    var message = document.getElementById('messageText').value;
-                    // Add the logic to handle the message (e.g., send to server)
-                    console.log("Message:", message); // For demonstration
-                    closeModal(); // Close the modal after sending the message
-                }
-            
-                // Ensure modal is closed on page load
-                document.addEventListener('DOMContentLoaded', function() {
-                    closeModal();
-                });
-            </script>
-            
-<!--Right Section-->
+            <!-- Settings Section -->
+                <!-- Notice Board Section -->
+                <main class="notice-board">
+                    <h1>General Notice Board</h1>
+                    <div class="notices-container">
+                        <!-- Dynamically load notices here -->
+                        <div class="notice">
+                            <h2>Subject of Notice</h2>
+                            <p class="notice-date">Posted on: [Date]</p>
+                            <div class="notice-body">
+                                <p class="notice-content">Brief details of the notice...</p>
+                                <button class="view-more-btn" onclick="viewMoreNotice()">View More</button>
+                            </div>
+                        </div>
+                        <!-- Repeat for other notices -->
+                    </div>
+                </main>
+        
+    </div>
+   <!--Right Section-->
 
 <div class="right-section">
     <div class="nav">
@@ -203,8 +149,6 @@
         </div>
         <!--End of Right Section-->
     </div>
-    <main>
-        </main>
     <script>
         const darkModeToggle = document.querySelector('.dark-mode');
         const bodyElement = document.body;
@@ -247,6 +191,6 @@
         loadModePreference();
         updateModeIndicator();
     </script>
-    <script></script>
-        </body>
+
+</body>
 </html>

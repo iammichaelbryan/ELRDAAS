@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="residentstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <title>ELR Towers Hall Domestic Affairs - Make a Request</title>
+    <title>ELR Towers Hall Domestic Affairs - Schedule Laundromat Appointment</title>
 </head>
 <body>
       <div class="container">
@@ -44,20 +44,20 @@
                                     notifications
                                 </span>
                                 <h3>Notifications</h3>
-                                </a>
-                        <a href = "schedule_appointment.html">
+                                </a>    
+                        <a href = "schedule_appointment.html" class="active">
                                 <span class="material-icons-sharp">
                                     event
                                 </span>
                                 <h3>Schedule Laundromat</h3>
                                 </a>
-                        <a href = "pending_requests.html" >
+                        <a href = "pending_requests.html">
                             <span class="material-icons-sharp">
                                 hourglass_bottom
                             </span>
                             <h3>View Pending Requests</h3>
                             </a>
-                        <a href = "request_history.html" class="active">
+                        <a href = "request_history.html" >
                             <span class="material-icons-sharp">
                                 receipt_long
                                 </span>
@@ -94,112 +94,69 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
-           
-                 <!-- Main Content Section -->
-    <main class="main-content">
-        <h2>Resident Portal</h2>
-        <h1>Request History</h1>
-        <div class="request-history">
-            <table class="requests-table">
-                <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>Date Submitted</th>
-                        <th>Type of Request</th>
-                        <th>Description</th>
-                        <th>Resolution Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamically load completed requests here -->
-                   
-                    <!-- Repeat for other requests -->
-                    <!-- Main Content Section -->
-                    <main class="main-content">
-                        <h2>Resident Portal</h2>
-                        <h1>Request History</h1>
-                        <div class="request-history">
-                            <table class="requests-table">
-                                <thead>
-                                    <tr>
-                                        <th>Request ID</th>
-                                        <th>Date Submitted</th>
-                                        <th>Type of Request</th>
-                                        <th>Description</th>
-                                        <th>Resolution Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="request-data">
-                                    <!-- Requests will be dynamically loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </main>
+<!-- Main Content Section -->
+<main class="main-content">
+    <h2>Resident Portal</h2>
+    <h1>Schedule Laundromat Appointment</h1>
+    <form class="appointment-form" action="submit_appointment.php" method="post">
+        
+        <label for="appointmentDate">Appointment Date:</label>
+        <input type="date" id="appointmentDate" name="appointmentDate" required min="2023-11-29">
 
-                    <!--Right Section-->
-                    <div class="right-section">
-                        <div class="nav">
-                            <button id="menu-btn">
-                                <span class="material-icons-sharp">
-                                    menu
-                                </span>
-                            </button>
-                            <div class="dark-mode">
-                                <span class="material-icons-sharp active">
-                                    light_mode
-                                </span>
-                                <span class="material-icons-sharp">
-                                    dark_mode
-                                </span>
-                            </div>
-                            <div class="profile">
-                                <a href="profile.html" class="profile-link">
-                                    <!-- Profile link -->
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        <label for="appointmentTime">Preferred Time:</label>
+        <input type="time" id="appointmentTime" name="appointmentTime" required>
 
-                    <script>
-                        // Fetch requests data from server or local data source
-                        // Replace the following code with your actual data retrieval logic
-                        const requests = [
-                            {
-                                id: 1,
-                                date: currentDateString(),
-                                type: 'Maintenance',
-                                description: 'Broken faucet',
-                                status: 'Resolved'
-                            },
-                            {
-                                id: 2,
-                                date: '2022-01-02',
-                                type: 'Cleaning',
-                                description: 'Dirty common area',
-                                status: 'Pending'
-                            },
-                            // Add more requests as needed
-                        ];
+        <label for="loads">Wash or Dry</label>
+        <select id="loads" name="loads" required>
+            <option value="wash">Wash</option>
+            <option value="dry">Dry</option>
+            <option value="washdry">Wash and Dry</option>
+        </select>
 
-                        // Dynamically generate table rows for each request
-                        const requestTable = document.getElementById('request-data');
-                        requests.forEach(request => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${request.id}</td>
-                                <td>${request.date}</td>
-                                <td>${request.type}</td>
-                                <td>${request.description}</td>
-                                <td>${request.status}</td>
-                            `;
-                            requestTable.appendChild(row);
-                        });
-                    </script>
-                </tbody>
-            </table>
-        </div>
-    </main>
+        <label for="loads">Number of Loads ($200 JMD per cycle):</label>
+        <select id="loads" name="loads" required>
+            <option value="1">1 Load</option>
+            <option value="2">2 Loads</option>
+            <option value="3">3 Loads</option>
+        </select>
+`       <p>Appointment Cost= <span id="appointmentCost">$200JMD * Number of Loads </span></p>
+        <p>
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree">I agree to the <a href="terms_and_conditions.html">Terms and Conditions</a></label>
+        </p>
+        <button type="submit" class="submit-btn">Create Appointment</button>
+    </form>
+</main>
 
+<!-- Existing script for dark mode -->
+<script>
+    // Script to set the minimum date for appointment
+    window.onload = function() {
+        var today = new Date();
+        var dd = today.getDate() + 3; // Adding 3 days
+        var mm = today.getMonth() + 1; // January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        } 
+        if (mm < 10) {
+            mm = '0' + mm;
+        } 
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("appointmentDate").setAttribute("min", today);
+    };
+
+    // Script to validate appointment time based on selected day
+    function validateTime() {
+        var selectedDate = new Date(document.getElementById("appointmentDate").value);
+        var day = selectedDate.getDay();
+        var timeInput = document.getElementById("appointmentTime");
+        timeInput.min = (day === 1 || day === 3 || day === 5) ? "12:00" : "12:00";
+        timeInput.max = (day === 1 || day === 3 || day === 5) ? "20:00" : "23:59";
+    }
+
+    document.getElementById("appointmentDate").addEventListener("change", validateTime);
+</script>
             <!--Right Section-->
 
 <div class="right-section">

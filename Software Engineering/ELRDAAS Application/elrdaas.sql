@@ -42,6 +42,8 @@ CREATE TABLE `residents` (
   `last_name` char(35) NOT NULL default '',
   `email` varchar(255) NOT NULL default '',
   `password` varchar(255) NOT NULL default '',
+  `room` int(4) NOT NULL default 0,
+  `tower` enum('Olympus','Dragons', 'Orion', 'Phoenix', 'Apollo') NOT NULL default 'Dragons',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4;
 
@@ -50,9 +52,9 @@ CREATE TABLE `residents` (
 -- Dumping data for table `residents`
 --
 INSERT INTO `residents` VALUES 
-(1, 'Brendon', 'Urie', 'brendonurrie@fakemail.com', 'respassword'),
-(2, 'Hayley', 'Williams', 'haleywilliams@gmail.com', 'respassword'),
-(3, 'Michael', 'Bryan', 'michaelbryan2310@fakemail.com', 'respassword');
+(1, 'Brendon', 'Urie', 'brendonurrie@fakemail.com', 'respassword', 5211, 'Dragons'),
+(2, 'Hayley', 'Williams', 'haleywilliams@gmail.com', 'respassword', 2115, 'Phoenix'),
+(3, 'Michael', 'Bryan', 'mikeybryan2310@gmail.com', 'respassword', 5118, 'Dragons');
 
 
 

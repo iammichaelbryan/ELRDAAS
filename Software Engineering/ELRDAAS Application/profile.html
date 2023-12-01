@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="residentstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <title>ELR Towers Hall Domestic Affairs - Make a Request</title>
+    <title>ELR Towers Hall Domestic Affairs - Resident Profile</title>
 </head>
 <body>
       <div class="container">
@@ -39,12 +39,12 @@
                             </span>
                             <h3>Make Request/Complaint</h3>
                             </a>
-                            <a href = "notifications_res.html" >
-                                <span class="material-icons-sharp">
-                                    notifications
-                                </span>
-                                <h3>Notifications</h3>
-                                </a>
+                        <a href = "notifications_res.html">
+                            <span class="material-icons-sharp">
+                                notifications
+                            </span>
+                            <h3>Notifications</h3>
+                            </a>
                         <a href = "schedule_appointment.html">
                                 <span class="material-icons-sharp">
                                     event
@@ -57,14 +57,14 @@
                             </span>
                             <h3>View Pending Requests</h3>
                             </a>
-                        <a href = "request_history.html" class="active">
+                        <a href = "request_history.html" >
                             <span class="material-icons-sharp">
                                 receipt_long
                                 </span>
                                 <h3>Request History</h3>
                                 </a>
 
-                        <a href = "profile.html" >
+                        <a href = "profile.html" class="active">
                             <span class="material-icons-sharp">
                                 person_outline
                             </span>
@@ -94,111 +94,48 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
-           
-                 <!-- Main Content Section -->
-    <main class="main-content">
-        <h2>Resident Portal</h2>
-        <h1>Request History</h1>
-        <div class="request-history">
-            <table class="requests-table">
-                <thead>
-                    <tr>
-                        <th>Request ID</th>
-                        <th>Date Submitted</th>
-                        <th>Type of Request</th>
-                        <th>Description</th>
-                        <th>Resolution Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamically load completed requests here -->
-                   
-                    <!-- Repeat for other requests -->
-                    <!-- Main Content Section -->
-                    <main class="main-content">
-                        <h2>Resident Portal</h2>
-                        <h1>Request History</h1>
-                        <div class="request-history">
-                            <table class="requests-table">
-                                <thead>
-                                    <tr>
-                                        <th>Request ID</th>
-                                        <th>Date Submitted</th>
-                                        <th>Type of Request</th>
-                                        <th>Description</th>
-                                        <th>Resolution Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="request-data">
-                                    <!-- Requests will be dynamically loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </main>
-
-                    <!--Right Section-->
-                    <div class="right-section">
-                        <div class="nav">
-                            <button id="menu-btn">
-                                <span class="material-icons-sharp">
-                                    menu
-                                </span>
-                            </button>
-                            <div class="dark-mode">
-                                <span class="material-icons-sharp active">
-                                    light_mode
-                                </span>
-                                <span class="material-icons-sharp">
-                                    dark_mode
-                                </span>
-                            </div>
-                            <div class="profile">
-                                <a href="profile.html" class="profile-link">
-                                    <!-- Profile link -->
-                                </a>
-                            </div>
-                        </div>
+            <main class="main-content">
+                <!-- Profile Header -->
+                <h2>Resident Portal</h2>
+                <div class="profile-header">
+                    <div class="profil-photo">
+                        <img src="images/elr wolf 4.jpeg" alt="Resident Profile Picture">
+                        <!-- Add a button or link to change the profile picture -->
+                        <button class="edit-profile-pic">Change Picture</button>
                     </div>
+                    <div class="profile-info">
+                        <h1>[Resident Name]</h1>
+                        <p>Email: resident@example.com</p>
+                    </div>
+                </div>
+            
+                <!-- Activity Log -->
+                <div class="activity-log">
+                    <h2>Recent Activity</h2>
+                    <!-- Add content/log here -->
+                </div>
+            
+                <!-- Account Settings -->
+                <div class="account-settings">
+                    <h2>Account Settings</h2>
+                    <!-- Add settings options here -->
+                </div>
+            
+                <!-- Contact Support -->
+                <div class="contact-support">
+                    <h2>Need Help?</h2>
+                    <button>Contact Support</button>
+                </div>
+        
+                <div class="remove-admin-section">
+                    <h2>Remove Resident Account</h2>
 
-                    <script>
-                        // Fetch requests data from server or local data source
-                        // Replace the following code with your actual data retrieval logic
-                        const requests = [
-                            {
-                                id: 1,
-                                date: currentDateString(),
-                                type: 'Maintenance',
-                                description: 'Broken faucet',
-                                status: 'Resolved'
-                            },
-                            {
-                                id: 2,
-                                date: '2022-01-02',
-                                type: 'Cleaning',
-                                description: 'Dirty common area',
-                                status: 'Pending'
-                            },
-                            // Add more requests as needed
-                        ];
+                    <p>If you no longer wish to be a member resident, you can remove your resident account here. Please be aware that this action is irreversible.</p>
+                    <p>If you wish to delete your account, you can do so here. Please be aware that this action is irreversible.</p>
 
-                        // Dynamically generate table rows for each request
-                        const requestTable = document.getElementById('request-data');
-                        requests.forEach(request => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
-                                <td>${request.id}</td>
-                                <td>${request.date}</td>
-                                <td>${request.type}</td>
-                                <td>${request.description}</td>
-                                <td>${request.status}</td>
-                            `;
-                            requestTable.appendChild(row);
-                        });
-                    </script>
-                </tbody>
-            </table>
-        </div>
-    </main>
+                    <button id="removeAdminBtn">Remove My Resident Account</button>
+                </div>
+            </main>
 
             <!--Right Section-->
 

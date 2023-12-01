@@ -32,7 +32,7 @@
                             </span>
                             <h3>Dashboard</h3>
                         </a>
-                        <a href = "requests.html" class ="active">
+                        <a href = "requests.html">
                             <span class="material-icons-sharp">
                                 receipt_long
                             </span>
@@ -44,20 +44,19 @@
                                 </span>
                                 <h3>Notifications</h3>
                                 </a>
-                                
                         <a href = "notice.html">
                             <span class="material-icons-sharp">
                                 announcement
                             </span>
                             <h3>Create Notice</h3>
                             </a>
-                            <a href = "admingennotices.html">
+                        <a href = "admingennotices.html">                           
                                 <span class="material-icons-sharp">
                                     info
                                     </span>
                                     <h3>View General Notice Board</h3>
                                     </a>
-                        <a href = "laundryappointments.html" >
+                        <a href = "laundryappointments.html">
                             <span class="material-icons-sharp">
                                 event
                             </span>
@@ -69,7 +68,7 @@
                             </span>
                             <h3>Get Feedback</h3>
                         </a>
-                        <a href = "adminprofile.html">
+                        <a href = "adminprofile.html" class ="active">
                             <span class="material-icons-sharp">
                                 person_outline
                             </span>
@@ -99,81 +98,48 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
-            <main class="main-content">
-                <h1>Assigned Requests</h1>
-                <table class="requests-table">
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Resident Name</th>
-                            <th>Request Type</th>
-                            <th>Request Description</th>
-                            <th>Priority</th>
-                            <th>Action</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Example Row -->
-                        <tr>
-                            <td>001</td>
-                            <td>John Doe</td>
-                            <td>Communal Area Issue</td>
-                            <td>My floor only has 1 working fridge</td>
-                            <td>
-                                <select class="priority-select">
-                                    <option value="low">Low</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="message-btn" onclick="openMessageModal('001')">Message</button>
-                            </td>
-                        </tr>
-                        <!-- Repeat for other requests -->
-                    </tbody>
-                </table>
-            </main>
-            
-            <!-- Modal Structure -->
-            <div id="messageModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" onclick="closeModal()">&times;</span>
-                    <h2>Send Message</h2>
-                    <textarea id="messageText" placeholder="Write your message here..."></textarea>
-                    <button class="send-message-btn" onclick="sendMessage()">Send</button>
-                </div>
-            </div>
-            <script>
-                // Function to open the message modal
-                window.openMessageModal = function(requestId) {
-                    document.getElementById('messageModal').style.display = 'block';
-                    console.log("Opening message modal for request ID:", requestId);
-                    // You can use requestId to customize the modal for each request
-                };
-            
-                // Function to close the modal
-                function closeModal() {
-                    document.getElementById('messageModal').style.display = 'none';
-                }
-            
-                // Function to handle the message sending
-                function sendMessage() {
-                    var message = document.getElementById('messageText').value;
-                    // Add the logic to handle the message (e.g., send to server)
-                    console.log("Message:", message); // For demonstration
-                    closeModal(); // Close the modal after sending the message
-                }
-            
-                // Ensure modal is closed on page load
-                document.addEventListener('DOMContentLoaded', function() {
-                    closeModal();
-                });
-            </script>
-            
-<!--Right Section-->
 
+    
+    <main class="main-content">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profil-photo">
+                <img src="images/elr wolf 4.jpeg" alt="Admin Profile Picture">
+                <!-- Add a button or link to change the profile picture -->
+                <button class="edit-profile-pic">Change Picture</button>
+            </div>
+            <div class="profile-info">
+                <h1>[Admin Name]</h1>
+                <p>Email: admin@example.com</p>
+                <p>Role: Hall Administrator</p>
+            </div>
+        </div>
+    
+        <!-- Activity Log -->
+        <div class="activity-log">
+            <h2>Recent Activity</h2>
+            <!-- Add content/log here -->
+        </div>
+    
+        <!-- Account Settings -->
+        <div class="account-settings">
+            <h2>Account Settings</h2>
+            <!-- Add settings options here -->
+        </div>
+    
+        <!-- Contact Support -->
+        <div class="contact-support">
+            <h2>Need Help?</h2>
+            <button>Contact Support</button>
+        </div>
+
+        <div class="remove-admin-section">
+            <h2>Remove Admin Account</h2>
+            <p>If you no longer wish to be an admin, you can remove your admin account here. Please be aware that this action is irreversible.</p>
+            <button id="removeAdminBtn">Remove My Admin Account</button>
+        </div>
+    </main>
+    <!--Right Section-->
 <div class="right-section">
     <div class="nav">
         <button id ="menu-btn">
@@ -203,8 +169,7 @@
         </div>
         <!--End of Right Section-->
     </div>
-    <main>
-        </main>
+    </div>
     <script>
         const darkModeToggle = document.querySelector('.dark-mode');
         const bodyElement = document.body;
@@ -247,6 +212,6 @@
         loadModePreference();
         updateModeIndicator();
     </script>
-    <script></script>
-        </body>
+
+</body>
 </html>

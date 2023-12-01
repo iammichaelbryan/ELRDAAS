@@ -1,10 +1,65 @@
+<?php 
+
+$host = 'localhost';
+$username ="root";
+$password = "";
+$dbname = 'elrdaas'; 
+
+$complaintId = $_POST['complaintID']; 
+$complaintType = $_POST['complaintType'] ?? '';
+$complaintBody = $_POST['complaintBody'] ?? '';
+$assignedTo = $_POST['assignedTo'] ?? '';
+$first_name = $_POST['first_name']  ?? '';
+$last_name = $_POST['last_name'] ?? '';
+
+$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+$sql="INSERT INTO complaints (complaint_id, first_name, last_name, complaint_type, complaint_body, assigned_to)
+        VALUES (:complaintId, :first_name, :last_name, :complaintType, :complaintBody, :assignedTo)";
+
+$stmt= $conn->prepare($sql);
+$stmt->execute([
+    ':complaintId' => $complaintId,
+    ':first_name' => $first_name,
+    ':last_name' => $last_name,
+    ':complaintType' => $complaintType,
+    ':complaintBody' => $complaintBody,
+    ':assignedTo' => $assignedTo
+]);
+
+
+
+
+
+/*
+$subject=filter_input(INPUT_POST, "subject", FILTER_SANITIZE_STRING);
+$content=filter_input(INPUT_POST, "content", FILTER_SANITIZE_STRING);
+$time=filter_input(INPUT_POST, "time", FILTER_SANITIZE_STRING);
+$date=filter_input(INPUT_POST, "date", FILTER_SANITIZE_STRING);
+
+$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+
+$sql="INSERT INTO notices (notice_date, notice_time, notice_subject, notice_content)
+        VALUES (:date, :time, :subject, :content)";
+
+$stmt= $conn->prepare($sql);
+
+$stmt->execute([
+	':date' => $date,
+    ':time' => $time,
+    ':subject' => $subject,
+    ':content' => $content
+]);
+
+echo "Record Saved Successfully."
+*/
+/*
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'db_connect.php'; // Your database connection file
 
     // Input validation and sanitization here (very important)
 
-    $complaintId = $_POST['complaintID']; // Unique ID generation
+    $complaintId = "DC-" . time(); // Unique ID generation
     $complaintType = $_POST['complaintType'] ?? '';
     $complaintBody = $_POST['complaintBody'] ?? '';
     $assignedTo = $_POST['assignedTo'] ?? ''; // This should probably be set by the application, not the user
@@ -78,3 +133,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 </html>
+
+*/
+?>
