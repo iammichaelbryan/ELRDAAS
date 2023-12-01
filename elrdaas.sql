@@ -153,4 +153,7 @@ INSERT INTO `notices` VALUES (1,'2023-11-25', '08:00:00', 'Reminder: Upcoming Ma
 (2,'2023-11-24', '08:00:00', 'Towers Implement Automated Domestic System.', 'Dear Residents,\n\nWe are pleased to announce the implementation of an automated domestic system for our towers. This system aims to streamline and improve various domestic services within the towers, including maintenance, cleaning, and security.\n\nWith this new system, you can expect smoother operations and better service quality. Please feel free to reach out if you have any questions or concerns.\n\nBest regards,\nThe Management Team');
 /*!40000 ALTER TABLE `notices` ENABLE KEYS */;
 UNLOCK TABLES; 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27d080d3c41ad54630b2c0f2abb33474cf125ce1

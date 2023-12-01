@@ -46,7 +46,10 @@ class Notice {
 $host = 'localhost';
 $username = 'admin';
 $password = 'Midnighto!l';
-$dbname = 'eldraas'; 
+$dbname = 'elraas'; 
+
+$subject = $_POST[$name];
+$content = $_POST[$content];
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $subject = '';
