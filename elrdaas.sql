@@ -46,6 +46,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `complaints`;
 CREATE TABLE `complaints` (
+  `id` int(6) NOT NULL auto_increment,
   `complaint_id` varchar(40) NOT NULL default '',
   `first_name` char(35) NOT NULL default '',
   `last_name` char(35) NOT NULL default '',
@@ -53,33 +54,24 @@ CREATE TABLE `complaints` (
   `complaint_body` TEXT NOT NULL,
   `status` enum('Resolved','Pending Assignment','Assigned' ) NOT NULL default 'Pending Assignment',
   `priority` enum('Low','Medium','High') NOT NULL default 'Low',
-  `assigned_to` char(52) NOT NULL default ''
-);
-  
+  `assigned_to` char(52) NOT NULL default 'Admin',
   PRIMARY KEY  (`id`)
-  ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `complaints`
 --
 
 
--- Table structure for table `complaints`
---
-
-DROP TABLE IF EXISTS `complaints`;
-CREATE TABLE `complaints` (
-  `complaint_id` varchar(40) NOT NULL default '',
-  `first_name` char(35) NOT NULL default '',
-  `last_name` char(35) NOT NULL default '',
-  `complaint_type` enum('Room Issue', 'Communal Area Issue', 'General Request') NOT NULL default 'Room Issue',
-  `complaint_body` TEXT NOT NULL,
-  `status` enum('Resolved','Pending Assignment','Assigned' ) NOT NULL default 'Pending Assignment',
-  `priority` enum('Low','Medium','High') NOT NULL default 'Low',
-  `assigned_to` char(52) NOT NULL default '',
-  PRIMARY KEY  (`complaint_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
+LOCK TABLES `complaints` WRITE;
+/*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
+INSERT INTO `complaints` VALUES (1,'DC-235531','Marlon', 'Pierre', 'Room Issue', 'Assigned', 'Intermittent leak from refrigerator','Low', 'Maintenance'),
+(2,'DC-235532','Michelle', 'Bryan', 'Communal Area Issue', 'Resolved', 'Leak in Office Roof', 'High', 'Maintenance'),
+(3,'DC-235533','Deangelo','Bailey', 'General Request', 'In Progress', 'Locked out', 'High', 'Security'),
+(4,'DC-235534','Cleona', 'Simpson', 'Room Issue', 'More Information Requested', 'Leaking Sink', 'Medium', 'Maintenance'),
+(5'DC-235535','Javia', 'Gassop', 'Communal Area Issue', 'Resolved', 'Lights Flickering', 'Medium', 'Maintenance');
+/*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
+UNLOCK TABLES;
 -- Table structure for table `appointments`
 --
 

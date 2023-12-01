@@ -36,10 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     } 
 
-    //Function to handle asymc request to database  
-
-    
-                
     loadModePreference();
     updateModeIndicator();
-})
+});
