@@ -97,26 +97,26 @@
             <!-- Create Notice Now Section -->
             <div class="section form-container">
                 <h2>Create Notice Now</h2>
-                <form action="/submit_notice" method="post">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
+                <div>
+                    <form action="notice_test.php" method="post">
+                        <label for="subject">Subject:</label>
+                        <input id="subject" type="text" name="subject" placeholder="Enter Notice subject here"/>
 
-                    <label for="content">Content:</label>
-                    <textarea id="content" name="content" required></textarea>
+                        <label for="content">Content:</label>
+                        <textarea id="content" name="content" placeholder="Enter notice content here"></textarea>
+                            
+                        <button id="submit">Submit</button>
 
-                    <!-- The hidden author input set by the admin... -->
-                    <input type="hidden" id="author" name="author" value="Administrator">
-
-                    <div>
-                        <button id="submit">Post Now</button>
-                    </div>
-                </form>
+                        <!-- The hidden author input set by the admin... -->
+                        <!--input type="hidden" id="author" name="author" value="Administrator" -->
+                    </form>
+                </div>    
             </div>
 
             <!-- Schedule Notice Section -->
             <div class="section form-container">
                 <h2>Schedule Notice</h2>
-                <form action="/schedule_notice" method="post">
+                <form action="notice_schedule.php" method="post">
                     <div class="date-time-container">
                         <div class="date-container">
                             <label for="date">Date:</label>
@@ -131,15 +131,13 @@
                     <label for="subject">Subject:</label>
                     <input type="text" id="subject" name="subject" required>
 
-                    <label for="content">Content:</label>
-                    <textarea id="content" name="content" required></textarea>
+                    <label for="content-sche">Content:</label>
+                    <textarea id="content-sche" name="content" required></textarea>
+
+                    <button id="submit-sche">Schedule Notice</button>
 
                     <!-- The hidden author input set by the admin... -->
                     <input type="hidden" id="author" name="author" value="Administrator">
-
-                    <div>
-                        <button id="submit">Schedule Notice</button> 
-                    </div>
                 </form>
             </div>
         </main>
