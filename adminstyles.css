@@ -1089,3 +1089,15 @@ input[type="submit"]:hover {
 .dark-mode-variables .send-message-btn {
     background-color: darkred;
 }
+#submit {
+    background-color: maroon;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: var(--tertiary-color); /* Darker green background on hover */
+}
