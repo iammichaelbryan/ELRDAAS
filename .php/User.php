@@ -50,7 +50,9 @@ $host = 'localhost';
 $username = 'admin';
 $password = 'Midnighto!l';
 $dbname = 'eldraas'; 
+
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $fname = '';
 $lname = '';
 $email = '';
+$role = '';
