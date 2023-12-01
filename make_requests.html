@@ -99,7 +99,7 @@
             
             <h2>Resident Portal</h2>
             <h1>Make a Request/Complaint</h1>
-            <form class="request-form">
+            <form class="request-form" action = submitComplaint.php method="post">
                 <label for="issueType">Select Issue Type:</label>
                 <select id="issueType" class="issue-select">
                     <option value="room">Room Issue</option>
@@ -110,7 +110,7 @@
                 <label for="requestDetails">Describe Your Request (Max 150 Characters):</label>
                 <textarea id="requestDetails" maxlength="150" placeholder="Enter details of your request here..."></textarea>
 
-                <button type="submit" class="submit-btn">Submit Request</button>
+                <button type="submit" class="submit-btn" href="submitComplaint.php">Submit Request</button>
             </form>
         </main>
          <!-- Main Content Section -->

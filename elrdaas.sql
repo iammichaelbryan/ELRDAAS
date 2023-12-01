@@ -46,34 +46,40 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `complaints`;
 CREATE TABLE `complaints` (
-  `id` int(6) NOT NULL auto_increment,
   `complaint_id` varchar(40) NOT NULL default '',
   `first_name` char(35) NOT NULL default '',
   `last_name` char(35) NOT NULL default '',
-  `complaint_type` enum('Plumbing','Access Control','Electrical','Furniture','Pest Control','Roofing','Appliance Repair','Other') NOT NULL default 'Plumbing',
-  `status` enum('Resolved','In Progress','More Information Requested') NOT NULL default 'In Progress',
-  `priority` enum('Low','Medium','High') NOT NULL default 'Low',
-  `complaint_title` TEXT NOT NULL,
-  `assigned_to` char(52) NOT NULL default '',
+  `complaint_type` enum('Room Issue', 'Communal Area Issue', 'General Request') NOT NULL default 'Room Issue',
   `complaint_body` TEXT NOT NULL,
+  `status` enum('Resolved','Pending Assignment','Assigned' ) NOT NULL default 'Pending Assignment',
+  `priority` enum('Low','Medium','High') NOT NULL default 'Low',
+  `assigned_to` char(52) NOT NULL default ''
+);
+  
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+  ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `complaints`
 --
 
-LOCK TABLES `complaints` WRITE;
-/*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
-INSERT INTO `complaints` VALUES (1,'DC-235531','Marlon', 'Pierre', 'Plumbing', 'In Progress', 'Low', 'Leaking Sink', 'Maintenance', 'There is a constant leak from the sink in the kitchen area.'),
-(2,'DC-235532','Michelle', 'Bryan', 'Appliance Repair', 'Resolved', 'High', 'Leak in Office Roof', 'Maintenance', 'There is a leak during heavy rain.'),
-(3, 'DC-235533','Deangelo','Bailey', 'Access Control', 'In Progress', 'High', 'Locked out', 'Security', 'Key fob does not work for Orion.'),
-(4,'DC-235534','Cleona', 'Simpson', 'Appliance Repair', 'More Information Requested', 'Medium', 'Intermittent leak from refrigerator', 'Maintenance', 'There is a wet spot that forms in front of the fridge on Apollo tower, 3rd floor. It happens sometimes but not all the time.'),
-(5,'DC-235535','Javia', 'Gassop', 'Electrical', 'Resolved', 'Medium', 'Lights Flickering', 'Maintenance', 'The lights in the hallway keep flickering intermittently.');
-/*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
-UNLOCK TABLES;
 
+-- Table structure for table `complaints`
 --
+
+DROP TABLE IF EXISTS `complaints`;
+CREATE TABLE `complaints` (
+  `complaint_id` varchar(40) NOT NULL default '',
+  `first_name` char(35) NOT NULL default '',
+  `last_name` char(35) NOT NULL default '',
+  `complaint_type` enum('Room Issue', 'Communal Area Issue', 'General Request') NOT NULL default 'Room Issue',
+  `complaint_body` TEXT NOT NULL,
+  `status` enum('Resolved','Pending Assignment','Assigned' ) NOT NULL default 'Pending Assignment',
+  `priority` enum('Low','Medium','High') NOT NULL default 'Low',
+  `assigned_to` char(52) NOT NULL default '',
+  PRIMARY KEY  (`complaint_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
 -- Table structure for table `appointments`
 --
 
@@ -136,8 +142,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `notices`;
 CREATE TABLE `notices` (
   `notice_id` int(4) NOT NULL auto_increment,
-  `notice_date` DATE NOT NULL,
-  `notice_time` TIME NOT NULL,
+  `notice_date` varchar(20),
+  `notice_time` varchar(20),
   `notice_subject` varchar(20) NOT NULL default '',
   `notice_content` TEXT NOT NULL,
   PRIMARY KEY  (`notice_id`)
@@ -153,7 +159,3 @@ INSERT INTO `notices` VALUES (1,'2023-11-25', '08:00:00', 'Reminder: Upcoming Ma
 (2,'2023-11-24', '08:00:00', 'Towers Implement Automated Domestic System.', 'Dear Residents,\n\nWe are pleased to announce the implementation of an automated domestic system for our towers. This system aims to streamline and improve various domestic services within the towers, including maintenance, cleaning, and security.\n\nWith this new system, you can expect smoother operations and better service quality. Please feel free to reach out if you have any questions or concerns.\n\nBest regards,\nThe Management Team');
 /*!40000 ALTER TABLE `notices` ENABLE KEYS */;
 UNLOCK TABLES; 
-<<<<<<< HEAD
-
-=======
->>>>>>> 27d080d3c41ad54630b2c0f2abb33474cf125ce1

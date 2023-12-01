@@ -16,6 +16,7 @@
 
     <div class="wrapper">
         <h1>Login</h1>
+        <form>
         <select id="userType" class="input-box">
             <option value="admin">Admin</option>
             <option value="resident">Resident</option>
@@ -35,13 +36,14 @@
                 </div>
         </div>
         <button type="submit" class="btn" onclick="performLogin()">Login</button>
+    </form>
         <div class="register-link">
             <p>Don't have an account? <a href="#">Register</a></p>
         </div>
-    </div>
+    
 </div>
 
-<script src="request.js"></script>
+
 <script>
     function performLogin() {
         var userType = document.getElementById('userType').value;
