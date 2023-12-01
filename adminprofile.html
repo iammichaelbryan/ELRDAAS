@@ -108,12 +108,35 @@
                 <!-- Add a button or link to change the profile picture -->
                 <button class="edit-profile-pic">Change Picture</button>
             </div>
-            <div class="profile-info">
-                <h1>[Admin Name]</h1>
-                <p>Email: admin@example.com</p>
-                <p>Role: Hall Administrator</p>
-            </div>
+            <!-- Profile Info -->
+                <div class="profile-info">
+                <h1 id="adminName"></h1>
+                <p id="adminEmail"></p>
+                </div>
+
+            <script>
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'fetch_user_data.php', true);
+                xhr.onload = function() {
+                if (xhr.status === 200) {
+                var adminData = JSON.parse(xhr.responseText);
+                if (adminData.error) {
+                console.error(adminData.error);
+                } else {
+                 // Set the admin's name and email in the HTML
+                document.getElementById("adminName").textContent = adminData.firstName + " " + adminData.lastName;
+                document.getElementById("adminEmail").textContent = "Email: " + adminData.email;
+            }
+        } else {
+            console.error("Error fetching data");
+        }
+    };
+    xhr.send();
+</script>
+        
+                <!-- Other details -->
         </div>
+       
     
         <!-- Activity Log -->
         <div class="activity-log">
@@ -161,10 +184,11 @@
                     <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
                 </div>
             </a>
+            <!-- Right Section Info -->
             <div class="info">
-                <p>Hey, <b>[Admin Name]</b></p>
-                <small class="text-muted">Admin</small>
-            </div>
+                <h1 id="adminName"></h1>
+            <small class="text-muted">Admin</small>
+        </div>
         </div>
         </div>
         <!--End of Right Section-->

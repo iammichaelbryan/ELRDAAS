@@ -23,12 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
         if (password_verify($password, $row['password'])) {
             // Password is correct, set session variables
             $_SESSION['loggedin'] = true;
-            $_SESSION['email'] = $email;
+            $_SESSION['email'] = $row['email']; // Use the email from the database
             $_SESSION['userType'] = $userType;
             $_SESSION['userID'] = $row['id'];
+            $_SESSION['firstName'] = $row['first_name']; // Store first name
+            $_SESSION['lastName'] = $row['last_name']; // Store last name
 
             // Redirect user based on userType
             if ($userType == 'admin') {
@@ -44,12 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $_SESSION['error'] = "Invalid email or password!";
     }
-    // Redirect back to the login form with error
-    header("Location: login.html");
-    exit;
 } else {
-    // Redirect back to the login form if not a POST request
-    header("Location: login.html");
-    exit;
+    $_SESSION['error'] = "Invalid email or password!";
 }
+
+// Redirect back to the login form with error
+header("Location: login.html");
+exit;
 ?>
