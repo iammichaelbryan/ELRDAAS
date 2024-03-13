@@ -3,7 +3,7 @@
 session_start();
 include 'db_connect.php'; // Ensure this file sets up a PDO connection and assigns it to $conn
 
-// Check if form is submitted
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -31,7 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['userType'] = $userType;
             $_SESSION['userID'] = $row['id'];
             $_SESSION['firstName'] = $row['first_name']; // Store first name
-            $_SESSION['lastName'] = $row['last_name']; // Store last name
+            $_SESSION['lastName'] = $row['last_name'];
+            $_SESSION['role'] = $user['role'];
+            // Store last name
 
             // Redirect user based on userType
             if ($userType == 'admin') {
@@ -53,5 +55,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Redirect back to the login form with error
 header("Location: login.html");
-exit;
+exit;      
 ?>

@@ -1,29 +1,37 @@
-<?php 
+<?php
+session_start();
+include 'db_connect.php';
 
-$host = 'localhost';
-$username = "root";
-$password = "";
-$dbname = 'elrdaas'; 
+// Sanitize and fetch input for subject and content
+$notice_subject = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_STRING);
+$notice_content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
 
-$subject=filter_input(INPUT_POST, "subject", FILTER_SANITIZE_STRING);
-$content=filter_input(INPUT_POST, "content", FILTER_SANITIZE_STRING);
-$currentTime=date('d-m-Y');
-$currentDate=date('h:i:sa');
+// Validate input
+if (empty($notice_subject) || empty($notice_content)) {
+    echo "Both subject and content are required.";
+    exit; // Exit if validation fails
+}
 
-$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+// Generate a unique notice ID and get the current date and time
+$notice_id = uniqid('N');
+$notice_date = date('Y-m-d'); // Format: YYYY-MM-DD
+$notice_time = date('H:i'); // Format: HH:MM
 
-$sql="INSERT INTO notices (notice_date, notice_time, notice_subject, notice_content)
-        VALUES (:date, :time, :subject, :content)";
+try {
+    $sql = "INSERT INTO notices (notice_id, notice_date, notice_time, notice_subject, notice_content) VALUES (:notice_id, :notice_date, :notice_time, :notice_subject, :notice_content)";
+    $stmt = $conn->prepare($sql);
+    
+    // Execute SQL statement with bound parameters
+    $stmt->execute([
+        ':notice_id' => $notice_id,
+        ':notice_date' => $notice_date,
+        ':notice_time' => $notice_time,
+        ':notice_subject' => $notice_subject,
+        ':notice_content' => $notice_content
+    ]);
 
-$stmt= $conn->prepare($sql);
-
-$stmt->execute([
-	':date' => $currentTime,
-    ':time' => $currentDate,
-    ':subject' => $subject,
-    ':content' => $content
-]);
-
-echo "Record Saved Successfully."
-
+    echo "Notice posted successfully.";
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
 ?>

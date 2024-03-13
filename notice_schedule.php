@@ -1,29 +1,36 @@
-<?php 
+<?php
+include 'db_connect.php';
 
-$host = 'localhost';
-$username = "root";
-$password = "";
-$dbname = 'elrdaas'; 
+// Get the current date and time
+$today = date('Y-m-d');
+$currentTime = date('H:i:s');
 
-$subject=filter_input(INPUT_POST, "subject", FILTER_SANITIZE_STRING);
-$content=filter_input(INPUT_POST, "content", FILTER_SANITIZE_STRING);
-$time=filter_input(INPUT_POST, "time", FILTER_SANITIZE_STRING);
-$date=filter_input(INPUT_POST, "date", FILTER_SANITIZE_STRING);
+try {
+    // Select pending notices up to the current time
+    $sql = "SELECT * FROM scheduled_notices WHERE execute_date <= :today AND execute_time <= :currentTime AND status = 'Pending'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':today' => $today, ':currentTime' => $currentTime]);
 
-$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        // Insert the notice into the 'notices' table
+        $insertSql = "INSERT INTO notices (notice_id, notice_date, notice_time, notice_subject, notice_content) VALUES (:notice_id, :execute_date, :execute_time, :notice_subject, :notice_content)";
+        $insertStmt = $conn->prepare($insertSql);
+        $insertStmt->execute([
+            ':notice_id' => $row['notice_id'],
+            ':execute_date' => $row['execute_date'],
+            ':execute_time' => $row['execute_time'],
+            ':notice_subject' => $row['notice_subject'],
+            ':notice_content' => $row['notice_content']
+        ]);
 
-$sql="INSERT INTO notices (notice_date, notice_time, notice_subject, notice_content)
-        VALUES (:date, :time, :subject, :content)";
-
-$stmt= $conn->prepare($sql);
-
-$stmt->execute([
-	':date' => $date,
-    ':time' => $time,
-    ':subject' => $subject,
-    ':content' => $content
-]);
-
-echo "Record Saved Successfully."
-
+        // Update the scheduled notice status to 'Executed'
+        $updateSql = "UPDATE scheduled_notices SET status = 'Executed' WHERE id = :id";
+        $updateStmt = $conn->prepare($updateSql);
+        $updateStmt->execute([':id' => $row['id']]);
+    }
+    
+    echo "Scheduled notices processed successfully.";
+} catch (PDOException $e) {
+    echo "Error processing scheduled notices: " . $e->getMessage();
+}
 ?>

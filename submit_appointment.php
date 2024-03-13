@@ -1,44 +1,45 @@
 <?php
+session_start();
+include 'db_connect.php'; // Ensure this file establishes a PDO connection to your database.
 
-$host = 'localhost';
-$username = "root";
-$password = "";
-$dbname = 'elrdaas';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $residentFirstName = filter_input(INPUT_POST, "residentFirstName", FILTER_SANITIZE_STRING);
+    $residentLastName = filter_input(INPUT_POST, "residentLastName", FILTER_SANITIZE_STRING);
+    $appointmentDate = filter_input(INPUT_POST, "appointmentDate", FILTER_SANITIZE_STRING);
+    $appointmentTime = filter_input(INPUT_POST, "appointmentTime", FILTER_SANITIZE_STRING);
+    $service = filter_input(INPUT_POST, "service", FILTER_SANITIZE_STRING);
+    $loads = filter_input(INPUT_POST, "loads", FILTER_SANITIZE_NUMBER_INT);
 
-$subject = filter_input(INPUT_POST, "subject", FILTER_SANITIZE_STRING);
-$content = filter_input(INPUT_POST, "content", FILTER_SANITIZE_STRING);
-$currentTime = date('Y-m-d');
-$currentDate = date('H:i:s');
+    // Assuming status needs to be set as 'Confirmed' by default
+    $status = 'Confirmed'; 
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "INSERT INTO notices (notice_date, notice_time, notice_subject, notice_content)
-            VALUES (:date, :time, :subject, :content)";
+        $sql = "INSERT INTO appointments (status, resident_first_name, resident_last_name, appointment_date, appointment_time, service, loads) VALUES (:status, :residentFirstName, :residentLastName, :appointmentDate, :appointmentTime, :service, :loads)";
 
-    $stmt = $conn->prepare($sql);
+        $stmt = $conn->prepare($sql);
 
-    $stmt->execute([
-        ':date' => $currentTime,
-        ':time' => $currentDate,
-        ':subject' => $subject,
-        ':content' => $content
-    ]);
+        $stmt->execute([
+            ':status' => $status,
+            ':residentFirstName' => $residentFirstName,
+            ':residentLastName' => $residentLastName,
+            ':appointmentDate' => $appointmentDate,
+            ':appointmentTime' => $appointmentTime,
+            ':service' => $service,
+            ':loads' => $loads
+        ]);
 
-    echo "Record Saved Successfully.";
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+        header("Location: app_submitted.html"); // Redirect to a confirmation page
+        exit;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    } finally {
+        $stmt = null;
+        $conn = null;
+    }
+} else {
+    echo "Invalid request method.";
 }
-
-// Fetch data from the database (assuming you have a function to fetch appointments)
-// Replace this with your actual logic to fetch data from the database.
-$data = [
-    ['Random Joe', '2023-12-01', '10:00 AM', 'Washing and drying'],
-    // Add more data as needed
-];
-
-// Output the data as JSON
-header('Content-Type: application/json');
-echo json_encode($data);
 ?>
