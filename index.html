@@ -104,7 +104,7 @@
         <!--Main Section-->
        
 <main>
-    <h1>Admin's Analytics</h1>
+    <h1>Admin's Portal</h1>
     <!--Analytics-->
     <div class="analysis">
         <div class="panel">
@@ -188,7 +188,7 @@
                     </div>
                     <div class="user">
                         <div class="user-info">
-                            <button id="add-admin-button" class="add-button">+</button>
+                            <button id="add-admin-button" class="add-button" onclick="window.location.href='register.html'">+</button>
                             <div class="user-name">
                                 <p>Add New Admin</p>
                             </div>
@@ -216,21 +216,7 @@
                     </tbody>
                 </table>
                 
-                <script>
-                    const tableBody = document.querySelector('#requestsTable tbody');
                 
-                    Requests.forEach(request => {
-                        const row = document.createElement('tr');
-                
-                        Object.values(request).forEach(text => {
-                            const cell = document.createElement('td');
-                            cell.textContent = text;
-                            row.appendChild(cell);
-                        });
-                
-                        tableBody.appendChild(row);
-                    });
-                </script>
                 <a href = "#">View All</a>
                     </div>
                     <!--End of Recent Requests-->
@@ -270,9 +256,15 @@
                 </div>
             </a>
             <div class="info">
-                <p>Hey, <b>[Admin Name]</b></p>
+                <label id = "name">[Admin Name]</label><br>
                 <small class="text-muted">Admin</small>
             </div>
+            <script>
+                const name = window.prompt('Enter your first name');
+                document.getElementById('name').innerHTML = "Hey, "+name;
+                console.log(name);
+            </script>
+
         </div>
         </div>
         <!--End of Right Section-->

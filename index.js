@@ -1,3 +1,6 @@
+// Description: This file contains the JavaScript code for the index.html page.
+
+
 Requests.forEach(request => {
     const row = document.createElement('tr');
     const requestContent = `

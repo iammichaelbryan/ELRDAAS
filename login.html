@@ -16,32 +16,30 @@
 
     <div class="wrapper">
         <h1>Login</h1>
-        <select id="userType" class="input-box">
-            <option value="admin">Admin</option>
-            <option value="resident">Resident</option>
-        </select>
-        <div class="input-box">
-            <input type="text" placeholder="Email" required>
-        </div>
-        <div class="input-box">
-            <input type="password" placeholder="Password" required>
-            <i class="bx bxs-lock-alt"></i>
-                    <box-icon type='solid' name='lock'></box-icon>
-                </div>
-                
-                <div class="remember-or-forgot">
-                    <label><input type="checkbox">Remember me</label>
-                    <a href="#">Forgot your password?</a>
-                </div>
-        </div>
-        <button type="submit" class="btn" onclick="performLogin()">Login</button>
+        <form action="login_process.php" method="post">
+            <select id="userType" name="userType" class="input-box">
+                <option value="admin">Admin</option>
+                <option value="resident">Resident</option>
+            </select>
+            <div class="input-box">
+                <input type="text" name="email" placeholder="Email" required>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="remember-or-forgot">
+                <label><input type="checkbox" name="remember">Remember me</label>
+                <a href="#">Forgot your password?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
         <div class="register-link">
-            <p>Don't have an account? <a href="#">Register</a></p>
+            <p>Don't have an account? <a href="register.html">Register</a></p>
         </div>
-    </div>
+    
 </div>
 
-<script src="request.js"></script>
+
 <script>
     function performLogin() {
         var userType = document.getElementById('userType').value;

@@ -44,12 +44,19 @@
                                 </span>
                                 <h3>Notifications</h3>
                                 </a>
+                                
                         <a href = "notice.html">
                             <span class="material-icons-sharp">
                                 announcement
                             </span>
                             <h3>Create Notice</h3>
                             </a>
+                            <a href = "admingennotices.html">
+                                <span class="material-icons-sharp">
+                                    info
+                                    </span>
+                                    <h3>View General Notice Board</h3>
+                                    </a>
                         <a href = "laundryappointments.html" >
                             <span class="material-icons-sharp">
                                 event
@@ -99,8 +106,11 @@
                         <tr>
                             <th>Request ID</th>
                             <th>Resident Name</th>
+                            <th>Request Type</th>
+                            <th>Request Description</th>
                             <th>Priority</th>
                             <th>Action</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -108,6 +118,8 @@
                         <tr>
                             <td>001</td>
                             <td>John Doe</td>
+                            <td>Communal Area Issue</td>
+                            <td>My floor only has 1 working fridge</td>
                             <td>
                                 <select class="priority-select">
                                     <option value="low">Low</option>
@@ -184,9 +196,10 @@
                 </div>
             </a>
             <div class="info">
-                <p>Hey, <b>[Admin Name]</b></p>
+                <label id = "name">[Admin Name]</label>
                 <small class="text-muted">Admin</small>
             </div>
+
         </div>
         </div>
         <!--End of Right Section-->

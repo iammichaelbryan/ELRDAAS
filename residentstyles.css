@@ -674,7 +674,7 @@ input[type="submit"] {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-} 
+}
 
 input[type="submit"]:hover {
     background-color: darkred;
@@ -1089,29 +1089,236 @@ input[type="submit"]:hover {
 .dark-mode-variables .send-message-btn {
     background-color: darkred;
 }
+/* Additional CSS styles for the request form */
 
-#submit {
-    background-color: maroon;
-    color: #fff;
-    padding: 10px;
+.request-form {
+    background-color: var(--white-color);
+    padding: var(--card-padding);
+    margin: var(--padding-1);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 500px;
+}
+
+.request-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.request-form .issue-select,
+.request-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-1);
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.dark-mode-variables .request-form .issue-select{
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-color: var(--dark-color-variant);
+
+}
+.dark-mode-variables .request-form textarea {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-color: var(--dark-color-variant);
+}
+
+.request-form .submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 0.5rem 1rem;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.request-form .submit-btn:hover {
+    background-color: var(--danger-color);
+}
+
+.dark-mode-variables .request-form .submit-btn {
+    background-color: var(--primary-color);
+}
+.dark-mode-variables .request-form .submit-btn:hover {
+    background-color: var(--danger-color);
+}
+
+/* Styles specific to the appointment form */
+
+.appointment-form {
+    background-color: var(--white-color);
+    padding: var(--card-padding);
+    margin: var(--padding-1);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.appointment-form input[type="date"],
+.appointment-form input[type="time"],
+.appointment-form select,
+.appointment-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-1);
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+/* Dark mode adjustments */
+.dark-mode-variables .appointment-form input,
+.dark-mode-variables .appointment-form select,
+.dark-mode-variables .appointment-form textarea {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-color: var(--dark-color-variant);
+}
+
+/* Submit button styles */
+.appointment-form .submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius-1);
     cursor: pointer;
 }
 
-#submit:hover {
-    background-color: var(--tertiary-color); /* Darker green background on hover */
+.appointment-form .submit-btn:hover {
+    background-color: var(--danger-color);
 }
 
-#submit-sche {
-    background-color: maroon;
-    color: #fff;
+/* Additional dark mode adjustments for form elements */
+.dark-mode-variables .appointment-form .submit-btn {
+    background-color: darkred;
+}
+
+/* ... existing styles ... */
+
+.requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--white-color); 
+    box-shadow: var(--box-shadow);
+}
+
+.requests-table th, .requests-table td {
     padding: 10px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.requests-table th {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+}
+
+/* Dark mode styling for requests table */
+.dark-mode-variables .requests-table {
+    background-color: var(--background-color);
+    color: var(--white-color);
+}
+
+.dark-mode-variables .requests-table th {
+    background-color: var(--dark-color);
+}
+
+.dark-mode-variables .requests-table td {
+    color: var(--dark-color-variant)
+}
+
+/* ... existing styles ... */
+
+/* Profile Page Styles */
+.profile-container {
+    background-color: var(--white-color);
+    padding: var(--card-padding);
+    margin-top: 20px;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    overflow:hidden;
+}
+
+.edit-profile-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-1);
     cursor: pointer;
 }
 
-#submit-sche:hover {
-    background-color: var(--tertiary-color); /* Darker green background on hover */
+.edit-profile-btn:hover {
+    background-color: var(--danger-color);
+}
+
+/* Settings Page Styles */
+.settings-container {
+    background-color: var(--white-color);
+    padding: var(--card-padding);
+    margin-top: 20px;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.setting-item {
+    margin-bottom: 20px;
+}
+
+.setting-item h2 {
+    margin-bottom: 10px;
+}
+
+.setting-item form input[type="password"], .setting-item form input[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-1);
+}
+
+.setting-item form input[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.setting-item form input[type="submit"]:hover {
+    background-color: var(--danger-color);
+}
+
+/* ... additional styles ... */
+
+/* Dark Mode Adjustments */
+.dark-mode-variables .profile-container, .dark-mode-variables .settings-container {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    border-color: var(--light-color);
+}
+
+/* Responsive design adjustments as needed */
+@media (max-width: 768px){
+    .settings-container {
+        padding: 10px;
+    }
 }

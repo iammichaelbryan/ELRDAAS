@@ -11,156 +11,142 @@ DROP DATABASE IF EXISTS elrdaas;
 CREATE DATABASE elrdaas;
 USE elrdaas;
 
---
--- Table structure for table `users`
---
+DROP TABLE IF EXISTS admins;
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    tower ENUM('1', '2', '3', '4', '5') NOT NULL,
+    assigned_complaints TEXT,
+    PRIMARY KEY (id)
+);
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL auto_increment,
-  `role` enum('Admin', 'User') NOT NULL default 'User',
-  `first_name` char(35) NOT NULL default '',
-  `last_name` char(35) NOT NULL default '',
-  `email` varchar(255) NOT NULL default '',
-  `room` int(4) NOT NULL default 0, 
-  `tower` enum('Olympus','Dragons', 'Orion', 'Phoenix', 'Apollo') NOT NULL default 'Dragons',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4;
+INSERT INTO admins (first_name, last_name, email, password, tower) VALUES
+('Admin', 'One', 'admin1@example.com', 'password1', '1'),
+('Admin', 'Two', 'admin2@example.com', 'password2', '2'),
+('Admin', 'Three', 'admin3@example.com', 'password3', '3'),
+('Admin', 'Four', 'admin4@example.com', 'password4', '4'),
+('Admin', 'Five', 'admin5@example.com', 'password5', '5');
 
---
--- Dumping data for table `users`
---
+DROP TABLE IF EXISTS residents;
+CREATE TABLE residents (
+    id INT AUTO_INCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    tower ENUM('1', '2', '3', '4', '5') NOT NULL,
+    complaints_made TEXT,
+    PRIMARY KEY (id)
+);
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','Jonathan','Doe','jdoe@elrdaas.com',0,'Olympus'),
-(2,'Admin','Peter','Parker','spidey54@elrdaas.com',0,'Olympus'),
-(3,'User','Brendon','Urie','panic!@elrdaas.com',2211,'Dragons'),
-(4,'User','Hayley','Wiliams','paramore@elrdaas.com',3195,'Phoenix');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO residents (first_name, last_name, email, password, tower) VALUES
+('Resident', 'One', 'resident1@example.com', 'password1', '1'),
+('Resident', 'Two', 'resident2@example.com', 'password2', '2'),
+('Resident', 'Three', 'resident3@example.com', 'password3', '3'),
+('Resident', 'Four', 'resident4@example.com', 'password4', '4'),
+('Resident', 'Five', 'resident5@example.com', 'password5', '5');
 
---
--- Table structure for table `complaints`
---
+DROP TABLE IF EXISTS complaints;
+CREATE TABLE complaints (
+    id INT AUTO_INCREMENT,
+    complaint_id VARCHAR(255) NOT NULL,
+    complaint_type ENUM('Room Issue', 'Communal Area Issue', 'General Request') NOT NULL,
+    complaint_body TEXT NOT NULL DEFAULT '',
+    date_submitted DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Resolved', 'Pending Assignment', 'Assigned', 'In Progress') NOT NULL,
+    priority ENUM('Low', 'Medium', 'High') NOT NULL DEFAULT 'Medium',
+    assigned_to VARCHAR(255) NOT NULL,
+    tower ENUM('1', '2', '3', '4', '5') NOT NULL,
+    PRIMARY KEY (id)
+);
+ALTER TABLE complaints ADD COLUMN first_name VARCHAR(255) NOT NULL;
+ALTER TABLE complaints ADD COLUMN last_name VARCHAR(255) NOT NULL;
+ALTER TABLE complaints ADD COLUMN resident_id INT NOT NULL;
 
-DROP TABLE IF EXISTS `complaints`;
-CREATE TABLE `complaints` (
-  `id` int(6) NOT NULL auto_increment,
-  `complaint_id` varchar(40) NOT NULL default '',
-  `first_name` char(35) NOT NULL default '',
-  `last_name` char(35) NOT NULL default '',
-  `complaint_type` enum('Plumbing','Access Control','Electrical','Furniture','Pest Control','Roofing','Appliance Repair','Other') NOT NULL default 'Plumbing',
-  `status` enum('Resolved','In Progress','More Information Requested') NOT NULL default 'In Progress',
-  `priority` enum('Low','Medium','High') NOT NULL default 'Low',
-  `complaint_title` TEXT NOT NULL,
-  `assigned_to` char(52) NOT NULL default '',
-  `complaint_body` TEXT NOT NULL,
-  PRIMARY KEY  (`id`)
+
+-- Inserting dummy data for complaints
+INSERT INTO complaints (complaint_id, resident_id, first_name, last_name, complaint_type, complaint_body, date_submitted, status, priority, assigned_to, tower) VALUES
+('C001', 1, 'John', 'Doe', 'Room Issue', 'Leaky faucet in bathroom.', NOW(), 'Pending Assignment', 'Medium', '', '1'),
+('C002', 2, 'Jane', 'Smith', 'Communal Area Issue', 'Broken elevator in Tower 2.', NOW(), 'Pending Assignment', 'Medium', '', '2'),
+('C003', 3, 'Emily', 'Johnson', 'General Request', 'Request for additional trash bins.', NOW(), 'Resolved', 'Low', 'Admin One', '3'),
+('C004', 4, 'Michael', 'Brown', 'Room Issue', 'Faulty air conditioning unit in Room 405.', NOW(), 'Assigned', 'High', 'Admin Two', '4'),
+('C005', 5, 'Sarah', 'Davis', 'Communal Area Issue', 'Leaking pipe in the laundry room.', NOW(), 'In Progress', 'Medium', 'Admin Three', '5');
+
+
+
+CREATE TABLE appointments (
+    id INT AUTO_INCREMENT,
+    appointment_id VARCHAR(40) NOT NULL DEFAULT '',
+    status ENUM('Confirmed', 'Cancelled') NOT NULL DEFAULT 'Confirmed',
+    resident_first_name VARCHAR(255) NOT NULL,
+    resident_last_name VARCHAR(255) NOT NULL,
+    appointment_date DATE NOT NULL,  -- Changed from created_date for clarity
+    appointment_time TIME NOT NULL,
+    service ENUM('Wash Only', 'Dry Only', 'Washing & Drying', 'Unattended Wash & Dry') NOT NULL DEFAULT 'Washing & Drying',
+    loads INT NOT NULL DEFAULT 1 CHECK (loads <= 3),
+    PRIMARY KEY (id)
+);
+
+
+-- Inserting dummy data for appointments
+INSERT INTO appointments (appointment_id, status, resident_first_name, resident_last_name, appointment_date, appointment_time, service, loads) VALUES
+('A001', 'Confirmed', 'John', 'Doe', '2023-03-10', '14:00:00', 'Washing & Drying', 2),
+('A002', 'Cancelled', 'Jane', 'Smith', '2023-03-11', '10:00:00', 'Dry Only', 1),
+('A003', 'Confirmed', 'Emily', 'Johnson', '2023-03-12', '16:00:00', 'Wash Only', 3),
+('A004', 'Confirmed', 'Michael', 'Brown', '2023-03-13', '09:00:00', 'Unattended Wash & Dry', 1),
+('A005', 'Confirmed', 'Sarah', 'Davis', '2023-03-14', '15:00:00', 'Washing & Drying', 2);
+
+DROP TABLE IF EXISTS feedback;
+CREATE TABLE feedback (
+    id INT AUTO_INCREMENT,
+    request_id VARCHAR(20) NOT NULL DEFAULT '',
+    student_name CHAR(35) NOT NULL DEFAULT '',
+    feedback TEXT NOT NULL,
+    rating INT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `complaints`
---
+-- Inserting dummy data for feedback, adjusted to use auto-incremented primary key 'id'
+INSERT INTO feedback (request_id, student_name, feedback, rating) VALUES
+('FB001', 'John Doe', 'Very satisfied with the laundry service.', 5),
+('FB002', 'Jane Smith', 'The drying machines are a bit slow.', 3),
+('FB003', 'Emily Johnson', 'Had a great experience, very efficient.', 4),
+('FB004', 'Michael Brown', 'Could improve the cleanliness around washing machines.', 2),
+('FB005', 'Sarah Davis', 'Friendly staff and good service.', 5);
 
-LOCK TABLES `complaints` WRITE;
-/*!40000 ALTER TABLE `complaints` DISABLE KEYS */;
-INSERT INTO `complaints` VALUES (1,'DC-235531','Marlon', 'Pierre', 'Plumbing', 'In Progress', 'Low', 'Leaking Sink', 'Maintenance', 'There is a constant leak from the sink in the kitchen area.'),
-(2,'DC-235532','Michelle', 'Bryan', 'Appliance Repair', 'Resolved', 'High', 'Leak in Office Roof', 'Maintenance', 'There is a leak during heavy rain.'),
-(3, 'DC-235533','Deangelo','Bailey', 'Access Control', 'In Progress', 'High', 'Locked out', 'Security', 'Key fob does not work for Orion.'),
-(4,'DC-235534','Cleona', 'Simpson', 'Appliance Repair', 'More Information Requested', 'Medium', 'Intermittent leak from refrigerator', 'Maintenance', 'There is a wet spot that forms in front of the fridge on Apollo tower, 3rd floor. It happens sometimes but not all the time.'),
-(5,'DC-235535','Javia', 'Gassop', 'Electrical', 'Resolved', 'Medium', 'Lights Flickering', 'Maintenance', 'The lights in the hallway keep flickering intermittently.');
-/*!40000 ALTER TABLE `complaints` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS notices;
+CREATE TABLE notices (
+    id INT AUTO_INCREMENT,
+    notice_id VARCHAR(255) NOT NULL,
+    notice_date VARCHAR(20),
+    notice_time VARCHAR(20),
+    notice_subject VARCHAR(20) NOT NULL DEFAULT '',
+    notice_content TEXT NOT NULL,
+    PRIMARY KEY (id)
+);
 
---
--- Table structure for table `appointments`
---
+-- Inserting dummy data for notices
+INSERT INTO notices (notice_id, notice_date, notice_time, notice_subject, notice_content) VALUES
+('N001', '2023-03-10', '08:00', 'Maintenance Update', 'The gym will be closed for maintenance on March 15th.'),
+('N002', '2023-03-11', '09:00', 'Parking Allocation', 'Additional parking spots available from April.'),
+('N003', '2023-03-12', '10:00', 'Security Measures', 'New security cameras have been installed in common areas.'),
+('N004', '2023-03-13', '11:00', 'Community Meeting', 'Annual residents meeting scheduled for March 20th.'),
+('N005', '2023-03-14', '12:00', 'Water Shutdown', 'Temporary water shutdown for maintenance on March 18th.');
 
-DROP TABLE IF EXISTS `appointments`;
-CREATE TABLE `appointments` (
-  `id` int(3) NOT NULL auto_increment,
-  `appointment_id` varchar(40) NOT NULL default '',
-  `status` enum('Confirmed', 'Cancelled') NOT NULL default 'Confirmed',
-  `student_name` char(52) NOT NULL default '',
-  `created_date` DATE NOT NULL,
-  `appointment_time` TIME NOT NULL,
-  `service` enum('Washing & Drying','Stain Removal','Unattended Wash & Dry') NOT NULL default 'Washing & Drying',
-  `loads` int(3) NOT NULL default '1',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS scheduled_notices;
 
---
--- Dumping data for table `appointments`
---
-
-LOCK TABLES `appointments` WRITE;
-/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
-INSERT INTO `appointments` VALUES (1,'LA-41286','Confirmed','Leonardo Lewis','2023-11-27','19:18:52','Stain Removal', 1),
-(2,'LA-41287','Confirmed','Bruce Banner','2023-11-26','14:08:32','Unattended Wash & Dry', 4),
-(3,'LA-41288','Confirmed','Raheem Sterling','2023-11-25','16:35:21','Washing & Drying', 2),
-(4,'LA-41289','Confirmed','Peter Griffin','2023-11-25','12:43:58','Unattended Wash & Dry', 3);
-
-/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `feedback`
---
-
-DROP TABLE IF EXISTS `feedback`;
-CREATE TABLE `feedback` (
-  `request_id` varchar(20) NOT NULL default '',
-  `student_name` char(35) NOT NULL default '',
-  `feedback` TEXT NOT NULL,
-  `rating` int(1) NOT NULL default 0,
-  PRIMARY KEY  (`request_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `feedback`
---
-
-LOCK TABLES `feedback` WRITE;
-/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES ('DC-235532','Michelle Bryan','Service was impeccable.', '5'),
-('DC-235535','Javia Gassop','Maintenance men were courteous and resolved my issues quickly.', '4');
-/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
-UNLOCK TABLES; 
-
---
--- Table structure for table `notices`
---
+CREATE TABLE scheduled_notices (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    notice_id VARCHAR(255) NOT NULL,
+    execute_date DATE NOT NULL,
+    execute_time TIME NOT NULL,
+    notice_subject VARCHAR(255) NOT NULL,
+    notice_content TEXT NOT NULL,
+    status ENUM('Pending', 'Executed') DEFAULT 'Pending'
+);
 
 
-DROP TABLE IF EXISTS `notices`;
-CREATE TABLE `notices` (
-  `notice_id` int(4) NOT NULL auto_increment,
-  `notice_date` DATE NOT NULL,
-  `notice_time` TIME NOT NULL,
-  `notice_subject` varchar(20) NOT NULL default '',
-  `notice_content` TEXT NOT NULL,
-  PRIMARY KEY  (`notice_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `notices`
---
-
-LOCK TABLES `notices` WRITE;
-/*!40000 ALTER TABLE `notices` DISABLE KEYS */;
-INSERT INTO `notices` VALUES (1,'2023-11-25', '08:00:00', 'Reminder: Upcoming Maintenance', 'Please be informed about scheduled server maintenance between 1:00am - 3:00 on December 3. Internet services will be intermittent.'),
-(2,'2023-11-24', '08:00:00', 'Towers Implement Automated Domestic System.', 'Dear Residents,\n\nWe are pleased to announce the implementation of an automated domestic system for our towers. This system aims to streamline and improve various domestic services within the towers, including maintenance, cleaning, and security.\n\nWith this new system, you can expect smoother operations and better service quality. Please feel free to reach out if you have any questions or concerns.\n\nBest regards,\nThe Management Team');
-/*!40000 ALTER TABLE `notices` ENABLE KEYS */;
-UNLOCK TABLES; 
-
-
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+UNLOCK TABLES

@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="adminstyles.css">
+    <link rel="stylesheet" type="text/css" href="adminstyles.css" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="notice.js" type="text/javascript"></script>
     <title>ELR Towers Hall Domestic Affairs</title>
     </head>
 <body>
@@ -43,14 +44,14 @@
                             </span>
                             <h3>Notifications</h3>
                         </a>
+                        
                         <a href="notice.html" class="active">
                             <span class="material-icons-sharp">
                                 announcement
                             </span>
                             <h3>Create Notice</h3>
                         </a>
-                        
-                        <a href = "admingennotices.html">                           
+                        <a href = "admingennotices.html">
                             <span class="material-icons-sharp">
                                 info
                                 </span>
@@ -103,26 +104,26 @@
             <!-- Create Notice Now Section -->
             <div class="section form-container">
                 <h2>Create Notice Now</h2>
-                <form action="/submit_notice" method="post">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
+                <div>
+                    <form action="notice_test.php" method="post">
+                        <label for="subject">Subject:</label>
+                        <input id="subject" type="text" name="subject" placeholder="Enter Notice subject here"/>
 
-                    <label for="content">Content:</label>
-                    <textarea id="content" name="content" required></textarea>
+                        <label for="content">Content:</label>
+                        <textarea id="content" name="content" placeholder="Enter notice content here"></textarea>
+                            
+                        <button id="submit">Submit</button>
 
-                    <!-- The hidden author input set by the admin... -->
-                    <input type="hidden" id="author" name="author" value="Administrator">
-
-                    <div>
-                        <input type="submit" value="Post Now">
-                    </div>
-                </form>
+                        <!-- The hidden author input set by the admin... -->
+                        <!--input type="hidden" id="author" name="author" value="Administrator" -->
+                    </form>
+                </div>    
             </div>
 
             <!-- Schedule Notice Section -->
             <div class="section form-container">
                 <h2>Schedule Notice</h2>
-                <form action="/schedule_notice" method="post">
+                <form action="notice_schedule.php" method="post">
                     <div class="date-time-container">
                         <div class="date-container">
                             <label for="date">Date:</label>
@@ -137,15 +138,13 @@
                     <label for="subject">Subject:</label>
                     <input type="text" id="subject" name="subject" required>
 
-                    <label for="content">Content:</label>
-                    <textarea id="content" name="content" required></textarea>
+                    <label for="content-sche">Content:</label>
+                    <textarea id="content-sche" name="content" required></textarea>
+
+                    <button id="submit-sche">Schedule Notice</button>
 
                     <!-- The hidden author input set by the admin... -->
                     <input type="hidden" id="author" name="author" value="Administrator">
-
-                    <div>
-                        <input type="submit" value="Schedule Notice">
-                    </div>
                 </form>
             </div>
         </main>
@@ -181,48 +180,5 @@
         </div>
         <!--End of Right Section-->
     </div>
-    <script>
-        const darkModeToggle = document.querySelector('.dark-mode');
-        const bodyElement = document.body;
-    
-        darkModeToggle.addEventListener('click', () => {
-            bodyElement.classList.toggle('dark-mode-variables');
-            saveModePreference();
-            updateModeIndicator();
-        });
-    
-        function saveModePreference() {
-            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
-            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-        }
-    
-        function loadModePreference() {
-            const darkMode = localStorage.getItem('darkMode');
-            if (darkMode === 'enabled') {
-                bodyElement.classList.add('dark-mode-variables');
-            } else {
-                bodyElement.classList.remove('dark-mode-variables');
-            }
-        }
-    
-        function updateModeIndicator() {
-            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
-            const lightIcon = document.querySelector('.dark-mode .light_mode');
-            const darkIcon = document.querySelector('.dark-mode .dark_mode');
-    
-            if (isDarkMode) {
-                lightIcon.classList.add('active');
-                darkIcon.classList.remove('active');
-            } else {
-                lightIcon.classList.remove('active');
-                darkIcon.classList.add('active');
-            }
-        }
-    
-        
-        loadModePreference();
-        updateModeIndicator();
-    </script>
-
 </body>
 </html>

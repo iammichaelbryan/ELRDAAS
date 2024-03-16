@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="adminstyles.css">
+    <link rel="stylesheet" href="residentstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <title>ELR Towers Hall Domestic Affairs</title>
+    <title>ELR Towers Hall Domestic Affairs - Make a Request</title>
 </head>
 <body>
       <div class="container">
@@ -24,70 +24,66 @@
     
                     </div>
     
-                    <div class="sidebar">
+                    <div class="sidebar" class="active">
                         <div>
-                        <a href = "index.html" >
+                            <a href = "resident_dashboard.html"  >
                             <span class="material-icons-sharp">
-                                dashboard
+                                info
                             </span>
-                            <h3>Dashboard</h3>
+                            <h3>View General Notice Board</h3>
                         </a>
-                        <a href = "requests.html">
-                            <span class="material-icons-sharp">
+                        <a href = "make_requests.html">
+                        
+                            <span class="material-icons-sharp" >
                                 receipt_long
                             </span>
-                            <h3>View Assigned Requests</h3>
+                            <h3>Make Request/Complaint</h3>
                             </a>
-                        <a href = "notifications.html">
+                            <a href = "notifications_res.html" >
                                 <span class="material-icons-sharp">
                                     notifications
                                 </span>
                                 <h3>Notifications</h3>
                                 </a>
-                        <a href = "notice.html">
-                            <span class="material-icons-sharp">
-                                announcement
-                            </span>
-                            <h3>Create Notice</h3>
-                            </a>
-                        <a href = "admingennotices.html">                           
+                        <a href = "schedule_appointment.html">
                                 <span class="material-icons-sharp">
-                                    info
-                                    </span>
-                                    <h3>View General Notice Board</h3>
-                                    </a>
-                        <a href = "laundryappointments.html">
+                                    event
+                                </span>
+                                <h3>Schedule Laundromat</h3>
+                                </a>
+                        <a href = "pending_requests.html" >
                             <span class="material-icons-sharp">
-                                event
+                                hourglass_bottom
                             </span>
-                            <h3>View Laundry Appointments</h3>
+                            <h3>View Pending Requests</h3>
                             </a>
-                        <a href = "requestfeedback.html">
+                        <a href = "request_history.html" class="active">
                             <span class="material-icons-sharp">
-                                star
-                            </span>
-                            <h3>Get Feedback</h3>
-                        </a>
-                        <a href = "adminprofile.html" class ="active">
+                                receipt_long
+                                </span>
+                                <h3>Request History</h3>
+                                </a>
+
+                        <a href = "profile.html" >
                             <span class="material-icons-sharp">
                                 person_outline
                             </span>
                             <h3>Profile</h3>
                             </a>
-                        <a href = "adminsettings.html">
+                        <a href = "settings.html">
                             <span class="material-icons-sharp">
                                 settings
                             </span>
                             <h3>Settings</h3>
                             </a>
-                        <a href = "login.html">
+                        <a href = "login.html" target="_blank">
                             <span class="material-icons-sharp">
                                 login
                             </span>
                             <h3>New Login</h3>
                             </a>
                         </div>
-                        <a href = "logout.html">
+                        <a href = "logout_res.html">
                             <span class="material-icons-sharp">
                                 logout
                             </span>
@@ -98,71 +94,34 @@
                 </div>
             </aside>
             <!--End of Sidebar Section-->
-
-    
+           
+                 <!-- Main Content Section -->
     <main class="main-content">
-        <!-- Profile Header -->
-        <div class="profile-header">
-            <div class="profil-photo">
-                <img src="images/elr wolf 4.jpeg" alt="Admin Profile Picture">
-                <!-- Add a button or link to change the profile picture -->
-                <button class="edit-profile-pic">Change Picture</button>
-            </div>
-            <!-- Profile Info -->
-                <div class="profile-info">
-                <h1 id="adminName"></h1>
-                <p id="adminEmail"></p>
-                </div>
-
-            <script>
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'fetch_user_data.php', true);
-                xhr.onload = function() {
-                if (xhr.status === 200) {
-                var adminData = JSON.parse(xhr.responseText);
-                if (adminData.error) {
-                console.error(adminData.error);
-                } else {
-                 // Set the admin's name and email in the HTML
-                document.getElementById("adminName").textContent = adminData.firstName + " " + adminData.lastName;
-                document.getElementById("adminEmail").textContent = "Email: " + adminData.email;
-            }
-        } else {
-            console.error("Error fetching data");
-        }
-    };
-    xhr.send();
-</script>
-        
-                <!-- Other details -->
-        </div>
-       
-    
-        <!-- Activity Log -->
-        <div class="activity-log">
-            <h2>Recent Activity</h2>
-            <!-- Add content/log here -->
-        </div>
-    
-        <!-- Account Settings -->
-        <div class="account-settings">
-            <h2>Account Settings</h2>
-            <!-- Add settings options here -->
-        </div>
-    
-        <!-- Contact Support -->
-        <div class="contact-support">
-            <h2>Need Help?</h2>
-            <button>Contact Support</button>
-        </div>
-
-        <div class="remove-admin-section">
-            <h2>Remove Admin Account</h2>
-            <p>If you no longer wish to be an admin, you can remove your admin account here. Please be aware that this action is irreversible.</p>
-            <button id="removeAdminBtn">Remove My Admin Account</button>
+        <h2>Resident Portal</h2>
+        <h1>Request History</h1>
+        <div class="request-history">
+            <table class="requests-table">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Type of Request</th>
+                        <th>Description</th>
+                        <th>Resolution Status</th>
+                        <th>Date Submitted</th>
+                        <th>Assigned To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamically load completed requests here -->
+                   
+                    <!-- Repeat for other requests -->
+                </tbody>
+            </table>
         </div>
     </main>
-    <!--Right Section-->
+
+            <!--Right Section-->
+
 <div class="right-section">
     <div class="nav">
         <button id ="menu-btn">
@@ -179,20 +138,18 @@
             </span>
         </div>
         <div class="profile">
-            <a href="adminprofile.html" class="profile-link">
+            <a href="profile.html" class="profile-link">
                 <div class="profil-photo">
                     <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
                 </div>
             </a>
-            <!-- Right Section Info -->
             <div class="info">
-                <h1 id="adminName"></h1>
-            <small class="text-muted">Admin</small>
-        </div>
+                <p>Hey, <b>[Resident Name]</b></p>
+                <small class="text-muted">Resident</small>
+            </div>
         </div>
         </div>
         <!--End of Right Section-->
-    </div>
     </div>
     <script>
         const darkModeToggle = document.querySelector('.dark-mode');
@@ -235,7 +192,48 @@
         
         loadModePreference();
         updateModeIndicator();
-    </script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const fetchUserComplaints = () => {
+                    fetch('fetch_requests.php')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(complaints => {
+                            if (complaints.error) {
+                                console.error(complaints.error);
+                            } else {
+                                updateComplaintsTable(complaints);
+                            }
+                        })
+                        .catch(error => console.error('Error fetching user complaints:', error));
+                };
+        
+                const updateComplaintsTable = (complaints) => {
+                    const tableBody = document.querySelector('.requests-table tbody');
+                    tableBody.innerHTML = ''; // Clear the table body before appending new rows
+        
+                    complaints.forEach(complaint => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${complaint.complaint_id}</td>
+                            <td>${complaint.complaint_type}</td>
+                            <td>${complaint.complaint_body}</td>
+                            <td>${complaint.status}</td>
+                            <td>${complaint.date_submitted}</td>
+                            <td>${complaint.assigned_to}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                };
+        
+                fetchUserComplaints();
+            });
+        </script>
+        
+
 
 </body>
 </html>
