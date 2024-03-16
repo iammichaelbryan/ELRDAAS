@@ -5,25 +5,41 @@ include 'db_connect.php'; // Ensure this file establishes a PDO connection to yo
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Generate a unique complaint ID
     $complaint_id = 'C-' . time() . '-' . rand(1000, 9999);
-    
+
     // Retrieve resident details from the session
-    $resident_id = isset($_SESSION['userId']) ? $_SESSION['userId'] : null;
-    $first_name = isset($_SESSION['firstName']) ? $_SESSION['firstName'] : null;
-    $last_name = isset($_SESSION['lastName']) ? $_SESSION['lastName'] : null;
-    $tower = isset($_SESSION['tower']) ? $_SESSION['tower'] : null;
-    
-    $complaint_type = $_POST['complaint_type'];
-    $complaint_body = filter_input(INPUT_POST, 'complaint_body', FILTER_SANITIZE_STRING);
+    $resident_id = $_SESSION['userID'] ?? null;
+    $first_name = $_SESSION['firstName'] ?? null;
+    $last_name = $_SESSION['lastName'] ?? null;
+    $tower = $_SESSION['tower'] ?? null; // Retrieve tower from session
+
+    // If tower is not set in the session, fetch it from the database
+    if (!$tower && $resident_id) {
+        $stmt = $conn->prepare("SELECT tower FROM residents WHERE id = :resident_id");
+        $stmt->execute([':resident_id' => $resident_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $tower = $result['tower'] ?? ''; // Default to empty if not found
+    }
+
+    $complaint_type = $_POST['complaint_type'] ?? '';
+    $complaint_body = $_POST['complaint_body'] ?? '';
     $date_submitted = date('Y-m-d H:i:s'); // Current date and time
     $status = 'Pending Assignment'; // Default status
     $priority = 'Medium'; // Default priority
     $assigned_to = ''; // Initially not assigned
 
+    if (!$resident_id) {
+        echo "You must be logged in to submit a complaint.";
+        exit;
+    }
+
+    if (empty($complaint_type) || empty($complaint_body)) {
+        echo "Complaint type and body are required.";
+        exit;
+    }
+
     try {
-        // Prepare the SQL statement
         $stmt = $conn->prepare("INSERT INTO complaints (complaint_id, resident_id, first_name, last_name, complaint_type, complaint_body, date_submitted, status, priority, assigned_to, tower) VALUES (:complaint_id, :resident_id, :first_name, :last_name, :complaint_type, :complaint_body, :date_submitted, :status, :priority, :assigned_to, :tower)");
 
-        // Bind parameters
         $stmt->bindParam(':complaint_id', $complaint_id);
         $stmt->bindParam(':resident_id', $resident_id);
         $stmt->bindParam(':first_name', $first_name);
@@ -36,10 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':assigned_to', $assigned_to);
         $stmt->bindParam(':tower', $tower);
 
-        // Execute the statement
         if ($stmt->execute()) {
-            echo "Submission successful!";
-            header('Location: request-submitted.html'); // Redirect to a confirmation page
+            header('Location: request-submitted.html');
             exit;
         } else {
             echo "Error: Submission failed.";
@@ -48,11 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $e->getMessage();
     }
 
-    // Close connection
     $stmt = null;
     $conn = null;
 } else {
-    // Redirect or inform the user appropriately if the method is not POST
     echo "Invalid request method.";
 }
 ?>

@@ -3,7 +3,6 @@
 session_start();
 include 'db_connect.php'; // Ensure this file sets up a PDO connection and assigns it to $conn
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -28,16 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Password is correct, set session variables
             $_SESSION['loggedin'] = true;
             $_SESSION['email'] = $row['email']; // Use the email from the database
-            $_SESSION['userType'] = $userType;
             $_SESSION['userID'] = $row['id'];
             $_SESSION['firstName'] = $row['first_name']; // Store first name
-            $_SESSION['lastName'] = $row['last_name'];
-            $_SESSION['role'] = $user['role'];
-            // Store last name
+            $_SESSION['lastName'] = $row['last_name']; // Store last name
+
+            // Role should be determined by the table from which the user is fetched
+            $_SESSION['role'] = ($userType == 'admin') ? 'Admin' : 'Resident';
 
             // Redirect user based on userType
             if ($userType == 'admin') {
-                header("Location: index.html");
+                header("Location: admin_dashboard.html"); // Change to your admin dashboard page
                 exit;
             } else {
                 header("Location: resident_dashboard.html");
@@ -45,15 +44,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             $_SESSION['error'] = "Invalid email or password!";
+            header("Location: login.html"); // Redirect back to the login page with error
+            exit;
         }
     } else {
         $_SESSION['error'] = "Invalid email or password!";
+        header("Location: login.html"); // Redirect back to the login page with error
+        exit;
     }
 } else {
-    $_SESSION['error'] = "Invalid email or password!";
+    // If the request method is not POST, redirect to the login form.
+    header("Location: login.html");
+    exit;
 }
-
-// Redirect back to the login form with error
-header("Location: login.html");
-exit;      
 ?>
