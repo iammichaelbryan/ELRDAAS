@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (item.href == window.location.href) {
                     item.classList.add('active')
                 }
+                console.log(item.href);
+                console.log(window.location.href);
             });
 
         });

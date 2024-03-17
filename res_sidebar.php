@@ -20,7 +20,7 @@
                             </span>
                             <h3>View General Notice Board</h3>
                         </a>
-                        <a href = "make_requests.php">
+                        <a href = "make_requests.php" class= "dash-item">
                         
                             <span class="material-icons-sharp" >
                                 receipt_long
