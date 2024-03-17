@@ -5,99 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="adminstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <script src="js/adminscript.js" defer></script>
     <title>ELR Towers Hall Domestic Affairs</title>
 </head>
 <body>
       <div class="container">
             <!--Sidebar Section-->
-            <aside>
-                <div class="toggle">
-                    <div class="logo">
-                        <img src="images/elr towers logo.png" alt="logo">
-                        <h2>ELR Towers Hall<span class = "danger"> Domestic Affairs</span></h2>
-                        <div class="close" id="close-btn">
-                            <span class="material-icons-sharp">
-                                close
-                            </span>
-                            
-                        </div>
-    
-                    </div>
-    
-                    <div class="sidebar">
-                        <div>
-                        <a href = "index.html" >
-                            <span class="material-icons-sharp">
-                                dashboard
-                            </span>
-                            <h3>Dashboard</h3>
-                        </a>
-                        <a href = "requests.html" class ="active">
-                            <span class="material-icons-sharp">
-                                receipt_long
-                            </span>
-                            <h3>View Assigned Requests</h3>
-                            </a>
-                        <a href = "notifications.html">
-                                <span class="material-icons-sharp">
-                                    notifications
-                                </span>
-                                <h3>Notifications</h3>
-                                </a>
-                                
-                        <a href = "notice.html">
-                            <span class="material-icons-sharp">
-                                announcement
-                            </span>
-                            <h3>Create Notice</h3>
-                            </a>
-                            <a href = "admingennotices.html">
-                                <span class="material-icons-sharp">
-                                    info
-                                    </span>
-                                    <h3>View General Notice Board</h3>
-                                    </a>
-                        <a href = "laundryappointments.html" >
-                            <span class="material-icons-sharp">
-                                event
-                            </span>
-                            <h3>View Laundry Appointments</h3>
-                            </a>
-                        <a href = "requestfeedback.html">
-                            <span class="material-icons-sharp">
-                                star
-                            </span>
-                            <h3>Get Feedback</h3>
-                        </a>
-                        <a href = "adminprofile.html">
-                            <span class="material-icons-sharp">
-                                person_outline
-                            </span>
-                            <h3>Profile</h3>
-                            </a>
-                        <a href = "adminsettings.html">
-                            <span class="material-icons-sharp">
-                                settings
-                            </span>
-                            <h3>Settings</h3>
-                            </a>
-                        <a href = "login.html">
-                            <span class="material-icons-sharp">
-                                login
-                            </span>
-                            <h3>New Login</h3>
-                            </a>
-                        </div>
-                        <a href = "logout.html">
-                            <span class="material-icons-sharp">
-                                logout
-                            </span>
-                            <h3>Logout</h3>
-                            </a>
-                    </div>
-                
-                </div>
-            </aside>
+            <?php include 'adm_sidebar.php';?>
             <!--End of Sidebar Section-->
             <main class="main-content">
                 <h1>Assigned Requests</h1>
@@ -251,48 +165,6 @@
     </div>
     <main>
         </main>
-    <script>
-        const darkModeToggle = document.querySelector('.dark-mode');
-        const bodyElement = document.body;
-    
-        darkModeToggle.addEventListener('click', () => {
-            bodyElement.classList.toggle('dark-mode-variables');
-            saveModePreference();
-            updateModeIndicator();
-        });
-    
-        function saveModePreference() {
-            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
-            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-        }
-    
-        function loadModePreference() {
-            const darkMode = localStorage.getItem('darkMode');
-            if (darkMode === 'enabled') {
-                bodyElement.classList.add('dark-mode-variables');
-            } else {
-                bodyElement.classList.remove('dark-mode-variables');
-            }
-        }
-    
-        function updateModeIndicator() {
-            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
-            const lightIcon = document.querySelector('.dark-mode .light_mode');
-            const darkIcon = document.querySelector('.dark-mode .dark_mode');
-    
-            if (isDarkMode) {
-                lightIcon.classList.add('active');
-                darkIcon.classList.remove('active');
-            } else {
-                lightIcon.classList.remove('active');
-                darkIcon.classList.add('active');
-            }
-        }
-    
-        
-        loadModePreference();
-        updateModeIndicator();
-    </script>
-    <script></script>
+   
         </body>
 </html>
