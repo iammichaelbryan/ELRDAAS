@@ -12,7 +12,7 @@
 
     <div class="container">
         <!--Sidebar Section-->
-        <?php include 'admin_sidebar.php';?>
+        <?php include 'adm_sidebar.php';?>
         <!--End of Sidebar Section-->
 
         <!--Main Section-->
