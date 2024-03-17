@@ -102,37 +102,82 @@
             <main class="main-content">
                 <h1>Assigned Requests</h1>
                 <table class="requests-table">
+                    
                     <thead>
                         <tr>
                             <th>Request ID</th>
                             <th>Resident Name</th>
+                            <th>Resident ID</th>
+                            <th>Tower</th>
                             <th>Request Type</th>
                             <th>Request Description</th>
+                            <th>Date Submitted</th>
+                            <th>Status</th>
+                            <th>Assigned To</th>
                             <th>Priority</th>
                             <th>Action</th>
                             
                         </tr>
                     </thead>
+
                     <tbody>
-                        <!-- Example Row -->
-                        <tr>
-                            <td>001</td>
-                            <td>John Doe</td>
-                            <td>Communal Area Issue</td>
-                            <td>My floor only has 1 working fridge</td>
+
+                       <?php 
+
+                       $host = 'localhost';
+                       $username = "root";
+                       $password = "";
+                       $dbname = 'elrdaas';
+                       
+                       //Connect to database
+                       try {
+                           $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+                           // Set the PDO error mode to exception
+                           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                       } catch(PDOException $e) {
+                           echo "Connection failed: " . $e->getMessage();
+                       }
+                       
+                       //retrieve requests from the database
+                       $sql = "SELECT * FROM complaints";
+                       $complaints = $conn->query($sql);
+                       if(!$complaints){
+                           echo "Error: " . $sql . "<br>" . $conn->error;
+                       }
+
+                       //    Display the requests in the table
+                       while ($row = $complaints->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>
+                            <td>".$row["complaint_id"]."</td>
+                            <td>". $row["first_name"],' ',$row["last_name"]."</td>
+                            <td>".$row["tower"]."</td>
+                            <td>".$row["resident_id"]."</td>
+                            <td>".$row["complaint_type"]."</td>
+                            <td>".$row["complaint_body"]."</td>
+                            <td>".$row["assigned_to"]."</td>
                             <td>
-                                <select class="priority-select">
-                                    <option value="low">Low</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
+                                <select class='status-select'>
+                                    <option value='Pending'>Pending</option>
+                                    <option value='In-progress'>In Progress</option>
+                                    <option value='Completed'>Completed</option>
+                                </select>
+                            </td>
+                            <td>".$row["complaint_id"]."</td>
+                            <td>
+                                <select class='priority-select'>
+                                    <option value='low'>Low</option>
+                                    <option value='medium'>Medium</option>
+                                    <option value='high'>High</option>
                                 </select>
                             </td>
                             <td>
-                                <button class="message-btn" onclick="openMessageModal('001')">Message</button>
+                                <button class='message-btn' onclick='openMessageModal('001')'>Message</button>
                             </td>
-                        </tr>
-                        <!-- Repeat for other requests -->
+                        </tr>";
+                       }
+                        ?>
                     </tbody>
+
                 </table>
             </main>
             

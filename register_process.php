@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $role = $_POST['role'];
     $tower = $_POST['tower']; // Make sure to have 'tower' input in your registration form for residents
-
+    
     // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
