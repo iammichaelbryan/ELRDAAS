@@ -102,7 +102,7 @@
             <main class="main-content">
                 <h1>Assigned Requests</h1>
                 <table class="requests-table">
-                    
+
                     <thead>
                         <tr>
                             <th>Request ID</th>
@@ -154,7 +154,7 @@
                             <td>".$row["resident_id"]."</td>
                             <td>".$row["complaint_type"]."</td>
                             <td>".$row["complaint_body"]."</td>
-                            <td>".$row["assigned_to"]."</td>
+                            <td>".$row["date_submitted"]."</td>
                             <td>
                                 <select class='status-select'>
                                     <option value='Pending'>Pending</option>
@@ -162,7 +162,7 @@
                                     <option value='Completed'>Completed</option>
                                 </select>
                             </td>
-                            <td>".$row["complaint_id"]."</td>
+                            <td>".$row["assigned_to"]."</td>
                             <td>
                                 <select class='priority-select'>
                                     <option value='low'>Low</option>

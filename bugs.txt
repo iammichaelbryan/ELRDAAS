@@ -1,0 +1,7 @@
+1. requests.php is not accessible from sidebars 
+    ALL SIDEBARS NEED URL UPDATED
+    SIDEBARS need to be switched out to use php include
+
+2. Request table formatting is off for some reason
+
+3. Tower names are off (incrementing integer values)
