@@ -5,14 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href="adminstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <script src="js/adminscript.js"></script>
     <title>ELRDAAS Admin's Interface</title>
 </head>
 <body>
 
     <div class="container">
         <!--Sidebar Section-->
-        <?php include 'adm_sidebar.php';?>
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="images/elr towers logo.png" alt="logo">
+                    <h2>ELR Towers Hall<span class = "danger"> Domestic Affairs</span></h2>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">
+                            close
+                        </span>
+                        
+                    </div>
+
+                </div>
+
+                <div class="sidebar">
+                   
+                    <div>
+                    <a href = "index.php" class ="active">
+                        <span class="material-icons-sharp">
+                            dashboard
+                        </span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <a href = "requests.php">
+                        <span class="material-icons-sharp">
+                            receipt_long
+                        </span>
+                        <h3>View Assigned Requests</h3>
+                        </a>
+                    <a href = "notifications.php">
+                            <span class="material-icons-sharp">
+                                notifications
+                            </span>
+                            <h3>Notifications</h3>
+                            </a>
+                    <a href = "notice.php">
+                        <span class="material-icons-sharp">
+                            announcement
+                        </span>
+                        <h3>Create Notice</h3>
+                        </a>
+
+                        <a href = "admingennotices.php">                           
+                            <span class="material-icons-sharp">
+                                info
+                                </span>
+                                <h3>View General Notice Board</h3>
+                                </a>
+                    <a href = "laundryappointments.php">
+                        <span class="material-icons-sharp">
+                            event
+                        </span>
+                        <h3>View Laundry Appointments</h3>
+                        </a>
+                    <a href = "requestfeedback.php">
+                        <span class="material-icons-sharp">
+                            star
+                        </span>
+                        <h3>Get Feedback</h3>
+                    </a>
+                    <a href = "adminprofile.php">
+                        <span class="material-icons-sharp">
+                            person_outline
+                        </span>
+                        <h3>Profile</h3>
+                        </a>
+                    <a href = "adminsettings.php">
+                        <span class="material-icons-sharp">
+                            settings
+                        </span>
+                        <h3>Settings</h3>
+                        </a>
+                    <a href="login.html" target="_blank">
+                        <span class="material-icons-sharp">
+                            login
+                        </span>
+                        <h3>New Login</h3>
+                    </a>
+                    <a href = "logout.html" target="_blank">
+                        <span class="material-icons-sharp">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
+                        </a>
+                </div>
+            
+            </div>
+        </aside>
         <!--End of Sidebar Section-->
 
         <!--Main Section-->
@@ -164,7 +250,7 @@
             </span>
         </div>
         <div class="profile">
-            <a href="adminprofile.php" class="profile-link">
+            <a href="adminprofile.html" class="profile-link">
                 <div class="profil-photo">
                     <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
                 </div>

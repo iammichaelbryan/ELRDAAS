@@ -5,55 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="adminstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <script src="js/adminscript.js" defer></script>
     <title>ELR Towers Hall Domestic Affairs</title>
+    <style>
+        /* Add CSS rule to style the last row of the table */
+        .requests-table tbody tr:last-child td {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-      <div class="container">
-            <!--Sidebar Section-->
-            <?php include 'adm_sidebar.php';?>
-            <!--End of Sidebar Section-->
-            <main class="main-content">
-                <h1>Assigned Requests</h1>
-                <table class="requests-table">
+<div class="container">
+    <!--Sidebar Section-->
+    <?php include 'adm_sidebar.php';?>
+    <!--End of Sidebar Section-->
+    <main class="main-content">
+        <h1>Assigned Requests</h1>
+        <table class="requests-table">
+            <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>Resident Name</th>
+                <th>Resident ID</th>
+                <th>Tower</th>
+                <th>Request Type</th>
+                <th>Request Description</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Priority</th>
+                <th>Action</th>
+            </tr>
+            </thead>
 
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Resident Name</th>
-                            <th>Resident ID</th>
-                            <th>Tower</th>
-                            <th>Request Type</th>
-                            <th>Request Description</th>
-                            <th>Date Submitted</th>
-                            <th>Status</th>
-                            <th>Assigned To</th>
-                            <th>Priority</th>
-                            <th>Action</th>
-                            
-                        </tr>
-                    </thead>
+            <tbody>
+            <?php
+            $host = 'localhost';
+            $username = "root";
+            $password = "";
+            $dbname = 'elrdaas';
 
-                    <tbody>
+            try {
+                $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch(PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
 
-                       <?php 
+            $sql = "SELECT * FROM complaints";
+            $complaints = $conn->query($sql);
+            if(!$complaints){
+                echo "Error: ";
+            }
 
-                       include 'db_connect.php';
-                       
-                       //retrieve requests from the database
-                       $sql = "SELECT * FROM complaints";
-                       $complaints = $conn->query($sql);
-                       if(!$complaints){
-                        echo "Error: ";
-                       }
-
-                       //    Display the requests in the table
-                       while ($row = $complaints->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<tr>
+            while ($row = $complaints->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>
                             <td>".$row["complaint_id"]."</td>
                             <td>". $row["first_name"],' ',$row["last_name"]."</td>
-                            <td>".$row["tower"]."</td>
                             <td>".$row["resident_id"]."</td>
+                            <td>".$row["tower"]."</td>
                             <td>".$row["complaint_type"]."</td>
                             <td>".$row["complaint_body"]."</td>
                             <td>".$row["date_submitted"]."</td>
@@ -73,57 +82,32 @@
                                 </select>
                             </td>
                             <td>
-                                <button class='message-btn' onclick='openMessageModal('001')'>Message</button>
+                                <button class='message-btn' onclick='openMessageModal(\"".$row["complaint_id"]."\")'>Message</button>
                             </td>
                         </tr>";
-                       }
-                        ?>
-                    </tbody>
+            }
+            ?>
+            </tbody>
 
-                </table>
-            </main>
-            
-            <!-- Modal Structure -->
-            <div id="messageModal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" onclick="closeModal()">&times;</span>
-                    <h2>Send Message</h2>
-                    <textarea id="messageText" placeholder="Write your message here..."></textarea>
-                    <button class="send-message-btn" onclick="sendMessage()">Send</button>
-                </div>
-            </div>
-            <script>
-                // Function to open the message modal
-                window.openMessageModal = function(requestId) {
-                    document.getElementById('messageModal').style.display = 'block';
-                    console.log("Opening message modal for request ID:", requestId);
-                    // You can use requestId to customize the modal for each request
-                };
-            
-                // Function to close the modal
-                function closeModal() {
-                    document.getElementById('messageModal').style.display = 'none';
-                }
-            
-                // Function to handle the message sending
-                function sendMessage() {
-                    var message = document.getElementById('messageText').value;
-                    // Add the logic to handle the message (e.g., send to server)
-                    console.log("Message:", message); // For demonstration
-                    closeModal(); // Close the modal after sending the message
-                }
-            
-                // Ensure modal is closed on page load
-                document.addEventListener('DOMContentLoaded', function() {
-                    closeModal();
-                });
-            </script>
-            
-<!--Right Section-->
+        </table>
+    </main>
 
+    <!-- Modal Structure -->
+    <div id="messageModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Send Message</h2>
+        <!-- Include a hidden input to store the complaint ID -->
+        <input type="hidden" id="complaintId" value="">
+        <textarea id="messageText" placeholder="Write your message here..."></textarea>
+        <button id="sendButton" class="send-message-btn">Send</button>
+    </div>
+</div>
+
+    <!--Right Section-->
 <div class="right-section">
     <div class="nav">
-        <button id ="menu-btn">
+        <button id="menu-btn">
             <span class="material-icons-sharp">
                 menu
             </span>
@@ -137,22 +121,57 @@
             </span>
         </div>
         <div class="profile">
-            <a href="adminprofile.html" class="profile-link">
+            <a href="adminprofile.php" class="profile-link">
                 <div class="profil-photo">
                     <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
                 </div>
             </a>
             <div class="info">
-                <label id = "name">[Admin Name]</label>
+                <label id="name">[Admin Name]</label>
                 <small class="text-muted">Admin</small>
             </div>
-
         </div>
-        </div>
-        <!--End of Right Section-->
     </div>
-    <main>
-        </main>
-   
-        </body>
+    <!--End of Right Section-->
+</div>
+
+    <script>
+        // Function to open the message modal
+window.openMessageModal = function(requestId) {
+    document.getElementById('messageModal').style.display = 'block';
+    document.getElementById('messageText').value = ''; // Clear the textarea
+    document.getElementById('complaintId').value = requestId; // Set the current complaint ID
+    console.log("Opening message modal for request ID:", requestId);
+};
+
+// Modify the closeModal and sendMessage functions if necessary
+function closeModal() {
+    document.getElementById('messageModal').style.display = 'none';
+    // Optionally clear the textarea here too if users can also close the modal without sending a message
+    document.getElementById('messageText').value = '';
+}
+
+function sendMessage() {
+    var message = document.getElementById('messageText').value;
+    var complaintId = document.getElementById('complaintId').value; // Retrieve the complaint ID
+    // Add the logic to handle the message, including using the complaintId for context
+    console.log("Sending message for complaint ID:", complaintId, "Message:", message);
+    closeModal(); // Close the modal after sending the message
+}
+
+// Attach sendMessage to the send button inside the modal
+document.getElementById('sendButton').addEventListener('click', sendMessage);
+
+// Ensure modal is closed on page load
+document.addEventListener('DOMContentLoaded', function() {
+    closeModal();
+});
+
+    </script>
+
+</div>
+
+<!-- Include the JavaScript code here -->
+<script src="js/adminscript.js"></script>
+</body>
 </html>
