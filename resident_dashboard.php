@@ -50,7 +50,7 @@
           <span class="material-icons-sharp"> dark_mode </span>
         </div>
         <div class="profile">
-          <a href="profile.html" class="profile-link">
+          <a href="profile.php" class="profile-link">
             <div class="profil-photo">
               <img src="images/elf wolf 1.jpeg" alt="Profile Picture" />
             </div>

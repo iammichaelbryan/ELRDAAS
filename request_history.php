@@ -20,21 +20,21 @@
         <h1>Request History</h1>
         <div class="request-history">
             <table class="requests-table">
-                <thead>
+            <thead>
                     <tr>
                         <th>Request ID</th>
-                        <th>Type of Request</th>
-                        <th>Description</th>
-                        <th>Resolution Status</th>
+                        <th>Request Type</th>
+                        <th>Request Description</th>
+                        <th>Status</th>
                         <th>Date Submitted</th>
                         <th>Assigned To</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Dynamically load completed requests here -->
-                   
-                    <!-- Repeat for other requests -->
-                </tbody>
+                    <?php include 'db_connect.php';?>
+                    </tbody>
+
             </table>
         </div>
     </main>

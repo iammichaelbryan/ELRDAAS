@@ -30,7 +30,9 @@ try {
         ':notice_content' => $notice_content
     ]);
 
-    echo "Notice posted successfully.";
+    // Redirect to the notice submitted page
+    header("Location: notice_posted.html");
+    exit;
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }

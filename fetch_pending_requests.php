@@ -7,7 +7,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] && isset($_SESSION['us
     $resident_id = $_SESSION['userID'];
 
     // Prepare SQL statement to fetch user's complaints
-    $sql = "SELECT * FROM complaints WHERE resident_id = :resident_id"; // Replace 'complaints' with your actual table name
+    $sql = "SELECT * FROM complaints WHERE resident_id = :resident_id AND status != 'Resolved'"; // Replace 'complaints' with your actual table name
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':resident_id', $resident_id, PDO::PARAM_INT);
     $stmt->execute();

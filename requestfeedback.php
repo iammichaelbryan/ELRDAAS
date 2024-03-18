@@ -88,7 +88,7 @@
             </span>
         </div>
         <div class="profile">
-            <a href="adminprofile.html" class="profile-link">
+            <a href="adminprofile.php" class="profile-link">
                 <div class="profil-photo">
                     <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
                 </div>

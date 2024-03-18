@@ -38,25 +38,13 @@
 
                        <?php 
 
-                       $host = 'localhost';
-                       $username = "root";
-                       $password = "";
-                       $dbname = 'elrdaas';
-                       
-                       //Connect to database
-                       try {
-                           $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-                           // Set the PDO error mode to exception
-                           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                       } catch(PDOException $e) {
-                           echo "Connection failed: " . $e->getMessage();
-                       }
+                       include 'db_connect.php';
                        
                        //retrieve requests from the database
                        $sql = "SELECT * FROM complaints";
                        $complaints = $conn->query($sql);
                        if(!$complaints){
-                           echo "Error: " . $sql . "<br>" . $conn->error;
+                        echo "Error: ";
                        }
 
                        //    Display the requests in the table

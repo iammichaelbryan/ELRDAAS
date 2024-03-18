@@ -16,7 +16,7 @@
     
                     <div class="sidebar">
                         <div>
-                        <a href = "index.php" >
+                        <a href = "index.php" class = "dash-tem">
                             <span class="material-icons-sharp">
                                 dashboard
                             </span>

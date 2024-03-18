@@ -36,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirect user based on userType
             if ($userType == 'admin') {
-                header("Location: admin_dashboard.html"); // Change to your admin dashboard page
+                header("Location: index.php"); // Change to your admin dashboard page
                 exit;
             } else {
-                header("Location: resident_dashboard.html");
+                header("Location: resident_dashboard.php"); // Change to your resident dashboard page
                 exit;
             }
         } else {
