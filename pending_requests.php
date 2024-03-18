@@ -6,20 +6,19 @@
     <link rel="stylesheet" href="residentstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <script src="js/residentscript.js" defer></script>
-    <title>ELR Towers Hall Domestic Affairs - Make a Request</title>
+    <title>ELR Towers Hall Domestic Affairs - View Pending Requests</title>
 </head>
 <body>
       <div class="container">
             <!--Sidebar Section-->
             <?php include 'res_sidebar.php';?>
             <!--End of Sidebar Section-->
-           
-                 <!-- Main Content Section -->
+            <!-- Main Content Section -->
     <main class="main-content">
         <h2>Resident Portal</h2>
-        <h1>Request History</h1>
-        <div class="request-history">
-            <table class="requests-table">
+        <h1>Pending Requests</h1>
+        <div class="pending-requests">
+        <table class="requests-table">
             <thead>
                     <tr>
                         <th>Request ID</th>
@@ -73,7 +72,7 @@
     <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const fetchUserComplaints = () => {
-                    fetch('fetch_requests.php')
+                    fetch('fetch_pending_requests.php')
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
@@ -111,8 +110,5 @@
                 fetchUserComplaints();
             });
         </script>
-        
-
-
 </body>
 </html>
