@@ -224,6 +224,36 @@ document.addEventListener('DOMContentLoaded', function() {
             populateTimeOptions();
         });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const appointmentDate = document.getElementById('appointmentDate');
+        const maxDate = new Date();
+
+        // Set the maximum allowed date to 3 days from today
+        maxDate.setDate(maxDate.getDate() + 3);
+        const maxDateString = maxDate.toISOString().split('T')[0];
+        
+        // Set the maximum attribute of the date input field
+        appointmentDate.max = maxDateString;
+        
+        // Add an event listener to the date input field
+        appointmentDate.addEventListener('change', function() {
+            const selectedDate = new Date(appointmentDate.value);
+            const currentDate = new Date();
+            const threeDaysAhead = new Date();
+
+            // Set the date to 3 days ahead of the current date
+            threeDaysAhead.setDate(currentDate.getDate() + 3);
+
+            // If the selected date is more than 3 days ahead, reset the value to 3 days ahead
+            if (selectedDate > threeDaysAhead) {
+                appointmentDate.value = maxDateString;
+                alert("You can only schedule appointments up to 3 days in advance.");
+            }
+        });
+    });
+</script>
+
 
 
     </body>

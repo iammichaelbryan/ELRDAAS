@@ -120,21 +120,22 @@ INSERT INTO feedback (request_id, student_name, feedback, rating) VALUES
 DROP TABLE IF EXISTS notices;
 CREATE TABLE notices (
     id INT AUTO_INCREMENT,
+    admin_id INT NOT NULL,
     notice_id VARCHAR(255) NOT NULL,
-    notice_date VARCHAR(20),
-    notice_time VARCHAR(20),
-    notice_subject VARCHAR(20) NOT NULL DEFAULT '',
+    notice_date DATE,
+    notice_time TIME,
+    notice_subject VARCHAR(255) NOT NULL DEFAULT '',
     notice_content TEXT NOT NULL,
     PRIMARY KEY (id)
 );
 
 -- Inserting dummy data for notices
-INSERT INTO notices (notice_id, notice_date, notice_time, notice_subject, notice_content) VALUES
-('N001', '2023-03-10', '08:00', 'Maintenance Update', 'The gym will be closed for maintenance on March 15th.'),
-('N002', '2023-03-11', '09:00', 'Parking Allocation', 'Additional parking spots available from April.'),
-('N003', '2023-03-12', '10:00', 'Security Measures', 'New security cameras have been installed in common areas.'),
-('N004', '2023-03-13', '11:00', 'Community Meeting', 'Annual residents meeting scheduled for March 20th.'),
-('N005', '2023-03-14', '12:00', 'Water Shutdown', 'Temporary water shutdown for maintenance on March 18th.');
+INSERT INTO notices (admin_id, notice_id, notice_date, notice_time, notice_subject, notice_content) VALUES
+(1, 'N001', '2023-03-10', '08:00:00', 'Maintenance Update', 'The gym will be closed for maintenance on March 15th.'),
+(5, 'N002', '2023-03-11', '09:00:00', 'Parking Allocation', 'Additional parking spots available from April.'),
+(3, 'N003', '2023-03-12', '10:00:00', 'Security Measures', 'New security cameras have been installed in common areas.'),
+(4, 'N004', '2023-03-13', '11:00:00', 'Community Meeting', 'Annual residents meeting scheduled for March 20th.'),
+(2, 'N005', '2023-03-14', '12:00:00', 'Water Shutdown', 'Temporary water shutdown for maintenance on March 18th.');
 
 DROP TABLE IF EXISTS scheduled_notices;
 

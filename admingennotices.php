@@ -1,46 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="adminstyles.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-      rel="stylesheet"
-    />
-    <script src="js/adminscript.js" defer></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="adminstyles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>ELR Towers Hall Domestic Affairs</title>
-  </head>
-  <body>
-    <div class="container">
-      <!--Sidebar Section-->
-      <?php include 'adm_sidebar.php';?>
-      <!--End of Sidebar Section-->
-      <!-- Settings Section -->
-      <!-- Notice Board Section -->
-      <!-- Notice Board Section -->
-      <main class="notice-board">
+    <script src = "js/adminscript.js"></script>
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            overflow-wrap: break-word;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!--Sidebar Section-->
+    <?php include 'adm_sidebar.php';?>
+    <!--End of Sidebar Section-->
+    <main class="notice-board">
         <h2>Admin Portal</h2>
         <h1>General Notice Board</h1>
         <div class="notices-container">
-          <!-- Dynamically load notices here -->
-          <div class="notice">
-            <h2>Subject of Notice</h2>
-            <p class="notice-date">Posted on: [Date]</p>
-            <div class="notice-body">
-              <p class="notice-content">Brief details of the notice...</p>
-              <button class="view-more-btn" onclick="viewMoreNotice()">
-                View More
-              </button>
-            </div>
-          </div>
-          <!-- Repeat for other notices -->
+            <!-- Dynamically load notices here -->
         </div>
-      </main>
-    </div>
-    <!--Right Section-->
+    </main>
 
-    <div class="right-section">
+    <!-- Modal Structure -->
+    <div id="noticeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalNoticeTitle">Notice Title</h2>
+            <p id="modalNoticeDate">Posted on: [Date]</p>
+            <p id="modalNoticeAuthor">Posted by: [Author Name]</p>
+            <div id="modalNoticeContent">Notice content goes here...</div>
+        </div>
+    </div>
+</div>
+<!--Right Section-->
+
+<div class="right-section">
       <div class="nav">
         <button id="menu-btn">
           <span class="material-icons-sharp"> menu </span>
@@ -68,46 +99,63 @@
         </div>
       </div>
       <!--End of Right Section-->
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          fetchNotices();
-          const noticesContainer = document.querySelector(".notices-container");
+    
+      <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const noticesContainer = document.querySelector(".notices-container");
+        let notices = [];
 
-          // Function to fetch and display notices
-          function fetchNotices() {
-              fetch("fetch_notices.php")
-                  .then((response) => {
-                      console.log("Response from server:", response);
-                      if (!response.ok) throw new Error("Network response was not ok");
-                      return response.json();
-                  })
-                  .then((notices) => {
-                      console.log("Notices:", notices);
-                      noticesContainer.innerHTML = ""; // Clear existing notices
-                      notices.forEach((notice) => {
-                          const noticeHTML = `
-                              <div class="notice">
-                                  <h2>${notice.notice_subject}</h2>
-                                  <p class="notice-date">Posted on: ${notice.notice_date} ${notice.notice_time}</p>
-                                  <div class="notice-body">
-                                      <p class="notice-content">${notice.notice_content}</p>
-                                      <button class="view-more-btn">View More</button>
-                                  </div>
-                              </div>`;
-                          noticesContainer.insertAdjacentHTML("beforeend", noticeHTML);
-                      });
-                  })
-                  .catch((error) => {
-                      console.error("Error fetching notices:", error);
-                  });
-          }
+        function fetchNotices() {
+            fetch("fetch_notices.php")
+                .then(response => response.json())
+                .then(data => {
+                    // Ensure the data is an array of notices
+                    if (Array.isArray(data)) {
+                        notices = data;
+                        renderNotices();
+                    } else {
+                        // Handle cases where data is not as expected
+                        console.error('Unexpected data format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching notices:", error);
+                });
+        }
 
-            
-        });
-    </script>
-    </body>
-    </html>
+        function renderNotices() {
+            noticesContainer.innerHTML = ""; // Clear existing notices
+            notices.forEach((notice, index) => {
+                const noticeHTML = `
+                    <div class="notice">
+                        <h2>${notice.notice_subject}</h2>
+                        <p class="notice-date">Posted on: ${notice.notice_date} at ${notice.notice_time}</p>
+                        <p class="notice-author">Posted by: ${notice.first_name} ${notice.last_name}</p>
+                        <div class="notice-body">
+                            <p class="notice-content">${notice.notice_content.substring(0, 100)}...</p>
+                            <button class="view-more-btn" onclick="viewMoreNotice(${index})">View More</button>
+                        </div>
+                    </div>`;
+                noticesContainer.insertAdjacentHTML("beforeend", noticeHTML);
+            });
+        }
 
-  </body>
+        window.viewMoreNotice = function(index) {
+            const notice = notices[index];
+            // Set modal content dynamically based on the selected notice
+            document.getElementById('modalNoticeTitle').innerText = notice.notice_subject;
+            document.getElementById('modalNoticeAuthor').innerText = `Posted by: ${notice.first_name} ${notice.last_name}`;
+            document.getElementById('modalNoticeDate').innerText = `Posted on: ${notice.notice_date}`;
+            document.getElementById('modalNoticeContent').innerText = notice.notice_content;
+            document.getElementById('noticeModal').style.display = 'block'; // Show modal
+        };
+
+        window.closeModal = function() {
+            document.getElementById('noticeModal').style.display = 'none'; // Hide modal
+        };
+
+        fetchNotices(); // Fetch notices when the page loads
+    });
+</script>
+</body>
 </html>

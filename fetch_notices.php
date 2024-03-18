@@ -3,15 +3,18 @@ session_start();
 include 'db_connect.php';
 
 try {
-    $sql = "SELECT * FROM notices ORDER BY notice_date DESC, notice_time DESC";
+    // This query selects all columns from notices and joins the admin's first and last name
+    // using a LEFT JOIN to ensure all notices are included even if the admin_id is incorrect or missing
+    $sql = "SELECT notices.*, admins.first_name, admins.last_name 
+            FROM notices 
+            LEFT JOIN admins ON notices.admin_id = admins.id 
+            ORDER BY notices.notice_date DESC, notices.notice_time DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $notices = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($notices);
 } catch (PDOException $e) {
-    // For debugging purposes, echo the error message
     echo "Error: " . $e->getMessage();
-    // In a production environment, you might want to log this error instead
 }
 ?>
