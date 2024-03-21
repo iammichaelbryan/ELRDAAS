@@ -43,36 +43,9 @@
                 <!-- Rest of the main content... -->
     
             </main>
-    <!--Right Section-->
-
-<div class="right-section">
-    <div class="nav">
-        <button id ="menu-btn">
-            <span class="material-icons-sharp">
-                menu
-            </span>
-        </button>
-        <div class="dark-mode">
-            <span class="material-icons-sharp active">
-                light_mode
-            </span>
-            <span class="material-icons-sharp">
-                dark_mode
-            </span>
-        </div>
-        <div class="profile">
-            <a href="adminprofile.php" class="profile-link">
-                <div class="profil-photo">
-                    <img src="images/elf wolf 1.jpeg" alt="Profile Picture">
-                </div>
-            </a>
-            <div class="info">
-                <p>Hey, <b>[Admin Name]</b></p>
-                <small class="text-muted">Admin</small>
-            </div>
-        </div>
-        </div>
-        <!--End of Right Section-->
+<!--Right Section-->
+<?php include 'adm_right_section.php';?>
+      <!--End of Right Section-->
     </div>
 
         
