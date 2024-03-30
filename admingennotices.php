@@ -70,6 +70,7 @@
     </div>
 </div>
 <!--Right Section-->
+
 <?php include 'adm_right_section.php';?>
       <!--End of Right Section-->
     
@@ -129,6 +130,7 @@
 
         fetchNotices(); // Fetch notices when the page loads
     });
+
 </script>
 </body>
 </html>

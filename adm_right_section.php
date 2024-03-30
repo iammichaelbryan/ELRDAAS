@@ -14,9 +14,34 @@
             </div>
           </a>
           <div class="info">
-            <p><b>Profile</b></p>
-            <small class="text-muted">Resident</small>
+            <p> Welcome, </p>
+            <p id="first_name"><b></b></p>
+            <small class="text-muted">Admin</small>
           </div>
         </div>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const fetchUserName = () => {
+            fetch('fetch_user_data.php')
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(first_name => {
+                if (first_name.error) {
+                  console.error(first_name.error);
+                } else {
+                  document.getElementById('first_name').textContent = first_name;
+                }
+              })
+              .catch(error => console.error('Error fetching user name:', error));
+          };
+
+          fetchUserName();
+        });
+        </script>
       <!--End of Right Section-->

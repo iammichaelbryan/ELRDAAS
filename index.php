@@ -6,99 +6,10 @@
     <link rel = "stylesheet" href="adminstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>ELRDAAS Admin's Interface</title>
+    
 </head>
 <body>
-
-    <div class="container">
-        <!--Sidebar Section-->
-        <aside>
-            <div class="toggle">
-                <div class="logo">
-                    <img src="images/elr towers logo.png" alt="logo">
-                    <h2>ELR Towers Hall<span class = "danger"> Domestic Affairs</span></h2>
-                    <div class="close" id="close-btn">
-                        <span class="material-icons-sharp">
-                            close
-                        </span>
-                        
-                    </div>
-
-                </div>
-
-                <div class="sidebar">
-                   
-                    <div>
-                    <a href = "index.php" class ="active">
-                        <span class="material-icons-sharp">
-                            dashboard
-                        </span>
-                        <h3>Dashboard</h3>
-                    </a>
-                    <a href = "requests.php">
-                        <span class="material-icons-sharp">
-                            receipt_long
-                        </span>
-                        <h3>View Assigned Requests</h3>
-                        </a>
-                    <a href = "notifications.php">
-                            <span class="material-icons-sharp">
-                                notifications
-                            </span>
-                            <h3>Notifications</h3>
-                            </a>
-                    <a href = "notice.php">
-                        <span class="material-icons-sharp">
-                            announcement
-                        </span>
-                        <h3>Create Notice</h3>
-                        </a>
-
-                        <a href = "admingennotices.php">                           
-                            <span class="material-icons-sharp">
-                                info
-                                </span>
-                                <h3>View General Notice Board</h3>
-                                </a>
-                    <a href = "laundryappointments.php">
-                        <span class="material-icons-sharp">
-                            event
-                        </span>
-                        <h3>View Laundry Appointments</h3>
-                        </a>
-                    <a href = "requestfeedback.php">
-                        <span class="material-icons-sharp">
-                            star
-                        </span>
-                        <h3>Get Feedback</h3>
-                    </a>
-                    <a href = "adminprofile.php">
-                        <span class="material-icons-sharp">
-                            person_outline
-                        </span>
-                        <h3>Profile</h3>
-                        </a>
-                    <a href = "adminsettings.php">
-                        <span class="material-icons-sharp">
-                            settings
-                        </span>
-                        <h3>Settings</h3>
-                        </a>
-                    <a href="login.html" target="_blank">
-                        <span class="material-icons-sharp">
-                            login
-                        </span>
-                        <h3>New Login</h3>
-                    </a>
-                    <a href = "logout.html" target="_blank">
-                        <span class="material-icons-sharp">
-                            logout
-                        </span>
-                        <h3>Logout</h3>
-                        </a>
-                </div>
-            
-            </div>
-        </aside>
+    <?php include 'adm_sidebar.php';?>
         <!--End of Sidebar Section-->
 
         <!--Main Section-->
@@ -111,7 +22,23 @@
             <div class="status">
                 <div class="info">
                     <h3>Total Assigned Requests</h3>
-                    <h1>10</h1>
+                    <?php
+                    // Include database connection
+                    include 'db_connect.php';
+
+                    try {
+                        // Fetch total assigned requests count from the database
+                        $sql = "SELECT COUNT(*) AS total_assigned_requests FROM complaints";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $totalAssignedRequests = $result['total_assigned_requests'];
+
+                        echo "<h1>{$totalAssignedRequests}</h1>";
+                    } catch (PDOException $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                    ?>
                 </div>
                                     
                 </div>
@@ -120,26 +47,71 @@
             <div class="status">
                 <div class="info">
                     <h3>Requests Resolved by Admin</h3>
-                    <h1>8</h1>
+                    <?php
+                    try {
+                        // Fetch resolved requests count from the database
+                        $sql = "SELECT COUNT(*) AS resolved_requests FROM complaints WHERE status = 'Resolved'";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $resolvedRequests = $result['resolved_requests'];
+
+                        echo "<h1>{$resolvedRequests}</h1>";
+                    } catch (PDOException $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                    ?>
                 </div>
                 <div class="progress">
-                    <svg viewBox="0 0 60 60">
-                        <circle cx="30" cy="30" r="25" stroke="#4caf50" stroke-width="5" fill="none"></circle>
-                    </svg>                    
-                    <div class="percentage">
-                        <p>80<span>%</span></p>
-                    </div>
-                </div>
+    <?php
+    // Calculate percentage resolved
+    $percentageResolved = ($resolvedRequests / $totalAssignedRequests) * 100;
+
+    // Define the radius of the circle
+    $radius = 25; // as per your SVG
+
+    // Calculate the circumference of the circle
+    $circumference = 2 * M_PI * $radius;
+
+    // Calculate the stroke dash offset, which is the length that is not "filled"
+    $dashOffset = $circumference * ((100 - $percentageResolved) / 100);
+    ?>
+    <svg viewBox="0 0 60 60">
+        <circle cx="30" cy="30" r="<?= $radius ?>" stroke="#4caf50" stroke-width="5" fill="none"
+                stroke-dasharray="<?= $circumference ?>" stroke-dashoffset="<?= $dashOffset ?>"></circle>
+    </svg>                    
+    <div class="percentage">
+        <p><?= round($percentageResolved) ?><span>%</span></p>
+    </div>
+</div>
+
             </div>
         </div>
         <div class="panel">
-            <div class="status">
-                <div class="info">
-                    <h3>Average hours to get request resolved</h3>
-                    <h1>70.6 </h1>
-                </div>
-                    </div>
-                </div>
+    <div class="status">
+        <div class="info">
+            <h3>Average hours to get request resolved</h3>
+            <?php
+            try {
+                // Fetch average hours to resolve requests from the database
+                $sql = "SELECT AVG(TIMESTAMPDIFF(HOUR, date_submitted, date_resolved)) AS average_hours FROM complaints WHERE status = 'Resolved'";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $averageHours = $result['average_hours'];
+
+                // Format the average hours to display with two decimal places
+                $formattedAverageHours = number_format($averageHours, 2);
+
+                echo "<h1>{$formattedAverageHours}</h1>";
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            ?>
+        </div>
+    </div>
+</div>
+
             </div>
             <!--End of Analytics-->
             <!--Start of New User-->
@@ -200,26 +172,49 @@
             <!--End of New User-->
             <!--Start of Recent Activities-->
             <div class="recent-requests">
-                <h2>Recent Requests</h2>
-                <table id="requestsTable">
-                    <thead>
-                        <tr>
-                            <th>Resident Name</th>
-                            <th>Activity Type</th>
-                            <th>Activity ID</th>
-                            <th>Activity Date</th>
-                            <th>Activity Time</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                
-                
-                <a href = "#">View All</a>
-                    </div>
-                    <!--End of Recent Requests-->
+            <h2>Recent Complaints</h2>
+            <table id="requestsTable" class="animate__animated animate__fadeIn">
+                <thead>
+                    <tr>
+                        <th>Resident Name</th>
+                        <th>Complaint Type</th>
+                        <th>Complaint ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    try {
+                        // Fetch complaints data from the database
+                        $sql = "SELECT * FROM complaints";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
+                        $complaints = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        // Output complaints data as table rows
+                        foreach ($complaints as $complaint) {
+                            echo "<tr>";
+                            echo "<td>{$complaint['first_name']} {$complaint['last_name']}</td>";
+                            echo "<td>{$complaint['complaint_type']}</td>";
+                            echo "<td>{$complaint['complaint_id']}</td>";
+                            echo "<td>{$complaint['date_submitted']}</td>";
+                            echo "<td>{$complaint['date_submitted']}</td>";
+                            echo "<td>{$complaint['status']}</td>";
+                            echo "</tr>";
+                        }
+                    } catch (PDOException $e) {
+                        echo "Error: " . $e->getMessage();
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <a href="#">View All</a>
+        </div>
+    </main>
+    <!-- End of Main Section -->
+
                 </div>                
         </div>
         

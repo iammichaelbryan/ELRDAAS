@@ -65,6 +65,7 @@ CREATE TABLE complaints (
 ALTER TABLE complaints ADD COLUMN first_name VARCHAR(255) NOT NULL;
 ALTER TABLE complaints ADD COLUMN last_name VARCHAR(255) NOT NULL;
 ALTER TABLE complaints ADD COLUMN resident_id INT NOT NULL;
+ALTER TABLE complaints ADD COLUMN date_resolved DATETIME;
 
 
 -- Inserting dummy data for complaints
@@ -128,6 +129,8 @@ CREATE TABLE notices (
     notice_content TEXT NOT NULL,
     PRIMARY KEY (id)
 );
+ALTER TABLE notices ADD COLUMN first_name VARCHAR(255) NOT NULL;
+ALTER TABLE notices ADD COLUMN last_name VARCHAR(255) NOT NULL;
 
 -- Inserting dummy data for notices
 INSERT INTO notices (admin_id, notice_id, notice_date, notice_time, notice_subject, notice_content) VALUES

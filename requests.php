@@ -67,19 +67,22 @@
                             <td>".$row["complaint_body"]."</td>
                             <td>".$row["date_submitted"]."</td>
                             <td>
-                                <select class='status-select'>
-                                    <option value='Pending'>Pending</option>
-                                    <option value='In-progress'>In Progress</option>
-                                    <option value='Completed'>Completed</option>
-                                </select>
+                            <select class='status-select' name='status' onchange='saveChanges(this, \"".$row["id"]."\")'>
+                            <option value='Pending Assignment' ".($row["status"] == 'Pending Assignment' ? 'selected' : '').">Pending Assignment</option>
+                            <option value='Assigned' ".($row["status"] == 'Assigned' ? 'selected' : '').">Assigned</option>
+                            <option value='In Progress' ".($row["status"] == 'In Progress' ? 'selected' : '').">In Progress</option>
+                            <option value='Resolved' ".($row["status"] == 'Resolved' ? 'selected' : '').">Resolved</option>
+                        </select>
+                        
                             </td>
                             <td>".$row["assigned_to"]."</td>
                             <td>
-                                <select class='priority-select'>
-                                    <option value='low'>Low</option>
-                                    <option value='medium'>Medium</option>
-                                    <option value='high'>High</option>
-                                </select>
+                            <select class='priority-select' name='priority' onchange='savePriorityChange(".$row["id"].", this.value)'>
+                            <option value='Low' ".($row["priority"] == 'Low' ? 'selected' : '').">Low</option>
+                            <option value='Medium' ".($row["priority"] == 'Medium' ? 'selected' : '').">Medium</option>
+                            <option value='High' ".($row["priority"] == 'High' ? 'selected' : '').">High</option>
+                        </select>
+                        
                             </td>
                             <td>
                                 <button class='message-btn' onclick='openMessageModal(\"".$row["complaint_id"]."\")'>Message</button>
@@ -140,7 +143,31 @@ document.getElementById('sendButton').addEventListener('click', sendMessage);
 document.addEventListener('DOMContentLoaded', function() {
     closeModal();
 });
+function saveChanges(selectElement, complaintId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "update_status.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // Handle success
+            console.log(this.responseText);
+        }
+    }
+    xhr.send("complaintId=" + complaintId + "&fieldName=" + selectElement.name + "&fieldValue=" + selectElement.value);
+}
 
+function savePriorityChange(complaintId, priority) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "update_status.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // Handle success
+            console.log(this.responseText);
+        }
+    }
+    xhr.send("complaintId=" + complaintId + "&fieldName=priority&fieldValue=" + priority);
+}
     </script>
 
 </div>

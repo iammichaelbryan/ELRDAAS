@@ -1,6 +1,11 @@
 <?php
 // login_process.php
 session_start();
+
+// It's good practice to report all errors except notices during development
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 1);
+
 include 'db_connect.php'; // Ensure this file sets up a PDO connection and assigns it to $conn
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -8,11 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $userType = $_POST['userType'];
 
-    if ($userType == 'admin') {
-        $stmt = $conn->prepare("SELECT * FROM admins WHERE email = :email");
-    } else {
-        $stmt = $conn->prepare("SELECT * FROM residents WHERE email = :email");
-    }
+    $table = ($userType == 'admin') ? 'admins' : 'residents';
+    $stmt = $conn->prepare("SELECT * FROM {$table} WHERE email = :email");
 
     // Bind parameters
     $stmt->bindParam(':email', $email);
@@ -30,18 +32,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['userID'] = $row['id'];
             $_SESSION['firstName'] = $row['first_name']; // Store first name
             $_SESSION['lastName'] = $row['last_name']; // Store last name
-
-            // Role should be determined by the table from which the user is fetched
             $_SESSION['role'] = ($userType == 'admin') ? 'Admin' : 'Resident';
 
+            /*
+            // Debug: Check the session values before redirecting
+            echo "<pre>Session Variables:";
+            print_r($_SESSION);
+            echo "</pre>";
+            exit; // Remove or comment out after debugging
+            */
+
             // Redirect user based on userType
-            if ($userType == 'admin') {
-                header("Location: index.php"); // Change to your admin dashboard page
-                exit;
-            } else {
-                header("Location: resident_dashboard.php"); // Change to your resident dashboard page
-                exit;
-            }
+            $redirectPage = ($userType == 'admin') ? 'index.php' : 'resident_dashboard.php';
+            header("Location: $redirectPage");
+            exit;
         } else {
             $_SESSION['error'] = "Invalid email or password!";
             header("Location: login.html"); // Redirect back to the login page with error
