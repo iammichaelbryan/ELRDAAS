@@ -24,7 +24,7 @@
       <script>
         document.addEventListener('DOMContentLoaded', function() {
           const fetchUserName = () => {
-            fetch('fetch_user_data.php')
+            fetch('fetch_first_name.php')
               .then(response => {
                 if (!response.ok) {
                   throw new Error('Network response was not ok');

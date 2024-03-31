@@ -31,7 +31,7 @@
                         <label for="confirmNewPassword">Confirm New Password</label>
                         <input type="password" id="confirmNewPassword" name="confirmNewPassword">
 
-                        <input type="submit" value="Update Password">
+                        <input type="submit" value="Update Password" onclick="changePassword()">
                     </form>
                 </div>
                 <div class="setting-item">
@@ -56,6 +56,48 @@
 <?php include 'res_right_section.php';?>
         <!--End of Right Section-->
     </div>
+<script>
+    function changePassword() {
+    var currentPassword = document.getElementById("currentPassword").value;
+    var newPassword = document.getElementById("newPassword").value;
+    var confirmNewPassword = document.getElementById("confirmNewPassword").value;
 
+    // Validation: Check if new passwords match
+    if (newPassword !== confirmNewPassword) {
+        alert("New passwords do not match");
+        return;
+    }
+
+    // Create an XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+    
+    // Configure the request
+    xhr.open("POST", "change_res_password.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Define the callback function
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                alert(response.success);
+            } else {
+                alert(response.error);
+            }
+        } else {
+            alert("Error: " + xhr.statusText);
+        }
+    };
+
+    // Prepare the data to be sent
+    var data = "currentPassword=" + encodeURIComponent(currentPassword) + 
+               "&newPassword=" + encodeURIComponent(newPassword) + 
+               "&confirmNewPassword=" + encodeURIComponent(confirmNewPassword);
+
+    // Send the request
+    xhr.send(data);
+}
+
+</script>
 </body>
 </html>

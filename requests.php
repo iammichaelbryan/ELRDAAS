@@ -154,6 +154,7 @@ function saveChanges(selectElement, complaintId) {
         }
     }
     xhr.send("complaintId=" + complaintId + "&fieldName=" + selectElement.name + "&fieldValue=" + selectElement.value);
+
 }
 
 function savePriorityChange(complaintId, priority) {

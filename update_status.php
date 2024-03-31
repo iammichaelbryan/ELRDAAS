@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Prepare the SQL statement to prevent SQL injection.
     $stmt = $conn->prepare("UPDATE complaints SET $fieldName = :fieldValue WHERE id = :complaintId");
     $stmt->bindParam(':fieldValue', $fieldValue);
-    $stmt->bindParam(':complaintId', $complaintId, PDO::PARAM_INT);
 
+    $stmt->bindParam(':complaintId', $complaintId, PDO::PARAM_INT);
     // Execute the statement and check if it was successful.
     if ($stmt->execute()) {
         echo "Update successful";

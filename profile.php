@@ -27,24 +27,7 @@
                         <h1 id="residentName"></h1>
                         <p id="residentEmail"></p>
 
-                        <script>
-                            // Make an AJAX request to retrieve the resident's name and email
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('GET', 'login_process.php', true);
-                            xhr.onload = function() {
-                                if (xhr.status === 200) {
-                                    var residentData = JSON.parse(xhr.responseText);
-                                    var firstName = residentData.firstName;
-                                    var lastName = residentData.lastName;
-                                    var email = residentData.email;
-
-                                    // Set the resident's name and email in the HTML
-                                    document.getElementById("residentName").textContent = firstName + " " + lastName;
-                                    document.getElementById("residentEmail").textContent = "Email: " + email;
-                                }
-                            };
-                            xhr.send();
-                        </script>
+                        
                     <small class="text-muted">Resident</small>
                 </div>
                 </div>
@@ -73,13 +56,51 @@
                     <p>If you no longer wish to be a member resident, you can remove your resident account here. Please be aware that this action is irreversible.</p>
                     <p>If you wish to delete your account, you can do so here. Please be aware that this action is irreversible.</p>
 
-                    <button id="removeAdminBtn">Remove My Resident Account</button>
+                    <button id="removeAdminBtn" onclick="removeResident()">Remove My Resident Account</button>
                 </div>
             </main>
 
             <!--Right Section-->
             <?php include 'res_right_section.php';?>
             <!--End of Right Section-->
+            <script>
+                            // Make an AJAX request to retrieve the resident's name and email
+                            var xhr = new XMLHttpRequest();
+                                    xhr.open('GET', 'fetch_user_data.php', true);
+                                    xhr.onload = function() {
+                                    if (xhr.status === 200) {
+                                    var residentData = JSON.parse(xhr.responseText);
+                                    if (residentData.error) {
+                                    console.error(residentData.error);
+                                    } else {
+                                    // Set the admin's name and email in the HTML
+                                    document.getElementById("residentName").textContent = residentData.firstName + " " + residentData.lastName;
+                                    document.getElementById("residentEmail").textContent = "Email: " + residentData.email;
+                                }
+                            } else {
+                                console.error("Error fetching data");
+                            }
+                        };
+                        xhr.send();
+                            function removeResident() {
+                                    var confirmRemove = confirm("Are you sure you want to remove your resident account?");
+                                    if (confirmRemove) {
+                                        // Add logic to remove the resident account
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', 'remove_resident.php', true);
+                                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                            xhr.onload = function() {
+                                            if (xhr.status === 200) {
+                                            console.log("Resident account removed successfully");
+                                            window.location.href = "login.html";
+                                        } else {
+                                            console.error("Error removing resident account");
+                                        }
+                                    };
+                                    xhr.send();
+        }
+    }
+                        </script>
         </div>
     </body>
 </html>
