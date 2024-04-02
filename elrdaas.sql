@@ -88,6 +88,7 @@ CREATE TABLE appointments (
     appointment_time TIME NOT NULL,
     service ENUM('Wash Only', 'Dry Only', 'Washing & Drying', 'Unattended Wash & Dry') NOT NULL DEFAULT 'Washing & Drying',
     loads INT NOT NULL DEFAULT 1 CHECK (loads <= 3),
+    cost INT NOT NULL DEFAULT 0, 
     PRIMARY KEY (id)
 );
 

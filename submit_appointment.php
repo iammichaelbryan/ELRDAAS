@@ -9,6 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $appointmentTime = filter_input(INPUT_POST, "appointmentTime", FILTER_SANITIZE_STRING);
     $service = filter_input(INPUT_POST, "service", FILTER_SANITIZE_STRING);
     $loads = filter_input(INPUT_POST, "loads", FILTER_SANITIZE_NUMBER_INT);
+// Use the name attribute `calculatedCost` not `appointmentCost`
+$cost = filter_input(INPUT_POST, "calculatedCost", FILTER_SANITIZE_NUMBER_INT);
 
     // Generate a unique appointment ID
     $appointment_id = 'A-' . time() . '-' . rand(1000, 9999);
@@ -20,9 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "INSERT INTO appointments (appointment_id, status, resident_first_name, resident_last_name, appointment_date, appointment_time, service, loads) VALUES (:appointment_id, :status, :residentFirstName, :residentLastName, :appointmentDate, :appointmentTime, :service, :loads)";
+        $sql = "INSERT INTO appointments (appointment_id, status, resident_first_name, resident_last_name, appointment_date, appointment_time, service, loads, cost) VALUES (:appointment_id, :status, :residentFirstName, :residentLastName, :appointmentDate, :appointmentTime, :service, :loads, :cost)";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = $conn->prepare($sql); 
 
         $stmt->execute([
             ':appointment_id' => $appointment_id,
@@ -32,7 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':appointmentDate' => $appointmentDate,
             ':appointmentTime' => $appointmentTime,
             ':service' => $service,
-            ':loads' => $loads
+            ':loads' => $loads,
+            ':cost' => $cost
+
         ]);
 
         header("Location: app_submitted.html"); // Redirect to a confirmation page

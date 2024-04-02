@@ -47,6 +47,9 @@
         </select>
         
         <p>Appointment Cost= <span id="appointmentCost">$200JMD * Number of Loads </span></p>
+        <!-- This is the input that should store the calculated cost -->
+        <input type="hidden" id="calculatedCost" name="calculatedCost" value="0">
+
         
         <p>
             <input type="checkbox" id="agree" name="agree" required>
@@ -84,6 +87,9 @@
         }
     
         document.getElementById('appointmentCost').innerText = "Appointment Cost = $" + totalCost + " JMD";
+        // This is your calculateCost function which updates the hidden input
+        document.getElementById('calculatedCost').value = totalCost; // Make sure the ID matches the input field
+
     }
     // Trigger calculation on page load in case defaults are set
     window.onload = calculateCost;

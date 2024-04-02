@@ -22,19 +22,39 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Student Name</th>
+                                <th> Appointment ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Service</th>
+                                <th>Loads</th>
+                                <th>Cost</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Random Joe</td>
-                                <td>2023-12-01</td>
-                                <td>10:00 AM</td>
-                                <td>Washing and drying</td>
-                            </tr>
+                        <?php
+            include 'db_connect.php'; // Include the database connection file
+
+            $sql = "SELECT * FROM appointments";
+            $appointments = $conn->query($sql);
+            if(!$appointments){
+                echo "Error: ";
+            }
+
+            while ($row = $appointments->fetch(PDO::FETCH_ASSOC)) {
+                echo "<tr>
+                            <td>".$row["appointment_id"]."</td>
+                            <td>". $row["resident_first_name"],"</td>
+                            <td>".$row["resident_last_name"]."</td>
+                            <td>".$row["appointment_date"]."</td>
+                            <td>".$row["appointment_time"]."</td>
+                            <td>".$row["service"]."</td>
+                            <td>".$row["loads"]."</td>
+                            <td>".$row["cost"]."</td>
+                        </tr>";
+            }
+            ?>
                             <!-- Add more rows for additional appointments -->
                         </tbody>
                     </table>
