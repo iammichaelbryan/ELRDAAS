@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = 'elrdaas';
 
 
