@@ -68,7 +68,7 @@
         <?php include 'res_sidebar.php';?>
         <main class="main-content">
             <h2>Resident Portal</h2>
-            <h1>Pending Requests</h1>
+            <h1>Pending Complaints</h1>
             <div class="pending-requests">
                 <table class="requests-table">
                     <thead>
