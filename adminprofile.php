@@ -105,6 +105,7 @@
     }
 
 </script>
+<script src ="js/adminscript.js"></script>
 
 </body>
 </html>

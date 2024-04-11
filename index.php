@@ -21,7 +21,7 @@
         <div class="panel">
             <div class="status">
                 <div class="info">
-                    <h3>Total Assigned Requests</h3>
+                    <h3>Total Assigned Complaints</h3>
                     <?php
                     // Include database connection
                     include 'db_connect.php';
@@ -46,7 +46,7 @@
         <div class="panel">
             <div class="status">
                 <div class="info">
-                    <h3>Requests Resolved by Admin</h3>
+                    <h3>Complaints Resolved by Admin</h3>
                     <?php
                     try {
                         // Fetch resolved requests count from the database
@@ -90,7 +90,7 @@
         <div class="panel">
     <div class="status">
         <div class="info">
-            <h3>Average hours to get request resolved</h3>
+            <h3>Average hours to get resident complaint resolved</h3>
             <?php
             try {
                 // Fetch average hours to resolve requests from the database

@@ -25,7 +25,7 @@
                             <span class="material-icons-sharp" >
                                 receipt_long
                             </span>
-                            <h3>Make Request/Complaint</h3>
+                            <h3>Make Complaint</h3>
                             </a>
                             <a href = "notifications_res.php" class= "dash-item">
                                 <span class="material-icons-sharp">
@@ -43,13 +43,13 @@
                             <span class="material-icons-sharp">
                                 hourglass_bottom
                             </span>
-                            <h3>View Pending Requests</h3>
+                            <h3>View Pending Complaint</h3>
                             </a>
                         <a href = "request_history.php" class= "dash-item" >
                             <span class="material-icons-sharp">
                                 receipt_long
                                 </span>
-                                <h3>Request History</h3>
+                                <h3>Complaint History</h3>
                                 </a>
 
                         <a href = "profile.php" class= "dash-item">

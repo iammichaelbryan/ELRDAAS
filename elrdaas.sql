@@ -65,16 +65,17 @@ CREATE TABLE complaints (
 ALTER TABLE complaints ADD COLUMN first_name VARCHAR(255) NOT NULL;
 ALTER TABLE complaints ADD COLUMN last_name VARCHAR(255) NOT NULL;
 ALTER TABLE complaints ADD COLUMN resident_id INT NOT NULL;
-ALTER TABLE complaints ADD COLUMN date_resolved DATETIME;
+ALTER TABLE complaints ADD COLUMN message TEXT NOT NULL DEFAULT '';
+/*ALTER TABLE complaints ADD COLUMN date_resolved DATETIME;*/
 
 
 -- Inserting dummy data for complaints
-INSERT INTO complaints (complaint_id, resident_id, first_name, last_name, complaint_type, complaint_body, date_submitted, status, priority, assigned_to, tower) VALUES
-('C001', 1, 'John', 'Doe', 'Room Issue', 'Leaky faucet in bathroom.', NOW(), 'Pending Assignment', 'Medium', '', '1'),
-('C002', 2, 'Jane', 'Smith', 'Communal Area Issue', 'Broken elevator in Tower 2.', NOW(), 'Pending Assignment', 'Medium', '', '2'),
-('C003', 3, 'Emily', 'Johnson', 'General Request', 'Request for additional trash bins.', NOW(), 'Resolved', 'Low', 'Admin One', '3'),
-('C004', 4, 'Michael', 'Brown', 'Room Issue', 'Faulty air conditioning unit in Room 405.', NOW(), 'Assigned', 'High', 'Admin Two', '4'),
-('C005', 5, 'Sarah', 'Davis', 'Communal Area Issue', 'Leaking pipe in the laundry room.', NOW(), 'In Progress', 'Medium', 'Admin Three', '5');
+INSERT INTO complaints (complaint_id, resident_id, first_name, last_name, complaint_type, complaint_body, date_submitted, status, priority, assigned_to, tower, message) VALUES
+('C001', 1, 'John', 'Doe', 'Room Issue', 'Leaky faucet in bathroom.',NOW(), 'Pending Assignment', 'Medium', '', '1', 'Hello we will be looking into this issue shortly.'),
+('C002', 2, 'Jane', 'Smith', 'Communal Area Issue', 'Broken elevator in Tower 2.', NOW(), 'Pending Assignment', 'Medium', '', '2', 'Hello we will be looking into this issue shortly.'),
+('C003', 3, 'Emily', 'Johnson', 'General Request', 'Request for additional trash bins.', NOW(), 'Resolved', 'Low', 'Admin One', '3', 'Hello we will be looking into this issue shortly.'),
+('C004', 4, 'Michael', 'Brown', 'Room Issue', 'Faulty air conditioning unit in Room 405.', NOW(), 'Assigned', 'High', 'Admin Two', '4', 'Hello we will be looking into this issue shortly.'),
+('C005', 5, 'Sarah', 'Davis', 'Communal Area Issue', 'Leaking pipe in the laundry room.', NOW(), 'In Progress', 'Medium', 'Admin Three', '5', 'Hello we will be looking into this issue shortly.');
 
 
 
