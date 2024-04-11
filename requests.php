@@ -19,16 +19,16 @@
     <?php include 'adm_sidebar.php';?>
     <!--End of Sidebar Section-->
     <main class="main-content">
-        <h1>Assigned Requests</h1>
+        <h1>Assigned Complaints</h1>
         <table class="requests-table">
             <thead>
             <tr>
-                <th>Request ID</th>
+                <th>Complaint ID</th>
                 <th>Resident Name</th>
                 <th>Resident ID</th>
                 <th>Tower</th>
-                <th>Request Type</th>
-                <th>Request Description</th>
+                <th>Complaint Type</th>
+                <th>Complaint Description</th>
                 <th>Date Submitted</th>
                 <th>Status</th>
                 <th>Assigned To</th>
@@ -128,8 +128,31 @@ function closeModal() {
 function sendMessage() {
     var message = document.getElementById('messageText').value;
     var complaintId = document.getElementById('complaintId').value; // Retrieve the complaint ID
-    // Add the logic to handle the message, including using the complaintId for context
-    console.log("Sending message for complaint ID:", complaintId, "Message:", message);
+
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Configure it: POST-request for the URL /update_message.php
+    xhr.open('POST', 'update_message.php', true);
+
+    // Set the request header
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    // Send the request over the network
+    xhr.send('complaintId=' + encodeURIComponent(complaintId) + '&message=' + encodeURIComponent(message));
+
+    xhr.onload = function() {
+        if (xhr.status != 200) { // analyze HTTP response
+            alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+        } else { // show the result
+            alert(`Done, got ${xhr.response.length} bytes`); // response is the server
+        }
+    };
+
+    xhr.onerror = function() {
+        alert("Request failed");
+    };
+
     closeModal(); // Close the modal after sending the message
 }
 

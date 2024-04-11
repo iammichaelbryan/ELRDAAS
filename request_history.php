@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="residentstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <script src="js/residentscript.js" defer></script>
-    <title>ELR Towers Hall Domestic Affairs - Make a Request</title>
+    <title>ELR Towers Hall Domestic Affairs - Make a Complaint</title>
 </head>
 <body>
       <div class="container">
@@ -17,17 +17,18 @@
                  <!-- Main Content Section -->
     <main class="main-content">
         <h2>Resident Portal</h2>
-        <h1>Request History</h1>
+        <h1>Complaint History</h1>
         <div class="request-history">
             <table class="requests-table">
             <thead>
                     <tr>
-                        <th>Request ID</th>
-                        <th>Request Type</th>
-                        <th>Request Description</th>
+                        <th>Complaint ID</th>
+                        <th>Complaint Type</th>
+                        <th>Complaint Description</th>
                         <th>Status</th>
                         <th>Date Submitted</th>
                         <th>Assigned To</th>
+                        <th> Action Taken</th>
                         
                     </tr>
                 </thead>
