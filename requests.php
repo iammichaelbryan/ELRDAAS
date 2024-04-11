@@ -50,36 +50,44 @@
 
             $sql = "SELECT * FROM complaints";
             $complaints = $conn->query($sql);
+            $admins = $conn->query("SELECT first_name, last_name FROM admins");
             if(!$complaints){
                 echo "Error: ";
             }
 
             while ($row = $complaints->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>
-                            <td>".$row["complaint_id"]."</td>
-                            <td>". $row["first_name"],' ',$row["last_name"]."</td>
-                            <td>".$row["resident_id"]."</td>
-                            <td>".$row["tower"]."</td>
-                            <td>".$row["complaint_type"]."</td>
-                            <td>".$row["complaint_body"]."</td>
-                            <td>".$row["date_submitted"]."</td>
-                            <td>
-                            <select class='status-select' name='status' onchange='saveChanges(this, \"".$row["id"]."\")'>
+                    <td>".$row["complaint_id"]."</td>
+                    <td>". $row["first_name"].' '.$row["last_name"]."</td>
+                    <td>".$row["resident_id"]."</td>
+                    <td>".$row["tower"]."</td>
+                    <td>".$row["complaint_type"]."</td>
+                    <td>".$row["complaint_body"]."</td>
+                    <td>".$row["date_submitted"]."</td>
+                    <td>
+                        <select class='status-select' name='status' onchange='saveChanges(this, \"".$row["id"]."\")'>
                             <option value='Pending Assignment' ".($row["status"] == 'Pending Assignment' ? 'selected' : '').">Pending Assignment</option>
                             <option value='Assigned' ".($row["status"] == 'Assigned' ? 'selected' : '').">Assigned</option>
                             <option value='In Progress' ".($row["status"] == 'In Progress' ? 'selected' : '').">In Progress</option>
                             <option value='Resolved' ".($row["status"] == 'Resolved' ? 'selected' : '').">Resolved</option>
                         </select>
-                        
-                            </td>
-                            <td>".$row["assigned_to"]."</td>
+                    </td>
+                    <td>
+                        <select class='assigned-select' name='assigned_to' onchange='saveAssigned(".$row["id"].", this.value)'>
+                            <option value='Unassigned' ".($row["assigned_to"] == '' ? 'selected' : '').">Unassigned</option>";
+                            $admins = $conn->query("SELECT first_name, last_name FROM admins");
+                            foreach($admins as $admin) {
+                                $admin_name=$admin[0]." ".$admin[1];
+                                echo "<option value='".$admin[0]," ",$admin[1]."' ".($row["assigned_to"] == ($admin_name) ? 'selected' : '').">".$admin[0]," ",$admin[1]."</option>";
+                            }
+                    echo "</select>
+                    </td>
                             <td>
-                            <select class='priority-select' name='priority' onchange='savePriorityChange(".$row["id"].", this.value)'>
-                            <option value='Low' ".($row["priority"] == 'Low' ? 'selected' : '').">Low</option>
-                            <option value='Medium' ".($row["priority"] == 'Medium' ? 'selected' : '').">Medium</option>
-                            <option value='High' ".($row["priority"] == 'High' ? 'selected' : '').">High</option>
-                        </select>
-                        
+                                <select class='priority-select' name='priority' onchange='savePriorityChange(".$row["id"].", this.value)'>
+                                    <option value='Low' ".($row["priority"] == 'Low' ? 'selected' : '').">Low</option>
+                                    <option value='Medium' ".($row["priority"] == 'Medium' ? 'selected' : '').">Medium</option>
+                                    <option value='High' ".($row["priority"] == 'High' ? 'selected' : '').">High</option>
+                                </select>
                             </td>
                             <td>
                                 <button class='message-btn' onclick='openMessageModal(\"".$row["complaint_id"]."\")'>Message</button>
@@ -165,6 +173,18 @@ function savePriorityChange(complaintId, priority) {
         }
     }
     xhr.send("complaintId=" + complaintId + "&fieldName=priority&fieldValue=" + priority);
+}
+function saveAssigned(complaintId, assigned_to) {
+    console.log("Complaint ID:", complaintId, "Assigned To:", assigned_to);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "update_assigned.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            console.log(this.responseText);
+        }
+    };
+    xhr.send("complaintId=" + complaintId + "&assigned_to=" + assigned_to);
 }
     </script>
 

@@ -58,7 +58,7 @@ CREATE TABLE complaints (
     date_submitted DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status ENUM('Resolved', 'Pending Assignment', 'Assigned', 'In Progress') NOT NULL,
     priority ENUM('Low', 'Medium', 'High') NOT NULL DEFAULT 'Medium',
-    assigned_to VARCHAR(255) NOT NULL,
+    assigned_to TEXT NOT NULL DEFAULT '',
     tower ENUM('1', '2', '3', '4', '5') NOT NULL,
     PRIMARY KEY (id)
 );
