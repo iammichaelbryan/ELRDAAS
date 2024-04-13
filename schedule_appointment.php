@@ -59,10 +59,6 @@
         <button type="submit" class="submit-btn">Create Appointment</button>
     </form>
 </main>
-<!--Right Section-->
-<?php include 'res_right_section.php';?>
-<!--End of Right Section-->
-
 
 <script>
     document.getElementById('numLoads').addEventListener('change', calculateCost);
@@ -97,8 +93,56 @@
     }
     // Trigger calculation on page load in case defaults are set
     window.onload = calculateCost;
+    </script>
+    
+    
+<!--Right Section-->
 
+<?php include 'res_right_section.php';?>
+        <!--End of Right Section-->
+    </div>
+    <script>
+        // Your existing dark mode toggle script
+        const darkModeToggle = document.querySelector('.dark-mode');
+        const bodyElement = document.body;
 
+        darkModeToggle.addEventListener('click', () => {
+            bodyElement.classList.toggle('dark-mode-variables');
+            saveModePreference();
+            updateModeIndicator();
+        });
+
+        function saveModePreference() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+
+        function loadModePreference() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                bodyElement.classList.add('dark-mode-variables');
+            } else {
+                bodyElement.classList.remove('dark-mode-variables');
+            }
+        }
+
+        function updateModeIndicator() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            const lightIcon = document.querySelector('.dark-mode .light_mode');
+            const darkIcon = document.querySelector('.dark-mode .dark_mode');
+
+            if (isDarkMode) {
+                lightIcon.classList.add('active');
+                darkIcon.classList.remove('active');
+            } else {
+                lightIcon.classList.remove('active');
+                darkIcon.classList.add('active');
+            }
+        }
+        loadModePreference();
+        updateModeIndicator();
+
+        // Script for scheduling appointments with time intervals and date restrictions
         document.addEventListener('DOMContentLoaded', function() {
             const appointmentDate = document.getElementById('appointmentDate');
             const appointmentTime = document.getElementById('appointmentTime');
@@ -159,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Initially populate time options
             populateTimeOptions();
         });
+    </script>
+    <script>
     document.addEventListener('DOMContentLoaded', function() {
         const appointmentDate = document.getElementById('appointmentDate');
         const maxDate = new Date();

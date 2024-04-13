@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,19 +40,18 @@ session_start();
             <tbody>
             <?php
             include 'db_connect.php';
-            include 'fetch_user_data.php';
-            
 
-            $admin_name = $first_name . ' ' . $last_name;
-            
+            try {
+                $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch(PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
 
-            $sql = "SELECT * FROM complaints WHERE assigned_to = '$admin_name'";
-            $complaints = $conn->prepare($sql);
-            $complaints->execute();
-
+            $sql = "SELECT * FROM complaints";
+            $complaints = $conn->query($sql);
             $admins = $conn->query("SELECT first_name, last_name FROM admins");
-
-            if (!$complaints) {
+            if(!$complaints){
                 echo "Error: ";
             }
 

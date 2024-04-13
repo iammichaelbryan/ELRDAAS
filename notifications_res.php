@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +27,29 @@
             
             <div id="notification" class="hidden">
                 <ul>
-                    <li>There are no requests left to be assigned </li>
-                    <li>There are currently 2 unassigned requests</li>
+                    <?php
+                    
+                    include 'db_connect.php';
+                    include 'fetch_user_data.php';
+
+                    $userID = $_SESSION['userID'];
+
+                    // Fetch notifications for the logged in user
+                    $sql = "SELECT * FROM notifications WHERE user_id = :user_id ORDER BY created_at DESC";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute(['user_id' => $user_id]);
+                    $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+
+                    <!-- Display notifications -->
+                    <div id="notification" class="hidden">
+                        <ul>
+                            <?php foreach ($notifications as $notification): ?>
+                                <li><?= htmlspecialchars($notification['message']) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <span onclick="hideNotification()">X Click the 'X' to close Notifications</span>
+                    </div>
                 </ul>
                 <span onclick="hideNotification()">X Click the 'X' to close Notifications</span>
             </div>

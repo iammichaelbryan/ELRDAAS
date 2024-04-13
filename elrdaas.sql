@@ -49,6 +49,8 @@ INSERT INTO residents (first_name, last_name, email, password, tower) VALUES
 ('Resident', 'Four', 'resident4@example.com', 'password4', '4'),
 ('Resident', 'Five', 'resident5@example.com', 'password5', '5');
 
+SET time_zone = '-05:00';
+
 DROP TABLE IF EXISTS complaints;
 CREATE TABLE complaints (
     id INT AUTO_INCREMENT,
@@ -85,6 +87,7 @@ CREATE TABLE appointments (
     status ENUM('Confirmed', 'Cancelled') NOT NULL DEFAULT 'Confirmed',
     resident_first_name VARCHAR(255) NOT NULL,
     resident_last_name VARCHAR(255) NOT NULL,
+    resident_id INT NOT NULL,
     appointment_date DATE NOT NULL,  -- Changed from created_date for clarity
     appointment_time TIME NOT NULL,
     service ENUM('Wash Only', 'Dry Only', 'Washing & Drying', 'Unattended Wash & Dry') NOT NULL DEFAULT 'Washing & Drying',
@@ -154,5 +157,17 @@ CREATE TABLE scheduled_notices (
     status ENUM('Pending', 'Executed') DEFAULT 'Pending'
 );
 
+DROP TABLE IF EXISTS notifications;
+
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    user_type ENUM('Admin', 'Resident') NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    notification_type ENUM('Complaint', 'Appointment', 'Notice') NOT NULL,
+    notification_id INT NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('Unread', 'Read') DEFAULT 'Unread'
+);
 
 UNLOCK TABLES

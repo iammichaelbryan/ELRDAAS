@@ -28,6 +28,14 @@
                             </span>
                             <h3>View Assigned Complaints</h3>
                             </a>
+                            <a href = "allcomplaints.php" class ="dash-item
+                            ">
+                                <span class="material-icons-sharp">
+                                    receipt_long
+                                </span>
+                                <h3>View All Complaints</h3>
+                                </a>
+                                
                         <a href = "notifications.php" class ="dash-item">
                                 <span class="material-icons-sharp">
                                     notifications

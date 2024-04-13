@@ -53,6 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':tower', $tower);
 
         if ($stmt->execute()) {
+            // Insert a new record into the notifications table
+            $notification_message = "Your complaint has been submitted successfully. Complaint ID: $complaint_id";
+            $stmt = $conn->prepare("INSERT INTO notifications (user_id, notification_type, notification_id, message, status) VALUES (:user_id, 'Complaint', :notification_id, :message, 'Unread')");
+            $stmt->execute([':user_id' => $resident_id, ':notification_id' => $complaint_id, ':message' => $notification_message]);
+    
             header('Location: request-submitted.html');
             exit;
         } else {
