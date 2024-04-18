@@ -166,8 +166,13 @@ function sendMessage() {
     };
 
     closeModal(); // Close the modal after sending the message
-}
 
+    // Send a notification
+    var xhrNotification = new XMLHttpRequest();
+    xhrNotification.open('POST', 'create_notification.php', true);
+    xhrNotification.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrNotification.send('complaintId=' + encodeURIComponent(complaintId) + '&message=Your complaint has received a new message: ' + encodeURIComponent(message));
+}
 // Attach sendMessage to the send button inside the modal
 document.getElementById('sendButton').addEventListener('click', sendMessage);
 

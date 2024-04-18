@@ -149,8 +149,9 @@
             const today = new Date();
             const maxDate = new Date();
 
+
             maxDate.setDate(maxDate.getDate() + 3);
-            appointmentDate.min = today.toISOString().split('T')[0];
+            appointmentDate.min = todayString;
             appointmentDate.max = maxDate.toISOString().split('T')[0];
 
             function populateTimeOptions() {
@@ -208,6 +209,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('DOMContentLoaded', function() {
         const appointmentDate = document.getElementById('appointmentDate');
         const maxDate = new Date();
+        const today = new Date();
+        const todayString = today.toISOString().split('T')[0];
+        appointmentDate.min = todayString;
+
 
         // Set the maximum allowed date to 3 days from today
         maxDate.setDate(maxDate.getDate() + 3);
