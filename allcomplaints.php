@@ -33,7 +33,6 @@
                 <th>Status</th>
                 <th>Assigned To</th>
                 <th>Priority</th>
-                <th>Action</th>
             </tr>
             </thead>
 
@@ -89,9 +88,8 @@
                                     <option value='High' ".($row["priority"] == 'High' ? 'selected' : '').">High</option>
                                 </select>
                             </td>
-                            <td>
-                                <button class='message-btn' onclick='openMessageModal(\"".$row["complaint_id"]."\")'>Message</button>
-                            </td>
+                            
+                            
                         </tr>";
             }
             ?>

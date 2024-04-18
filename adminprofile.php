@@ -25,6 +25,7 @@
             <!-- Profile Info -->
                 <div class="profile-info">
                 <h1 id="adminName"></h1>
+                
                 <p id="adminEmail"></p>
                 <small class="text-muted">Admin</small>
                 </div>

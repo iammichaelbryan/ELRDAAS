@@ -9,8 +9,8 @@ if (isset($_SESSION['loggedin'])) {
     $email = $_SESSION['email'];
     $user_id = $_SESSION['userID'];
 
-    // Output the results as JSON
-    #echo json_encode(['firstName' => $first_name, 'lastName' => $last_name, 'email' => $email]);
+    //Output the results as JSON
+    return json_encode(['firstName' => $first_name, 'lastName' => $last_name, 'email' => $email]);
 } 
 else {
     echo json_encode(array('error' => 'User not logged in or ID not found'));
