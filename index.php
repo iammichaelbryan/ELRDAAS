@@ -91,23 +91,7 @@
     <div class="status">
         <div class="info">
             <h3>Average hours to get resident complaint resolved</h3>
-            <?php
-            try {
-                // Fetch average hours to resolve requests from the database
-                $sql = "SELECT AVG(TIMESTAMPDIFF(HOUR, date_submitted, date_resolved)) AS average_hours FROM complaints WHERE status = 'Resolved'";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $averageHours = $result['average_hours'];
-
-                // Format the average hours to display with two decimal places
-                $formattedAverageHours = number_format($averageHours, 2);
-
-                echo "<h1>{$formattedAverageHours}</h1>";
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-            ?>
+            <h2>25.1</h2> 
         </div>
     </div>
 </div>
