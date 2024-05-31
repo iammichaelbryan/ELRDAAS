@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $userType = $_POST['userType'];
 
-    $table = ($userType == 'admin') ? 'admins' : 'residents';
+    $table = ($userType == 'admin') ? 'admins' : (($userType == 'resident') ? 'residents' : 'superadmins');
     $stmt = $conn->prepare("SELECT * FROM {$table} WHERE email = :email");
 
     // Bind parameters
@@ -43,7 +43,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             */
 
             // Redirect user based on userType
-            $redirectPage = ($userType == 'admin') ? 'index.php' : 'resident_dashboard.php';
+            $redirectPage = ""; // Set the initial value of $redirectPage variable
+
+            if ($_SESSION['role'] == 'Admin') {
+                $redirectPage = "index.php";
+            } elseif ($_SESSION['role'] == 'Resident') {
+                $redirectPage = "resident_dashboard.php";
+            } else {
+                $redirectPage = "superadmin_dashboard.php";
+            }
+
+            header("Location: $redirectPage");
+            exit;
             header("Location: $redirectPage");
             exit;
         } else {

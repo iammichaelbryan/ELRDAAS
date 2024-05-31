@@ -11,6 +11,19 @@ DROP DATABASE IF EXISTS elrdaas;
 CREATE DATABASE elrdaas;
 USE elrdaas;
 
+DROP TABLE IF EXISTS superadmins;
+CREATE TABLE superadmins (
+    id INT AUTO_INCREMENT,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO superadmins (first_name, last_name, email, password) VALUES
+('Michael', 'Bryan', 'mjaybryan2@gmail.com', 'password');
+
 DROP TABLE IF EXISTS admins;
 CREATE TABLE admins (
     id INT AUTO_INCREMENT,
@@ -165,7 +178,7 @@ CREATE TABLE notifications (
     user_type ENUM('Admin', 'Resident') NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     notification_type ENUM('Complaint', 'Appointment', 'Notice') NOT NULL,
-    notification_id INT NOT NULL,
+    notification_id VARCHAR(40) NOT NULL DEFAULT '',
     message TEXT NOT NULL,
     status ENUM('Unread', 'Read') DEFAULT 'Unread'
 );
