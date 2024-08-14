@@ -64,7 +64,7 @@
                             </span>
                             <h3>Settings</h3>
                             </a>
-                        <a href = "login.html" target="_blank">
+                        <a href = "resident_login.html" target="_blank">
                             <span class="material-icons-sharp">
                                 login
                             </span>

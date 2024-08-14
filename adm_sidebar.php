@@ -61,12 +61,7 @@
                             </span>
                             <h3>View Laundry Appointments</h3>
                             </a>
-                        <a href = "requestfeedback.php" class="dash-item">
-                            <span class="material-icons-sharp">
-                                star
-                            </span>
-                            <h3>Get Feedback</h3>
-                        </a>
+                       
                         <a href = "adminprofile.php" class="dash-item">
                             <span class="material-icons-sharp">
                                 person_outline
@@ -79,7 +74,7 @@
                             </span>
                             <h3>Settings</h3>
                             </a>
-                        <a href = "login.html">
+                        <a href = "admin_login.html">
                             <span class="material-icons-sharp">
                                 login
                             </span>

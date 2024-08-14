@@ -1,177 +1,140 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" href="adminstyles.css">
+    <link rel="stylesheet" href="adminstyles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>ELRDAAS Admin's Interface</title>
-    
 </head>
 <body>
     <?php include 'adm_sidebar.php';?>
-        <!--End of Sidebar Section-->
+    <!--End of Sidebar Section-->
 
-        <!--Main Section-->
-       
-<main>
-    <h1>Admin's Portal</h1>
-    <!--Analytics-->
-    <div class="analysis">
-        <div class="panel">
-            <div class="status">
-                <div class="info">
-                    <h3>Total Assigned Complaints</h3>
-                    <?php
-                    // Include database connection
-                    include 'db_connect.php';
+    <!--Main Section-->
+    <main>
+        <h1>Admin's Portal</h1>
+        <!--Analytics-->
+        <div class="analysis">
+            <div class="panel">
+                <div class="status">
+                    <div class="info">
+                        <h3 style="font-weight: bold;">Total Assigned Complaints</h3>
+                        <?php
+                        // Include database connection
+                        include 'db_connect.php';
 
-                    try {
-                        // Fetch total assigned requests count from the database
-                        $sql = "SELECT COUNT(*) AS total_assigned_requests FROM complaints";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->execute();
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $totalAssignedRequests = $result['total_assigned_requests'];
+                        try {
+                            // Fetch the logged-in admin's first and last name from the session
+                            $firstName = $_SESSION['firstName'];
+                            $lastName = $_SESSION['lastName'];
+                            $fullName = $firstName . ' ' . $lastName;
 
-                        echo "<h1>{$totalAssignedRequests}</h1>";
-                    } catch (PDOException $e) {
-                        echo "Error: " . $e->getMessage();
-                    }
-                    ?>
+                            // SQL query to get the count of complaints assigned to the logged-in admin
+                            $sql = "SELECT COUNT(*) AS total_assigned_requests FROM complaints 
+                                    WHERE status != ' Pending Assignment' AND assigned_to = :fullName";
+
+                            // Prepare and execute the SQL statement
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bindParam(':fullName', $fullName);
+                            $stmt->execute();
+
+                            // Fetch the result
+                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                            $totalAssignedRequests = $result['total_assigned_requests'];
+
+                            // Output the count in your desired format
+                            echo "<div class=\"info\" style=\"text-align: center;\">";
+                            echo "<h1 style=\"font-size: 24px;\">{$totalAssignedRequests}</h1>";
+                            echo "</div>";
+                        } catch (PDOException $e) {
+                            // Handle errors gracefully
+                            echo "Error: " . $e->getMessage();
+                        }
+                        ?>
+                    </div>
+                </div>                  
+            </div>
+
+            <div class="panel">
+                <div class="status">
+                    <div class="info">
+                        <h3 style="font-weight: bold;">Complaints Resolved by Admin</h3>
+                        <?php
+                        try {
+                            // Fetch resolved requests count from the database
+                            $sql = "SELECT COUNT(*) AS resolved_requests FROM complaints WHERE status = 'Resolved'";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->execute();
+                            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                            $resolvedRequests = $result['resolved_requests'];
+
+                            if ($resolvedRequests > 0) {
+                                $ratio = $totalAssignedRequests / $resolvedRequests;
+                            } else {
+                                $ratio = 0; // Handle the case where the denominator is zero
+                            }
+
+                            echo "<div class=\"info\" style=\"text-align: center;\">";
+                            echo "<h1>{$resolvedRequests}</h1>";
+                            echo "</div>";
+                        } catch (PDOException $e) {
+                            echo "Error: " . $e->getMessage();
+                        }
+                        ?>
+                    </div>
+                    <div class="progress">
+                        <?php
+                        // Calculate percentage resolved
+                        if ($totalAssignedRequests > 0) {
+                            $percentageResolved = ($resolvedRequests / $totalAssignedRequests) * 100;
+                        } else {
+                            $percentageResolved = 0;
+                        }
+
+                        // Define the radius of the circle
+                        $radius = 25; // as per your SVG
+
+                        // Calculate the circumference of the circle
+                        $circumference = 2 * M_PI * $radius;
+
+                        // Calculate the stroke dash offset, which is the length that is not "filled"
+                        $dashOffset = $circumference * ((100 - $percentageResolved) / 100);
+                        ?>
+                        <svg viewBox="0 0 60 60">
+                            <circle cx="30" cy="30" r="<?= $radius ?>" stroke="#4caf50" stroke-width="5" fill="none"
+                                    stroke-dasharray="<?= $circumference ?>" stroke-dashoffset="<?= $dashOffset ?>"></circle>
+                        </svg>                    
+                        <div class="percentage">
+                            <p style="font-weight: bold"><?= round($percentageResolved) ?><span>%</span></p>
+                        </div>
+                    </div>
                 </div>
-                                    
-                </div>
-                </div>
-        <div class="panel">
-            <div class="status">
-                <div class="info">
-                    <h3>Complaints Resolved by Admin</h3>
-                    <?php
-                    try {
-                        // Fetch resolved requests count from the database
-                        $sql = "SELECT COUNT(*) AS resolved_requests FROM complaints WHERE status = 'Resolved'";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->execute();
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $resolvedRequests = $result['resolved_requests'];
-
-                        echo "<h1>{$resolvedRequests}</h1>";
-                    } catch (PDOException $e) {
-                        echo "Error: " . $e->getMessage();
-                    }
-                    ?>
-                </div>
-                <div class="progress">
-    <?php
-    // Calculate percentage resolved
-    $percentageResolved = ($resolvedRequests / $totalAssignedRequests) * 100;
-
-    // Define the radius of the circle
-    $radius = 25; // as per your SVG
-
-    // Calculate the circumference of the circle
-    $circumference = 2 * M_PI * $radius;
-
-    // Calculate the stroke dash offset, which is the length that is not "filled"
-    $dashOffset = $circumference * ((100 - $percentageResolved) / 100);
-    ?>
-    <svg viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="<?= $radius ?>" stroke="#4caf50" stroke-width="5" fill="none"
-                stroke-dasharray="<?= $circumference ?>" stroke-dashoffset="<?= $dashOffset ?>"></circle>
-    </svg>                    
-    <div class="percentage">
-        <p><?= round($percentageResolved) ?><span>%</span></p>
-    </div>
-</div>
-
             </div>
         </div>
-        <div class="panel">
-    <div class="status">
-        <div class="info">
-            <h3>Average hours to get resident complaint resolved</h3>
-            <?php
-            try {
-                // Fetch average hours to resolve requests from the database
-                $sql = "SELECT AVG(TIMESTAMPDIFF(HOUR, date_submitted, date_resolved)) AS average_hours FROM complaints WHERE status = 'Resolved'";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $averageHours = $result['average_hours'];
+        <!--End of Analytics-->
 
-                // Format the average hours to display with two decimal places
-                $formattedAverageHours = number_format($averageHours, 2);
-
-                echo "<h1>{$formattedAverageHours}</h1>";
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-            ?>
-        </div>
-    </div>
-</div>
-
-            </div>
-            <!--End of Analytics-->
-            <!--Start of New User-->
-            <div class="new-users">
-                <h2>New Admins</h2>
-                <div class="user-list">
-                    <div class="user">
-                        <div class="user-info">
-                            <img src="images/ELR DAAS Shaniel Dennis.webp" alt="user">
-                            <div class="user-name">
-                                <h3>Shaniel Dennis</h3>
-                                <p>Resident Advisor</p>
-                                <p>joined 54 Min Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user">
-                        <div class="user-info">
-                            <img src="images/ELR DAAS Rajaye.png" alt="user">
-                            <div class="user-name">
-                                <h3>Rajaye Bennett</h3>
-                                <p>Domestic Affairs Chairperson</p>
-                                <p>joined 5 Hrs Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user">
-                        <div class="user-info">
-                            <img src="images/ELRDAAS Erica Harris.webp" alt="user">
-                            <div class="user-name">
-                                <h3>Erica Harris</h3>
-                                <p>Senior Resident Advisor</p>
-                                <p>joined 23 Hrs Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user">
-                        <div class="user-info">
-                            <img src="images/ELR DAAS BERTRAM.webp" alt="user">
-                            <div class="user-name">
-                                <h3>Mr. Bertram Anderson</h3>
-                                <p>Student Services and Development Manager</p>
-                                <p>joined 2 Days Ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="user">
-                        <div class="user-info">
-                            <button id="add-admin-button" class="add-button" onclick="window.location.href='register.html'">+</button>
-                            <div class="user-name">
-                                <p>Add New Admin</p>
-                            </div>
+        <!--Start of New User-->
+        <div class="new-users">
+            <h2>Register New Admin</h2>
+            <div class="user-list">
+                <div class="user">
+                    <div class="user-info">
+                        <button id="add-admin-button" class="add-button" onclick="window.location.href='register.html'">+</button>
+                        <div class="user-name">
+                            <p>Add New Admin</p>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <!--End of New User-->
-            <!--Start of Recent Activities-->
-            <div class="recent-requests">
+        </div>
+        <!--End of New User-->
+
+        <!--Start of Recent Activities-->
+        <div class="recent-requests">
             <h2>Recent Complaints</h2>
             <table id="requestsTable" class="animate__animated animate__fadeIn">
                 <thead>
@@ -200,7 +163,6 @@
                             echo "<td>{$complaint['complaint_type']}</td>";
                             echo "<td>{$complaint['complaint_id']}</td>";
                             echo "<td>{$complaint['date_submitted']}</td>";
-                            echo "<td>{$complaint['date_submitted']}</td>";
                             echo "<td>{$complaint['status']}</td>";
                             echo "</tr>";
                         }
@@ -215,71 +177,52 @@
     </main>
     <!-- End of Main Section -->
 
-                </div>                
-        </div>
-        
-    </div>
-        
-        </div>
+    <!--Right Section-->
+    <?php include 'adm_right_section.php';?>
+    <!--End of Right Section-->
     
-    </div>
-    
-</main>
-<!-- End of Main Section -->
+    <script src="requests.js"></script>
+    <script src="index.js"></script>
+    <script>
+        const darkModeToggle = document.querySelector('.dark-mode');
+        const bodyElement = document.body;
 
-<!--Right Section-->
-<?php include 'adm_right_section.php';?>
-      <!--End of Right Section-->
-    </div>
+        darkModeToggle.addEventListener('click', () => {
+            bodyElement.classList.toggle('dark-mode-variables');
+            saveModePreference();
+            updateModeIndicator();
+        });
 
-        
-</div>
-    
-</div>
+        function saveModePreference() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
 
-<script src="requests.js"></script>
-<script src="index.js"></script>
-<script>
-    const darkModeToggle = document.querySelector('.dark-mode');
-    const bodyElement = document.body;
+        function loadModePreference() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                bodyElement.classList.add('dark-mode-variables');
+            } else {
+                bodyElement.classList.remove('dark-mode-variables');
+            }
+        }
 
-    darkModeToggle.addEventListener('click', () => {
-        bodyElement.classList.toggle('dark-mode-variables');
-        saveModePreference();
+        function updateModeIndicator() {
+            const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
+            const lightIcon = document.querySelector('.dark-mode .light_mode');
+            const darkIcon = document.querySelector('.dark-mode .dark_mode');
+
+            if (isDarkMode) {
+                lightIcon.classList.add('active');
+                darkIcon.classList.remove('active');
+            } else {
+                lightIcon.classList.remove('active');
+                darkIcon.classList.add('active');
+            }
+        }
+
+        loadModePreference();
         updateModeIndicator();
-    });
-
-    function saveModePreference() {
-        const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
-        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-    }
-
-    function loadModePreference() {
-        const darkMode = localStorage.getItem('darkMode');
-        if (darkMode === 'enabled') {
-            bodyElement.classList.add('dark-mode-variables');
-        } else {
-            bodyElement.classList.remove('dark-mode-variables');
-        }
-    }
-
-    function updateModeIndicator() {
-        const isDarkMode = bodyElement.classList.contains('dark-mode-variables');
-        const lightIcon = document.querySelector('.dark-mode .light_mode');
-        const darkIcon = document.querySelector('.dark-mode .dark_mode');
-
-        if (isDarkMode) {
-            lightIcon.classList.add('active');
-            darkIcon.classList.remove('active');
-        } else {
-            lightIcon.classList.remove('active');
-            darkIcon.classList.add('active');
-        }
-    }
-
-    
-    loadModePreference();
-    updateModeIndicator();
-</script>
+    </script>
 </body>
 </html>
